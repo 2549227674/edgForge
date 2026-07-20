@@ -1,0 +1,118 @@
+# EdgeForge M0 evaluation contract.
+# Populate values only from a recorded run.  A frozen-field change requires a
+# Git commit and an updated project.frozen_date.
+
+project:
+  milestone: M0
+  frozen_date: null
+  status: draft  # draft -> frozen
+
+model:
+  name: gemma-4-e4b-it
+  quantization: Q4_K_M
+  path: null
+  sha256: null
+  source: null  # official_gguf | self_quantized_from_bf16
+  imatrix_used: null  # true | false; record imatrix corpus/provenance if true
+
+llama_cpp:
+  commit: ad8d8219915df8e423768d082d1dccfccb6e8437
+  context_size: null  # final -c, set after reading KV log lines
+  gpu_layers: 99
+  parallel: 1
+  jinja: true
+  alias: gemma4-e4b
+  kv_self_size_mib: null  # sum all KV caches when iSWA produces more than one
+  kv_cache_log: null
+
+sampling:
+  server_temperature: null
+  server_top_p: null
+  server_top_k: null
+  server_seed: null
+  terminus_temperature: null  # must equal server_temperature
+
+terminal_bench:
+  dataset: terminal-bench/terminal-bench-2-1
+  probe_date: null
+  task_manifest: null  # 20 task IDs, or the baseline job that contains them
+  smoke_pair: []
+  n_attempts: 5
+  parser_name: json
+  max_turns: null
+  max_format_errors: null
+  enable_summarize: null
+  context_overflow_policy: null  # fail (plan B) | summarize (plan A)
+  model_info: null  # required for summarize: {max_input_tokens, max_output_tokens, ...}
+
+environment:
+  host_os: null
+  python_harbor: "3.12"
+  docker_version: null
+  docker_compose_version: null
+  cuda_version: null
+  gpu: null
+  gpu_vram_gib: 8
+
+harbor:
+  version: null
+  baseline_job: m0_baseline_job.yaml
+  lock_json: null
+
+lm_eval:
+  version: null
+  num_concurrent: 1
+  apply_chat_template: true
+  tasks:
+    mmlu:
+      endpoint: local-completions
+      task_version: null
+      manifest: null
+      num_fewshot: 5
+      tokenizer: null
+      max_length: null
+    gsm8k:
+      endpoint: local-chat-completions
+      task_version: null
+      num_fewshot: null
+      max_length: null
+    humaneval:
+      endpoint: local-chat-completions
+      task_version: null
+      num_fewshot: null
+      max_length: null
+      confirm_run_unsafe_code: true
+
+bfcl:
+  version: null
+  project_root: null  # BFCL_PROJECT_ROOT
+  base_url: null  # e.g. http://localhost:8080/v1
+  api_key: dummy
+  skip_server_setup: true
+  categories: []
+  handler: null
+
+templates:
+  gguf_template: null
+  hf_template: null
+  template_diff_ok: null
+  thinking_mode: null  # preserve | strip
+
+replayer:
+  tapes_manifest: null  # 5-10 tapes, including repeated-prefix and one 16k tape
+  trajectory_linear_history: null
+  trajectory_raw_content: null
+
+external_anchors:
+  terminal_bench_2:
+    metric: success_rate
+    value_percent: 2.2
+    scope: official_full_benchmark
+    source: official_release_figure
+    captured_date: 2026-07-19
+  bfcl:
+    metric: accuracy
+    value_percent: 66.6
+    scope: official_reported_result
+    source: official_release_figure
+    captured_date: 2026-07-19

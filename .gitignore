@@ -1,0 +1,23 @@
+# Large, reproducible local assets.  Record their hashes and provenance in
+# versioned manifests/configuration; do not commit the assets themselves.
+/data/archive/
+/models/
+/third_party/
+/rknn-llm-release-v*.zip
+
+# Python environments and transient tooling state.
+/.venv/
+/venv/
+/.pytest_cache/
+/__pycache__/
+*.py[cod]
+
+# Generated model-conversion and benchmark artifacts.  Commit only the
+# explicitly selected, small reproducibility snapshots (for example lock.json).
+*.gguf
+*.rkllm
+
+# Editor and operating-system files.
+.DS_Store
+.vscode/
+.idea/
