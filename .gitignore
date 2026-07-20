@@ -5,6 +5,9 @@
 /third_party/
 /rknn-llm-release-v*.zip
 
+# Local task transcripts are kept for reference but are not project sources.
+/docs/1.md
+
 # Python environments and transient tooling state.
 /.venv/
 /venv/
