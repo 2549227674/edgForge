@@ -127,11 +127,13 @@ model:
 
 ```bash
 ./build/bin/llama-server \
-  -m models/gemma4-e4b-it-Q4_K_M.gguf \
+  -m models/gguf/gemma4-e4b-it-Q4_K_M.gguf \
   --alias gemma4-e4b \
   -ngl 99 \
-  -c 16384 \
+  -c 131072 \
   --parallel 1 \
+  --cache-type-k q8_0 \
+  --cache-type-v q8_0 \
   --jinja \
   --temp 1.0 \
   --top-p 0.95 \
@@ -141,23 +143,17 @@ model:
   2>&1 | tee logs/m0/llama_server_boot.log
 ```
 
-默认使用 f16 KV，不显式传 `--cache-type-k/v`。
+实测并冻结使用 q8_0 K/V KV cache、`n_ctx=131072`；全项目 candidate 沿用，f16 不作为消融轴。iSWA 模型会打印两段 KV cache 日志（full + SWA），都要记录；完整冻结字段见仓库根目录 `eval_config.yaml`。
 
 ## 5. 根据日志定最终上下文
 
 ```bash
 grep -E \
   'KV self size|creating .*KV cache|CUDA.*buffer|compute buffer' \
-  logs/m0/llama_server_boot.log
+  logs/m0/llama_server_pi_c131072_q8_reasoning_unrestricted.log
 ```
 
-处理：
-
-- 16k 正常启动并完成请求：保留 `-c 16384`；
-- 16k OOM：保留失败日志，改为 `-c 12288` 重跑；
-- 12288 + f16 KV 仍不够：才增加
-  `--cache-type-k q8_0 --cache-type-v q8_0`；
-- SWA 和 non-SWA 有多条 KV 行时，将全部 `KV self size` 相加。
+实测结果：RTX 4060 Laptop GPU 在 `n_ctx=131072`、K/V `q8_0` 下已完成 server 启动与两次 5121-token 请求；不再沿用“16K→12K”降级流程。SWA 和 non-SWA 的 KV 行须相加：non-SWA 1088.00 MiB + SWA 21.25 MiB = 1109.25 MiB。未来硬件若遇 OOM，单独记录该硬件的实际端点配置，不回写本冻结基线。
 
 ## 6. 验证 alias
 
@@ -216,15 +212,15 @@ W0 的 tools 结果属于官方 QAT-Q4_0，不能代替当前 Q4_K_M 的验证�
 ```yaml
 llama_cpp:
   commit: ad8d8219915df8e423768d082d1dccfccb6e8437
-  context_size: <16384 或实测降级值>
+  context_size: 131072
   gpu_layers: 99
   parallel: 1
   jinja: true
   alias: gemma4-e4b
-  kv_cache_type_k: <f16 或 q8_0>
-  kv_cache_type_v: <f16 或 q8_0>
-  kv_self_size_mib: <全部 KV cache 合计>
-  kv_cache_log: logs/m0/llama_server_boot.log
+  kv_cache_type_k: q8_0
+  kv_cache_type_v: q8_0
+  kv_self_size_mib: 1109.25  # non-SWA + SWA
+  kv_cache_log: logs/m0/llama_server_pi_c131072_q8_reasoning_unrestricted.log
 
 sampling:
   server_temperature: 1.0

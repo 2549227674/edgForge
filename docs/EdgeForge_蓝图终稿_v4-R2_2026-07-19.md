@@ -141,7 +141,7 @@ gemma-4-e4b-it 官方权重
 
 ### 5.3 replay 磁带（负载录制回放器）
 
-benchmark 运行天然留三样：harness episode 日志（工具调用/轮数/成败）、server 侧指标、任务元数据。从中固化 5–10 盘磁带（含 repeated-prefix 场景与 16k 长上下文场景）——**磁带把工作负载定死，引擎配置成为唯一变量**，是 §6 全部组合扫描的仪器。磁带同时是 kernel shape 分布的采样来源（§8）。
+benchmark 运行天然留三样：harness episode 日志（工具调用/轮数/成败）、server 侧指标、任务元数据。从中固化 5–10 盘磁带（含 repeated-prefix 场景；磁带上下文档位由 M0 §3.2 基线跑出的真实任务上下文分布确定）——**磁带把工作负载定死，引擎配置成为唯一变量**，是 §6 全部组合扫描的仪器。磁带同时是 kernel shape 分布的采样来源（§8）。
 
 ---
 
@@ -184,7 +184,7 @@ benchmark 运行天然留三样：harness episode 日志（工具调用/轮数/�
 **PC（4060 = 全项目唯一 kernel 证据场地：sm_89 已知 + ncu 计数器 + 峰值可查 ~256GB/s 级以 datasheet 校准）**
 
 - 流程：磁带提 shape 分布 → 立项过 A/B/C/D 四问 → 预注册（带宽帐 + kill criteria）→ 实现（Triton/CUDA）→ 四条验收【① roofline 相对分（kernelbench.com 口径）② shape 来自真实 trace 分布 ③ 注册 PyTorch custom op 回连 replay 报端到端收益/副作用 ④ 三基线（eager/torch.compile/参考实现）+ 随机化正确性】→ ncu 归因段落。
-- **K1 = 方法论验门砖**（RMSNorm 或 fused softmax，M3）；此后 kernel 池常开、与模型循环并行：GQA decode attention（16k–32k 场景）、in-kernel KV 反量化、fused dequant+GEMM、Inductor 生成码逐段对照（TORCH_COMPILE_DEBUG）。上不封顶，每个都过四条验收。
+- **K1 = 方法论验门砖**（RMSNorm 或 fused softmax，M3）；此后 kernel 池常开、与模型循环并行：GQA decode attention（16k–32k 场景）、in-kernel KV 反量化、fused dequant+GEMM、Inductor 生成码逐段对照（TORCH_COMPILE_DEBUG）。16k–32k 对应并发下的每槽上下文与单任务真实区间，**待磁带分布确认**；不得先验写死 shape。上不封顶，每个都过四条验收。
 - 回连路径：llama.cpp 不吃 Triton → 回连走 transformers/PyTorch 重放（E2B bf16 直载 8GB，或 E4B 4-bit 加载）。"kernel 加速 ≠ token 加速"双层报告为默认格式。
 
 **板端三件（全做，决策 12）**：① CPU NEON kernel + 板上 perf（原生 aarch64 全功能计数器）；② RKNN matmul API 微基准（`rknn_matmul_run`，RK3588 int4×int4→int16 / int8），LLM 相关 shape 实测 NPU 吞吐 vs CPU NEON → "6 TOPS 标称 vs 实测"归因；③ 层级归因（RKLLM 阶段计时 + `/sys/kernel/debug/rknpu/load`）。边界：NPU LLM 路径闭源，不逆向。

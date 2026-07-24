@@ -26,6 +26,7 @@
 | R1.1 | 对齐 v4-R2（07-19） | 项目更名 EdgeForge；§7 结束状态声明的 M1 管线对齐决策 16（merge=S → OPD polish=S.O=M1 → PTQ）；**深层审计结论：其余三线内容零改动**——OPD 支线按决策 16 设计不触任何 M0 冻结件（基线/eval_config/磁带/七门/板端均正交；OPD prompt 池 = 七道门产出池的 M1 时引用，无 M0 新工作；OPD 训练配置属 §10 candidate 快照层非冻结评测层） |
 | R1.2 | 谱系纪律 + 官方锚快档（07-20） | 外部评审（双基线提案）部分吸收：① W0 Q4_0 谱系核验**已完成**——确认为官方 `qat-q4_0-gguf`，即 §4.3 官方 QAT 锚本尊已在盘，非"我的 PTQ Q4_0"（后者 M6 自转生成）；② training_lineage 与 quantization_format 分列登记，普通 PTQ Q4_0 与官方 QAT Q4_0 禁止混写；③ 题单 sanity 仅由 B0-PTQ-Q4KM 驱动，锁定后不因任何其他模型分数换题；④ 官方 QAT 锚在 M0 过快档四件（零下载，文件已在盘），慢档定于 M6 三点对照同场；⑤ 磁带唯一来源 = B0-PTQ 轨迹，同批磁带回放所有模型。**拒绝项留档**：严格双基线（M0 第二条慢档）不做——该数字 M6 前无消费者，冻结协议使延后执行零损失，M6 同场测更新鲜；蓝图不动（决策 3 已覆盖官方锚，DAG 是工序图非锚点登记处） |
 | R1.3 | 摘要方案定案（07-24） | `enable_summarize=false`；上下文溢出计为失败；`model_info=null`。原二选一的 16K 溢出前提已被 131072 实测端点取代；轨迹保持线性，轮数/token 指标不含摘要子代理调用。 |
+| R1.4 | boot log 对账与待办插入（07-24） | 16K/32K 残留按实测边界修正；补入基线轨迹上下文分布、metrics token 分类、板端上下文档位及 thinking 模板链的待办，不改变既有结论。 |
 | E1 | 锚点修正（07-17 补） | 官方发布图 E4B @TB2 全集 ≈2.2%（前代 0.0%）——"小模型 ~15%"预期下修；选题加"官方基线落在可测区间"显式目标带（§3.1/§3.2） |
 | E2 | 校准锚（07-17 补） | 官方 BFCL ≈66.6% 入快档校准锚 + `external_anchors` 段；四个高功效指标升格为主要测量手段（§3.3/§4） |
 | E3 | 选型记录（07-17 补） | tau2-bench 已考虑未选 + 理由入卡（§3.3 附注），建议同步蓝图决策表 |
@@ -39,7 +40,7 @@
 | TB 子集题数 × k | 20 × 5 | `[未复核]` 决策 7 拍板值 | 先按 20×5 锁；若本地单题墙钟过长，M0 可先跑 10 题×3 出基线，题清单锁定后不再改 |
 | 晋级阈值 | 掉分 ≤3pp | `[未复核]` 决策 2 模板值 | 基线阶段用不到（无父 candidate），M1 首次晋级前复议 |
 | MMLU 抽样规模 | 500–1000 题起步 | `[未复核]`〔建议〕 | **R1：抽样清单提前到 D2 冻结**（C10，见 §3.3），锁定即冻结 |
-| 16k 上下文 | `-c 16384` | 〔事实〕待实测校正 | §1 读 KV 相关日志行定案，不照抄 |
+| PC 基线上下文 / KV | `n_ctx=131072`；K/V `q8_0` | 〔事实〕已由 boot log 实测与冻结协议取代 | 见仓库根目录 `eval_config.yaml`（全项目 candidate 协议） |
 | 板端 W8A8 校准集 | agent 域样本替换官方 21 条 | 〔建议〕 | §6 给最小可行版 |
 | BFCL category 清单 + handler/模型名映射 | 未定 | `[未复核]`（R1 新增 handler 项） | §3.3 锁版时一并定案 |
 | terminus trajectory kwargs 的 CLI 透传性 | raw_content / linear_history 能否经 `--agent-kwarg` 传入 | **已因关摘要而消解** | `enable_summarize=false` 时轨迹天然线性；保留本行作可审计痕迹 |
@@ -69,7 +70,7 @@
 
 ## 1. 线 A · 本地推理端点钉参（半天）〔事实/雷区〕
 
-**状态：已完成端点钉参；TB/terminus-2 链路尚未在本节完成。** 本节以本地构建、启动和请求日志为准，替换原先以 `-c 16384` 为起点的计划性写法。冻结值见仓库根目录 `eval_config.yaml`。
+**状态：已完成端点钉参；TB/terminus-2 链路尚未在本节完成。** 本节以本地构建、启动和请求日志为准，替换原先未实测的上下文起点。冻结值见仓库根目录 `eval_config.yaml`。
 
 ### 1.1 已冻结的主基线〔事实〕
 
@@ -186,6 +187,8 @@ harbor run -c m0_baseline_job.yaml          # 20 题 × k=5 × 串行
 harbor jobs resume -p results/baseline_e4b_q4km-<ts>/
 ```
 
+**待办（基线完成后）**：从 trajectory 记录每题峰值上下文占用（零额外成本）。该分布同时决定 M2 板端 `max_context_len` 与 §3.4 的磁带上下文档位。
+
 预期量级（E1 修正）：台账"小模型 TB ~15%"是通用小模型锚；官方发布图给出 E4B @TB2 全集 ≈2.2%（前代 0.0%）——不做 §3.1 的可测区间控制，100 试验可能只有 0–2 个成功、成功率列贴地板。目标：子集基线落在 15–30%（对应 100 试验 15–30 个成功，SE≈3.5–4.6pp；聚簇修正见 §4）——这就是 before。若 sanity 后基线仍偏低，成功率列如实记录、不硬拗，测量重心按 §4 移到四个高功效指标。**所有 session/trajectory 文件保留进 `traces/`，不删**（快档指标来源 + 磁带素材 + kernel shape 采样源）。
 
 **3.3 快档基线（R1/A3、B6、C10 修订）**：
@@ -204,7 +207,7 @@ harbor jobs resume -p results/baseline_e4b_q4km-<ts>/
 **产出**：`results/baseline_e4b_q4km/`（lock.json + 逐 trial 结果）；`results/baseline_bfcl.json`、`results/baseline_lmeval.json`；`results/anchor_official_qat_q4_0/` 快档四件；主表第一行（官方 Q4_K_M @PC）+ 锚区一行（官方 QAT-Q4_0，标注 training_lineage）。
 
 **3.4 磁带首批固化 + 最小 replayer（R1/B8、C9 重写）〔建议，加半天〕**：
-- 从 3.2 的 trajectory 里挑 5–10 条固化成 replay 磁带（含 repeated-prefix 场景 + 一条 16k 长上下文场景），存 `traces/tapes/`。**磁带唯一来源 = B0-PTQ-Q4KM 的轨迹（R1.2）**：固化一次后，同一批磁带回放所有模型（含官方 QAT 锚与后续全部 candidate），不得按各模型自己的成功轨迹分别选带——负载定死，模型文件才是唯一变量。
+- 从 3.2 的 trajectory 里挑 5–10 条固化成 replay 磁带（含 repeated-prefix 场景；上下文档位由基线跑出的真实任务上下文分布确定），存 `traces/tapes/`。**磁带唯一来源 = B0-PTQ-Q4KM 的轨迹（R1.2）**：固化一次后，同一批磁带回放所有模型（含官方 QAT 锚与后续全部 candidate），不得按各模型自己的成功轨迹分别选带——负载定死，模型文件才是唯一变量。
 - **保真度（B8，R1.3 已消解）**：`enable_summarize=false`，轨迹天然线性，不再依赖 `linear_history` / `raw_content` 经 `--agent-kwarg` 透传，也无需因此改走 server 侧请求日志录制。
 - **最小 replayer（C9）**：蓝图主表列含 TTFT/TPOT/吞吐，快档第①项就是磁带回放——初版卡"只固化不扫描"导致基线行系统指标列无产出路径。**R1 决定：M0 加半天写最小 replayer**（读磁带逐条重发请求、记 TTFT/TPOT/总吞吐；不做扫描矩阵，只对官方 E4B 跑一遍补齐第一行）。若进度崩，退回初版方案：第一行系统列留空 + 主表脚注"M1 补测"，但该决定要写进 m0_summary。
 
@@ -214,6 +217,7 @@ harbor jobs resume -p results/baseline_e4b_q4km-<ts>/
 
 写 `metrics.py` 从 `traces/` 的 session 文件算四个数：成功率、**terminus 解析格式错误率**、平均修复轮数、每任务 token 消耗。
 
+- **待办**：将“每任务 token”拆为 thinking / answer / tool 三列。thinking 模式开启后 thinking token 会主导总量；不拆列则无法测出工具调用效率的前后变化。
 - **（C13）指标命名必须拆分**：TB 轨迹里测到的是 **terminus parser 格式错误率**（模型吐的 JSON/XML 结构坏，被 terminus 计为 format error——单工具 tmux 机制，不走 tools 字段）；**BFCL 测的才是 tools-API 调用准确率**。两者是不同机制的两列，M1 归因时不得混用。若 §2 走方案 (a)，轮数/token 统计需标注是否含摘要子代理调用。
 - 理由（补遗 §4.1）：100 次二值试验统计功效弱，但里面有上千次结构化调用，后三个指标功效高一个量级，是 M1 之后真正测得出训练前后差异的地方。**（E2）鉴于官方 TB2 锚 ≈2.2%，这四个指标从"归因辅助"升格为主要测量手段**：成功率列保留但预期低信噪（除非 §3.1 可测区间达成），报告叙事以高功效指标为主线。
 - **统计纪律写进脚本注释**：TB 成功率差 <7pp 一律输出"未分辨"。**（D19）加一句：SE≈3.5pp 按 100 次独立试验估，20 题×k=5 为聚簇结构，真实 SE 略大，故 7pp 是下界而非精确线。**
@@ -234,7 +238,7 @@ harbor jobs resume -p results/baseline_e4b_q4km-<ts>/
 | ④ 结构有效〔事实〕 | 多 harness 解析归一 | Pi session / Claude Code / parquet 三格式统一；坏 JSON、截断 session 剔除；每数据集记解析失败率（进数据卡） |
 | ⑤ 去污染〔事实/雷区，R1/C10〕 | n-gram 重叠扫描 | 对 **HumanEval（最高危）** / TB 2.1 任务描述 / GSM8K / **MMLU（按 D2 冻结的抽样清单扫；清单未定则扫全量）** 逐一扫；kernelbench 两集已排除不用扫。产出去污染声明表（面试素材） |
 | ⑥ 配平〔事实，1k–10k 已废〕 | 数量=质量门输出 | 四道硬过滤后原则上全保留；只做类别/源配比封顶防 Fable 偏科（参考 Mythos-25k 六类结构）；Mythos-25k 整包按其配平用（无工具 schema 部分仅防遗忘掺料）；含失败轨迹保留；总量不预设，过拟合靠留出验证集 early stopping（蓝图 §9 门⑥修订）。mix yaml 带 provenance 标签 |
-| ⑦ 渲染掩码〔事实/雷区，R1/C12 扩充〕 | Gemma4 template + loss mask | 统一渲染 Gemma4 chat template（thinking 模板决定入冻结项）；loss 只落 assistant token、工具返回掩除（teich mask_data）；tokenizer 往返校验 + 人眼抽 20 条看掩码边界。**加一步：GGUF 内嵌模板（线 A `--jinja` 实际使用的）vs HF 侧模板（本门渲染训练数据用的）显式 diff**——两侧漂移是雷区"chat template 不一致→静默崩坏"的另一种触发形态，评测侧与训练侧必须同源 |
+| ⑦ 渲染掩码〔事实/雷区，R1/C12 扩充〕 | Gemma4 template + loss mask | 统一渲染 Gemma4 chat template（thinking 模板决定入冻结项）；loss 只落 assistant token、工具返回掩除（teich mask_data）；tokenizer 往返校验 + 人眼抽 20 条看掩码边界。**加一步：GGUF 内嵌模板（线 A `--jinja` 实际使用的）vs HF 侧模板（本门渲染训练数据用的）显式 diff**——两侧漂移是雷区"chat template 不一致→静默崩坏"的另一种触发形态，评测侧与训练侧必须同源。**待办**：thinking 模式已定为开启，训练侧渲染必须与评测端点同模式；`template_diff_ok` 目前为 `null`，此链未闭。 |
 
 **产出**：七门漏斗表 → `data/data_card.md`；`data/mix.yaml`（带 provenance）；去污染声明表；**sha256 manifest**。M0 只要求管线跑通 + 漏斗表齐，正式训练 mix 在 M1 开工前定稿即可。
 
@@ -245,6 +249,8 @@ harbor jobs resume -p results/baseline_e4b_q4km-<ts>/
 **目的**：蓝图把这步从 M2 提到 M0，唯一理由是拆单点风险——Gemma4→RKLLM 有 `[PAD]` 乱码先例（Issue #424，补遗 §7.1）。本步用官方权重转，不涉及微调模型，只验证"E4B 能不能干净转成 W8A8 并输出正常文本"。成败都记录，失败不阻塞线 A/C。
 
 **〔事实〕前提（W0 已就位）**：板端旧 v1.2.x 已移除；RKLLM runtime 1.3.0 + RKNPU driver 0.9.8（未升内核）；官方 `llm_demo` 板上原生构建并成功 init 既有 .rkllm 模型——**这证明用户态升级可用，不等于 Gemma4 转换验收**（W0 事实版原文口径）。
+
+**待办（M0/M2 边界）**：RKLLM 的 `max_context_len` 是转换时参数，写进 `.rkllm` 文件后运行时不可改。M0 smoke 用保守 8K–16K 跑通即可；正式板端档位由 M2 依 prefill 实测与任务上下文分布确定，不照抄 PC 的 131072。
 
 **步骤〔建议〕**：
 1. 用 RKLLM toolkit v1.3.0（Gemma4 支持在 v1.3.0 CHANGELOG 明文）转官方 `gemma-4-e4b-it` → W8A8 `.rkllm`。

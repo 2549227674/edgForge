@@ -19,7 +19,7 @@ model:
   path: models/gguf/gemma4-e4b-it-Q4_K_M.gguf
   sha256: 953b94c6a89960ab9363720d14bf3ed266058dff31f3d35d2f91e68efdf8989a
   source_repo: google/gemma-4-E4B-it
-  source_revision: null  # HF revision was not retained locally; do not infer it.
+  source_revision: null  # Not retained and will not be backfilled: a new HF query may return a different revision; the artifact is finally pinned by sha256 above.
   source_file: models/gguf/gemma-4-E4B-it-BF16.gguf
   conversion_command: >-
     python convert_hf_to_gguf.py models/hf/gemma-4-E4B-it
@@ -93,7 +93,7 @@ sampling:
   server_temperature: 1.0
   server_top_p: 0.95
   server_top_k: 64
-  server_seed: null  # The retained server logs do not expose the launch seed.
+  server_seed: -1  # random: k=5 samples a distribution; reproducibility comes from job.yaml, lock.json, and the fixed task manifest, not a server seed.
   terminus_temperature: 1.0  # Required future agent-side setting; not yet harness-verified.
 
 terminal_bench:
@@ -112,9 +112,9 @@ terminal_bench:
 environment:
   host_os: Linux
   python_harbor: "3.12"
-  docker_version: null
-  docker_compose_version: null
-  cuda_version: null
+  docker_version: "29.6.1 (build 8900f1d)"
+  docker_compose_version: "5.3.1"
+  cuda_version: "13.1 (nvidia-smi driver-reported; nvcc unavailable)"
   gpu: NVIDIA GeForce RTX 4060 Laptop GPU
   gpu_vram_gib: 8
   cpu: 13th Gen Intel(R) Core(TM) i5-13500HX

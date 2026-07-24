@@ -15,12 +15,13 @@
 
 1.3 WSL2 内 Linux `perf` 硬件 PMU 事件受限（非原生内核）；**板端是原生 aarch64，perf 全功能**——CPU 侧硬件计数器分析放板上做反而最完整。
 
-1.4 **E = effective**。E4B = 4.5B 有效参数（纸面总参 7–8B 级，含 per-layer embedding 等），E2B = 2.3B。成本/显存一律按有效参数估。
+1.4 **E = effective**。E4B = 4.5B 有效参数（纸面总参 7–8B 级，含 per-layer embedding 等），E2B = 2.3B。GPU 侧按有效参数估成立：boot log 实测 GPU 2868 MiB + CPU_Mapped 2730 MiB，后者为 per-layer embedding；但 RKLLM W8A8 需整模驻留，板端一律按纸面 7.52B 估，16GB 板可容。成本/显存一律按有效参数估的规则仅适用于 GPU 侧。
 
 1.5 **显存与上下文：不再估算，以实测为准**（`eval_config.yaml` + `logs/m0/llama_server_pi_c131072_q8_*.log`）。
    - **机制修正（2026-07-24）**：原补遗"每 token KV 50–150KB 级 / 16k 稳 32k 贴边"的估算**高估近一个数量级**，因为它假设所有层都携带全窗 KV。实测 iSWA 拓扑下 **仅 4 层扛全窗（131072 cells），20 层为 1024 格滑窗**，@q8_0 KV 合计仅 1109.25 MiB（non-SWA 1088 + SWA 21.25）。教训：Gemma4 系的显存账**必须按 iSWA 分段算**，任何"层数 × 全窗"式估算都会错。
    - 此后凡引用显存/上下文数字，引 boot log，不引估算。
-   - 基线 KV 的项目级冻结（K/V `q8_0`、单序列 `n_ctx=131072`；f16 不做消融）见《EdgeForge 蓝图终稿》决策 17。
+   - boot log 报告 `n_ctx_train=131072`，为模型原生上下文而非 RoPE 外推；基线 KV 的项目级冻结（K/V `q8_0`、单序列 `n_ctx=131072`；f16 不做消融）见《EdgeForge 蓝图终稿》决策 17。
+   - **机制事实（2026-07-24）**：prefill 是 TTFT 主体，按实际输入长度付费；decode 是 TPOT 主体。上下文分配不等于消耗：分配 131K 只预留显存，不增加算力开销；prefix cache 命中时 agent 多轮只为新增后缀付费。boot log 的 task 517 恢复了 5116 tokens，为该路径的实测证据。
 
 1.6 **FA3 需 sm_90（Hopper）**；4060 = sm_89；租卡池无 Hopper。**sm_120 级（RTX 6000D / Pro 6000 / 5090 同代）禁 pip flash-attn**（issue #1987）——租这几张卡时冒烟统一查，走 SDPA 或预编译轮子。任何文档不得出现"FA3/FA4 对比"表述。
 
@@ -40,7 +41,7 @@
 
 2.4 vLLM `--cpu-offload-gb` = 权重整块搬运（吞吐场景），**不是** `-ngl` 式层级常驻混合推理，交互延迟塌方，本地禁用；`swap-space` 是 KV 抢占交换区非容量扩展。
 
-2.5 vLLM-local @4060 可行性：E4B AWQ 权重 ~2.5–3GB，`gpu_memory_utilization≈0.85` 预算 ~6.8GB，16k 小并发可行；显存紧/首启编译慢用 `--enforce-eager`；sm_89 在 Marlin 支持范围。
+2.5 vLLM-local @4060 可行性：E4B AWQ 权重 ~2.5–3GB，`gpu_memory_utilization≈0.85` 预算 ~6.8GB；上下文与小并发档位须按同架构的 KV 开销及 M0 §3.2 的真实任务上下文分布重算，不沿用已被 boot log 推翻的 16K 估算；显存紧/首启编译慢用 `--enforce-eager`；sm_89 在 Marlin 支持范围。
 
 2.6 PagedAttention 是 vLLM 本体机制非开关；调度器对照实验（同硅片：槽位式 vs continuous batching+Paged）定义上需要双引擎——蓝图决策 14 的根据之一。
 
@@ -79,7 +80,7 @@
    - 恢复蒸馏 teacher **必须是剪枝前的自身**，不可换成原版 31B——后者没学过本项目的工具格式与 agent 行为，会一边恢复容量一边冲刷 SFT/OPD 习得能力；且父模型分布近，避开"teacher 对学生 token 概率塌掉致信号失效"的多轮失败模式。
 
 4.5 **E4B 结构约束（剪枝前置，M4）**：
-   - **KV 拓扑以实测为起点**：boot log 显示 non-SWA 4 层（全窗）+ SWA 20 层（1024 格）。原补遗"18 层跨层共享 KV"的描述与之的对账（总层数 − 携 KV 层数）**必须在 M4 画拓扑图时显式完成并留档**，不得沿用估算描述开工。
+   - **KV 拓扑已由模型元数据闭合**：`block_count=42`，`attention.shared_kv_layers=18`；non-SWA 为 4 层、每层 131072 cells、`n_embd_head_k/v=512`；SWA 为 20 层、每层 1024 cells、head dim 256、`sliding_window=512`。因此 `42 = 18 + 4 + 20`；`n_expert=0` 证实 E4B 为 dense。M4 画拓扑图时据此展开，不再保留“待对账”状态。
    - 深度剪枝先画共享拓扑（产 KV 层与消费层成对）；砍 KV 头破坏 GQA 分组与宽 KV 几何（端侧卖点）；嵌套 E2B 子网存在与否以模型卡实证为准（M7 前核）；MoE 件：路由器保 FP16、共享 vs 路由专家差异化处理。
    - 家族架构（teacher 选型依据）：**E4B dense / 26B MoE / 31B dense**。
 
