@@ -6,6 +6,7 @@
 > 继承层（不重写，只引用）：04 事实台账（版本锚点/坑清单，滚动修订）、R1–R4 调研报告（数据集/许可/benchmark 结论）、13 号发布卫生原则。
 > **修订 R1（2026-07-16）**：决策 3 双线化（Google QAT 双格式锚点证实）；新增决策 14（PC 双引擎）、15（NVFP4 保留）；§4.3 QAT 锚点家族；§7 由曲线升级为矩阵并做场地分层（acceptance 本地化）；§4.1/§6/§11/§12/§13 联动更新。
 > **修订 R2（2026-07-19）**：项目更名 **EdgeForge**（原 PiLoop——命名根由 Pi live loop 与 Pi 二开均已废弃/边缘化，旧名失去指称对象；旧文件名与交接包引用不批量改，仅 git mv 蓝图与执行卡两份活文档，正文统一新名）。新增决策 16（OPD 支线：统一机器双调用）；§0 一句话与 §3 DAG 增 [O] 节点；§2 租卡档位增 Pro 6000 96GB；§11 M1/M4 联动；§13 增蒸馏叙事更新与简历双线拆分口径；§14 增 MOPD 不做项；§7 存活矩阵行清单联动（S 与 S.O 分行，新增"OPD 重训 × stock draft"首测空白格；剪枝行注明含 O₂ 恢复）。
+> **修订 R3（2026-07-24）**：新增决策 17，批准 q8_0 K/V @131072 为全项目纵向基线 KV 协议；为保留 llama.cpp 多槽并发头寸，f16 KV 不做消融，所有 candidate 沿用该配置。
 
 ---
 
@@ -25,7 +26,7 @@
 
 ---
 
-## 1. 决策记录（16 条，已全部拍板）
+## 1. 决策记录（17 条，已全部拍板）
 
 | # | 决策 | 结论 | 关键理由 |
 |---|---|---|---|
@@ -45,6 +46,7 @@
 | 14 | PC 双引擎 | **定**：llama.cpp 主（GGUF/k-quant 家族、int-KV 轴、QAT-Q4_0 线、agent serving）+ vLLM-local 副（AWQ/GPTQ/compressed-tensors 粒度轴、2:4 本地兑现、QAT-W4A16 线、调度器对照、投机 acceptance 本地测量） | 两组独占能力互不覆盖；调度器对照实验定义上需要双引擎；E4B AWQ ≈3GB 进 8GB 无压力 |
 | 15 | NVFP4 列 | **保留**（租卡 P1，可独立裁剪、砍掉不伤主表骨架） | 4B 级 NVFP4 在 agent 任务上的退化是公开空白格；现成 checkpoint + ModelOpt 一个周末窗口的成本 |
 | 16 | OPD 支线 | **统一机器，双调用**：GKD 逐 token 反向 KL + vLLM 起 teacher FP8 logprob 打分服务 + 学生 QLoRA；租卡 RTX Pro 6000 96GB 单卡（¥5.95/h，teacher FP8 ~31GB 与学生 ~17GB 同卡共存）。调用①：M1 SFT 后 polish，teacher = `gemma-4-31b-it`（dense，bf16→FP8）；调用②：M4 剪枝后恢复蒸馏的 loss 即此，teacher = **剪枝前 merged checkpoint**。同一代码路径，teacher 仅为配置里一行地址；评测走既有冻结协议 | Fable teacher 已下线（语料冻结根因），离线蒸馏物理上不可升级为 OPD，同族 31B dense 补位（26B 为 MoE、E4B/31B 为 dense，官方技术报告证实；同族同 tokenizer 规避跨族错配与 rollout 漂移放大）；恢复蒸馏 teacher 必须是剪枝前自身——原版 31B 没学过 Pi/teich 工具格式与 agent 行为，会一边恢复容量一边冲刷 SFT 习得能力，且父模型分布近、避开"teacher 对学生 token 概率塌掉致信号失效"的多轮失败模式；SFT 冷启动→OPD 精修是 Qwen3/Thinking Machines 的标准配方顺序 |
+| 17 | 基线 KV 协议 | **冻结**：基线 K/V 均为 `q8_0`，单序列 `n_ctx=131072`；M1–M7 所有 candidate 的纵向对照沿用此配置。f16 KV 不做消融 | 按 boot log 实测预算（可用 7096 − 模型 2868 − compute 711 ≈ 3517 MiB 可用于 KV），f16 约 2088 MiB/序列仅容 1 条序列，会把 llama.cpp 侧并发上限锁死为 1，使决策 14 的调度器对照（槽位式 vs continuous batching）无法执行；q8_0 1109 MiB/序列可容约 3 条。故 KV 量化不再是实验轴，而是基线冻结项，全项目 candidate 一律沿用 |
 
 已废弃的 v3 机制：三支柱框架与 6/4 比例、路由脊柱、双轨数据配比（统一轨 + 权重不发布）、自建任务集（保留 2 个 TB 快题当烟测对）、自采 trace 数据集发布、逐周计划、最小叙事/MVP 分级、Pi live loop（由 benchmark 运行承担负载与采集职能）、Open-SWE（走纯 Fable/Mythos 蒸馏叙事）、板端并发/多模型、提前批投递。Pi 运行时二开 = 可选尾项。
 

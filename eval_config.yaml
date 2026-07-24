@@ -37,6 +37,13 @@ llama_cpp:
   commit: ad8d8219915df8e423768d082d1dccfccb6e8437
   build: 9987
   binary: ./build/bin/llama-server
+  # Frozen longitudinal protocol for all M1-M7 candidates: K/V q8_0 at
+  # n_ctx=131072.  With 3517 MiB available for KV, f16 needs about 2088 MiB
+  # per sequence (one slot), while q8_0 needs 1109 MiB (about three slots).
+  # Do not run an f16 ablation or mix it into longitudinal comparisons.
+  # llama.cpp -c is total context divided across slots: N concurrent 131072-
+  # token slots require -c = 131072 * N; -c 131072 --parallel N gives each
+  # slot only 131072/N tokens.
   context_size: 131072
   context_size_source: logs/m0/llama_server_pi_c131072_q8_reasoning_unrestricted.log
   gpu_layers: 99
