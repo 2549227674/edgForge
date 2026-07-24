@@ -25,6 +25,7 @@
 | W0 | 合入 | 新增 §0.5 前置（git init + W0 事实引用表 + 审计口径）；门①对账表以 W0 实测清单为起点 |
 | R1.1 | 对齐 v4-R2（07-19） | 项目更名 EdgeForge；§7 结束状态声明的 M1 管线对齐决策 16（merge=S → OPD polish=S.O=M1 → PTQ）；**深层审计结论：其余三线内容零改动**——OPD 支线按决策 16 设计不触任何 M0 冻结件（基线/eval_config/磁带/七门/板端均正交；OPD prompt 池 = 七道门产出池的 M1 时引用，无 M0 新工作；OPD 训练配置属 §10 candidate 快照层非冻结评测层） |
 | R1.2 | 谱系纪律 + 官方锚快档（07-20） | 外部评审（双基线提案）部分吸收：① W0 Q4_0 谱系核验**已完成**——确认为官方 `qat-q4_0-gguf`，即 §4.3 官方 QAT 锚本尊已在盘，非"我的 PTQ Q4_0"（后者 M6 自转生成）；② training_lineage 与 quantization_format 分列登记，普通 PTQ Q4_0 与官方 QAT Q4_0 禁止混写；③ 题单 sanity 仅由 B0-PTQ-Q4KM 驱动，锁定后不因任何其他模型分数换题；④ 官方 QAT 锚在 M0 过快档四件（零下载，文件已在盘），慢档定于 M6 三点对照同场；⑤ 磁带唯一来源 = B0-PTQ 轨迹，同批磁带回放所有模型。**拒绝项留档**：严格双基线（M0 第二条慢档）不做——该数字 M6 前无消费者，冻结协议使延后执行零损失，M6 同场测更新鲜；蓝图不动（决策 3 已覆盖官方锚，DAG 是工序图非锚点登记处） |
+| R1.3 | 摘要方案定案（07-24） | `enable_summarize=false`；上下文溢出计为失败；`model_info=null`。原二选一的 16K 溢出前提已被 131072 实测端点取代；轨迹保持线性，轮数/token 指标不含摘要子代理调用。 |
 | E1 | 锚点修正（07-17 补） | 官方发布图 E4B @TB2 全集 ≈2.2%（前代 0.0%）——"小模型 ~15%"预期下修；选题加"官方基线落在可测区间"显式目标带（§3.1/§3.2） |
 | E2 | 校准锚（07-17 补） | 官方 BFCL ≈66.6% 入快档校准锚 + `external_anchors` 段；四个高功效指标升格为主要测量手段（§3.3/§4） |
 | E3 | 选型记录（07-17 补） | tau2-bench 已考虑未选 + 理由入卡（§3.3 附注），建议同步蓝图决策表 |
@@ -41,7 +42,7 @@
 | 16k 上下文 | `-c 16384` | 〔事实〕待实测校正 | §1 读 KV 相关日志行定案，不照抄 |
 | 板端 W8A8 校准集 | agent 域样本替换官方 21 条 | 〔建议〕 | §6 给最小可行版 |
 | BFCL category 清单 + handler/模型名映射 | 未定 | `[未复核]`（R1 新增 handler 项） | §3.3 锁版时一并定案 |
-| terminus trajectory kwargs 的 CLI 透传性 | raw_content / linear_history 能否经 `--agent-kwarg` 传入 | 待开工验证（R1 新增） | §3.4；传不进则磁带改走 server 侧录制 |
+| terminus trajectory kwargs 的 CLI 透传性 | raw_content / linear_history 能否经 `--agent-kwarg` 传入 | **已因关摘要而消解** | `enable_summarize=false` 时轨迹天然线性；保留本行作可审计痕迹 |
 | harbor CLI 旗标名 | `--jobs-dir` / `--n-attempts` 长名等 | 以当日 `harbor run --help` 为准（R1 新增） | 核心语义已网核（§2），旗标拼写开工扫一眼 |
 
 ---
@@ -107,8 +108,7 @@ Gemma4 为 iSWA 拓扑，KV 必须将两段相加，而不是只记其中一条�
 ### 1.4 尚待 §2 钉死的协议项〔待办/雷区〕
 
 1. harbor 侧必须显式传 `--agent-kwarg temperature=1.0`；这是 future agent 请求的冻结目标，不能把 server 日志误作 agent 侧已验证。
-2. `max_turns`、`max_format_errors`、`enable_summarize`、`model_info` 与上下文溢出策略尚未实测定案；在完成 TB probe 前保持 `null`，不可虚填。
-3. 若选择摘要方案，须注册 `model_info.max_input_tokens`；若选择关闭摘要，须把“溢出计失败”写为评测协议。无论哪种方案，都不能因 131K server 已成功启动而跳过本项。
+2. **已定**：`enable_summarize=false`，上下文溢出计为失败，作为评测协议的显式声明；`model_info=null`。`max_turns` 与 `max_format_errors` 仍待 TB probe 实测定案，不可虚填。
 
 **本节产出**：已更新 `eval_config.yaml`；审计证据为转换、量化和 `logs/m0/llama_server_pi_c131072_q8_reasoning_unrestricted.log`。待 §2 完成后，再把 harbor/job 的冻结快照和 TB 探测结论补入配置。
 
@@ -125,10 +125,9 @@ Gemma4 为 iSWA 拓扑，KV 必须将两段相加，而不是只记其中一条�
 - terminus-2 kwargs（官方文档全部证实）：`api_base`、`parser_name`（json/xml，默认 json；官方注明 xml 对部分模型更稳）、`max_turns`（即 max_episodes，**默认 1,000,000，务必显式设小**）、`enable_summarize`（默认 true）、`proactive_summarization_threshold`（默认 8000 free tokens）、`temperature`、`model_info`、`session_id`。
 - **terminus-2 是单工具（tmux）设计**：从纯文本回复里解析 JSON/XML 结构化命令，**不使用 OpenAI tools/function-calling 字段**（R1/C13）。社区跑本地小模型有 `--agent-kwarg max_format_errors=64` 护栏先例——小模型吐坏 JSON 是常态，**显式设置并记录**（它是影响成功率的协议参数）。
 
-**〔事实/雷区，R1/B5 升格为冻结项〕摘要与上下文核算——开工必须二选一并写进 `eval_config.yaml`**：
-LiteLLM 不认识 `hosted_vllm/gemma4-e4b` 这类自定义模型；官方文档明确 metrics 统计与上下文摘要要正常工作需通过 `model_info` 注册 `max_input_tokens` 等（proactive 摘要的触发量 free tokens = max_input_tokens − 当前上下文，不注册无从计算）。且 `enable_summarize=false` 同时关掉 passive 摘要（上下文溢出时的三级回退恢复）——16k 跑 TB，溢出即硬失败。两个方案都站得住，但**不能悬置**：
-- **方案 (a)**：开摘要 + `model_info.max_input_tokens` ≈（`-c` 实测值 − 生成余量）+ 阈值调低（如 2000–4000）。任务更可能跑完，但轮数/token 指标含摘要子代理调用，磁带保真度需 §3.4 处理。
-- **方案 (b)（起步建议）**：关摘要，**声明"上下文溢出计为失败"是评测协议的一部分**。轨迹天然线性（利好磁带与指标），代价是长任务折损——这本身也是 16k 端侧模型的真实约束，作为协议成立。
+**〔事实/雷区，R1.3 已定案〕摘要与上下文核算**：`enable_summarize=false`，上下文溢出**计为失败**，`model_info=null`。原 (a)/(b) 取舍以 16K 上下文和高溢出风险为前提；实测端点为 131072，TB 任务不再受该前提约束。关闭摘要使轨迹天然线性，§3.4 的 `linear_history` / `raw_content` 透传依赖随之消解，且轮数/token 指标不含摘要子代理调用。
+
+**未采纳方案 (a)，留档**：开启摘要并注册 `model_info.max_input_tokens`、下调 proactive 阈值。该方案在 16K 时可降低上下文溢出风险，但会引入摘要子代理调用，污染轮数/token 指标并破坏磁带保真度；131K 端点下不采用。
 
 ```bash
 # 先 hello-world 验证 harness 自身
@@ -206,7 +205,7 @@ harbor jobs resume -p results/baseline_e4b_q4km-<ts>/
 
 **3.4 磁带首批固化 + 最小 replayer（R1/B8、C9 重写）〔建议，加半天〕**：
 - 从 3.2 的 trajectory 里挑 5–10 条固化成 replay 磁带（含 repeated-prefix 场景 + 一条 16k 长上下文场景），存 `traces/tapes/`。**磁带唯一来源 = B0-PTQ-Q4KM 的轨迹（R1.2）**：固化一次后，同一批磁带回放所有模型（含官方 QAT 锚与后续全部 candidate），不得按各模型自己的成功轨迹分别选带——负载定死，模型文件才是唯一变量。
-- **保真度依赖（B8）**：terminus-2 默认 trajectory 配置下，一旦发生摘要就无法从主文件还原真实发给 LLM 的请求序列（`linear_history=true` + `raw_content=true` 才行）。若 §2 选了方案 (b)（关摘要），轨迹天然线性、无此问题；若选方案 (a)，开工验证这两个开关能否经 `--agent-kwarg` 透传（继承审查表项），传不进则磁带改从 server 侧请求日志录制。
+- **保真度（B8，R1.3 已消解）**：`enable_summarize=false`，轨迹天然线性，不再依赖 `linear_history` / `raw_content` 经 `--agent-kwarg` 透传，也无需因此改走 server 侧请求日志录制。
 - **最小 replayer（C9）**：蓝图主表列含 TTFT/TPOT/吞吐，快档第①项就是磁带回放——初版卡"只固化不扫描"导致基线行系统指标列无产出路径。**R1 决定：M0 加半天写最小 replayer**（读磁带逐条重发请求、记 TTFT/TPOT/总吞吐；不做扫描矩阵，只对官方 E4B 跑一遍补齐第一行）。若进度崩，退回初版方案：第一行系统列留空 + 主表脚注"M1 补测"，但该决定要写进 m0_summary。
 
 ---

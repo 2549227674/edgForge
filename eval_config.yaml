@@ -105,9 +105,9 @@ terminal_bench:
   parser_name: json
   max_turns: null
   max_format_errors: null
-  enable_summarize: null
-  context_overflow_policy: null  # fail (plan B) | summarize (plan A)
-  model_info: null
+  enable_summarize: false
+  context_overflow_policy: fail  # Frozen protocol: context overflow is a failure.
+  model_info: null  # Fixed null: summarization is disabled.
 
 environment:
   host_os: Linux
