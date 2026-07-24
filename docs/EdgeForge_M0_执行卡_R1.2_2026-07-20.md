@@ -68,23 +68,49 @@
 
 ## 1. 线 A · 本地推理端点钉参（半天）〔事实/雷区〕
 
-**目的**：把 llama-server 起来、把启动参数冻结进 `eval_config.yaml`、用实测校正 `-c`。W0 的 `llama_direct_tool_call.json`（仍保留在 `logs/w0/`）已验证工具调用可用，本步是把它固化。
+**状态：已完成端点钉参；TB/terminus-2 链路尚未在本节完成。** 本节以本地构建、启动和请求日志为准，替换原先以 `-c 16384` 为起点的计划性写法。冻结值见仓库根目录 `eval_config.yaml`。
 
-```bash
-LLAMA_COMMIT=ad8d8219915df8e423768d082d1dccfccb6e8437   # W0 实测，非 b9553
-./build/bin/llama-server \
-  -m models/gemma4-e4b-it-Q4_K_M.gguf \
-  --alias gemma4-e4b \
-  -ngl 99 -c 16384 --parallel 1 --jinja --port 8080 \
-  2>&1 | tee logs/m0/llama_server_boot.log
-```
+### 1.1 已冻结的主基线〔事实〕
 
-**〔事实/雷区〕五条**：
-1. **量化格式先定案**：W0 下的是 `Q4_0`（补遗 §2.1），基线与后续自量化必须同格式可比。**决定：基线用 `Q4_K_M`**（k-quant，"Q4≈92%FP16"质量锚即指它；自量化社区标准同）。文件来源二选一：换下官方 Q4_K_M GGUF，或 `llama-quantize` 从 bf16 自转。**（R1/D18）来源与 imatrix 使用与否必须记入 `eval_config.yaml`**——蓝图 §4.2 把 imatrix 列为校准轴，M1 做"我的 PTQ vs 官方"对照时，基线格的可比性取决于此。在盘 Q4_0 已核验为官方 `qat-q4_0-gguf`（QAT 谱系），是 §4.3 官方锚本尊，别删；它**不是**"我的 PTQ Q4_0"（M6 自转补齐）。**谱系纪律（R1.2）**：eval_config 与主表对每个模型分列 `training_lineage`（google_bf16_instruct / google_official_qat / 本项目谱系）与 `quantization_format` 两个字段——普通 PTQ Q4_0 与官方 QAT Q4_0 格式名相同、谱系不同，禁止混写，防止把训练差异误读成格式差异。
-2. **读 KV 大小实测行（R1/B7 防呆）**：启动日志中 `KV self size = XXX MiB, K (...): ..., V (...): ...` 行是补遗 §1.5 的精确显存答案。两点注意：① 行前缀随版本变过（旧 `llama_new_context_with_model:`、新 `llama_context:`），**grep 关键字用 `KV self size` 而非整行**；② 若 E4B 属交错滑窗（iSWA）架构，日志会出现 `creating non-SWA KV cache` 与 `creating SWA KV cache` 两个 cache，**显存账按全部 KV 相关行求和**记录（E4B 的宽 KV + 18 层跨层共享落到哪种拓扑，以 boot 日志为准）。若 +激活+CUDA 缓冲逼近 8GB 上限，降 `-c 12288` 或加 `--cache-type-k/v q8_0`（KV 量化是实验轴，基线要么全程 f16、要么明确标注）。
-3. **`--jinja` 必开**：chat template 不一致会让工具调用静默崩坏（补遗 §6.2 / 雷区表）。**（R1/D14）加 `--alias gemma4-e4b`** 使 `/v1/models` 返回名与 harbor 的 `-m hosted_vllm/gemma4-e4b` 对齐。启动后 `curl :8080/v1/models` 确认，再发一条带 `tools` 字段的 `/v1/chat/completions` 确认工具调用格式回得来——**注意（R1/C13）：这一步验证的是 BFCL 所需的 tools-API 路径；TB 的 terminus-2 不走 tools 字段（见 §2），TB 链路由 §2 探测本身验证**。
-4. **采样钉死是双端问题（R1/A4）**：server 端 temperature/top-p 取 Gemma4 模型卡推荐值；**agent 端 terminus-2 的 temperature 必须在 §2 用 `--agent-kwarg temperature=<同值>` 显式设置**——harbor 新版明确"Terminus 2 与 LiteLLM 不再发送默认 temperature"，不显式设则行为随 harbor 版本漂移，且请求级参数会覆盖 server 默认。`eval_config.yaml` 采样栏分 server / agent 两行记。k=5 要求 temp>0（否则五次全同白跑）；seed 记录（server 端 `--seed` 若设则记，agent 不消除不确定性但留痕）。
-5. **产出**：`eval_config.yaml`（模型 SHA256 / 模型文件来源+imatrix / LLAMA_COMMIT / 启动参数 / KV 实测行 / 双端采样值 / seed）；`logs/m0/llama_server_boot.log`。
+| 项 | 实测值 | 证据 |
+|---|---|---|
+| 基线 ID / 谱系 | `B0-PTQ-Q4KM`；`google_bf16_instruct`；PTQ `Q4_K_M` | `eval_config.yaml`；`logs/m0/quantize_gemma4_e4b_q4_k_m.log` |
+| 模型文件 | `models/gguf/gemma4-e4b-it-Q4_K_M.gguf`；SHA256 `953b94c6a89960ab9363720d14bf3ed266058dff31f3d35d2f91e68efdf8989a` | `eval_config.yaml` |
+| 量化配方 | 官方 BF16 转 GGUF 后由本地 `llama-quantize` 量化；**未使用 imatrix** | `logs/m0/convert_gemma4_e4b_bf16_gguf.log`；`logs/m0/quantize_gemma4_e4b_q4_k_m.log` |
+| llama.cpp | build `9987`，commit `ad8d8219915df8e423768d082d1dccfccb6e8437` | `logs/m0/llama_server_pi_c131072_q8_reasoning_unrestricted.log` |
+| 主端点 | `n_ctx = 131072`、单 slot、43/43 层已 offload 至 CUDA0、q8_0 K/V KV；监听 `127.0.0.1:8080` | 同上 |
+| 采样 | `temperature=1.0`、`top_p=0.95`、`top_k=64` | 同上；启动 seed 未在留存日志中出现，记为 `null` |
+| 推理模式 | chat template 已启用，`thinking = 1`；本次 131K 日志为 `unrestricted` reasoning | 同上 |
+
+**量化与谱系纪律**：在盘 `gemma-4-E4B_q4_0-it.gguf` 是官方 `google_official_qat` / QAT `Q4_0` 锚，不能写成“我的 PTQ Q4_0”；它与上表的 BF16→PTQ `Q4_K_M` 是两条独立谱系。两者的本地 SHA256、`training_lineage`、`quantization_method` 和 `quantization_format` 已分列记录在 `eval_config.yaml`。
+
+### 1.2 131K 显存与请求证据〔事实〕
+
+目标机器为 RTX 4060 Laptop GPU（8187 MiB；启动时可用 7096 MiB）。131072 上下文在 q8_0 KV 下成功分配并启动，日志预测 GPU 使用 4688 MiB（模型 2868 + 上下文 1109 + compute 711 MiB），加载后实际尚余 2364 MiB。
+
+Gemma4 为 iSWA 拓扑，KV 必须将两段相加，而不是只记其中一条：
+
+| KV cache | cells / layers | K / V 格式 | 大小 |
+|---|---:|---|---:|
+| non-SWA | 131072 / 4 | q8_0 / q8_0 | 1088.00 MiB |
+| SWA | 1024 / 20 | q8_0 / q8_0 | 21.25 MiB |
+| **合计** | — | — | **1109.25 MiB** |
+
+服务完成了两次 5121-token 提示请求，最长一次结束于 7206 tokens，二者均为 `truncated = 0`。这证明了 **131K 端点的分配、加载和中等长度请求闭环**；它**不等于**已完成接近 131072 tokens 的满窗压力测试。若后续需要以“131K 可用”宣称满窗能力，须另补一条接近上限的输入日志及响应结果。
+
+### 1.3 alias 与 tools-API〔已完成，范围受限〕
+
+`logs/m0/v1_models_c32768_q8_0.json` 返回 alias `gemma4-e4b`；`logs/m0/tools_smoke_c32768_q8_0.json` 返回 `finish_reason: tool_calls` 和 `get_current_weather` 的结构化调用。因此 Q4_K_M 的 `/v1/models` alias 与 OpenAI tools-API 路径已在 **32768/q8_0** 配置验证。
+
+该 tools smoke 不应扩写为 terminus-2 已通：terminus-2 从纯文本解析 JSON/XML，不走 OpenAI `tools` 字段；它仍由 §2 的 harbor 单题探测验证。131K 日志也没有单独保存 `/v1/models` 或 tools 响应，故当前只把 131K 认定为 server/request 闭环，不把它写成 131K tools-API 的独立证据。
+
+### 1.4 尚待 §2 钉死的协议项〔待办/雷区〕
+
+1. harbor 侧必须显式传 `--agent-kwarg temperature=1.0`；这是 future agent 请求的冻结目标，不能把 server 日志误作 agent 侧已验证。
+2. `max_turns`、`max_format_errors`、`enable_summarize`、`model_info` 与上下文溢出策略尚未实测定案；在完成 TB probe 前保持 `null`，不可虚填。
+3. 若选择摘要方案，须注册 `model_info.max_input_tokens`；若选择关闭摘要，须把“溢出计失败”写为评测协议。无论哪种方案，都不能因 131K server 已成功启动而跳过本项。
+
+**本节产出**：已更新 `eval_config.yaml`；审计证据为转换、量化和 `logs/m0/llama_server_pi_c131072_q8_reasoning_unrestricted.log`。待 §2 完成后，再把 harbor/job 的冻结快照和 TB 探测结论补入配置。
 
 ---
 
