@@ -83,7 +83,7 @@ llama_cpp:
   reasoning_budget: unrestricted
   ignore_eos: false
   flash_attn: enabled  # Automatic activation; not an explicit server flag.
-  n_predict_default: 32768  # Target aligned to the Pi global model configuration; live endpoint restart still required.
+  n_predict_default: 32768  # Target aligned to the Pi global model configuration; requires endpoint restart before measurement.
   prompt_cache_ram_mib: 8192
   context_checkpoints_max: 32
   ttft_convention: cache_warm
@@ -104,7 +104,7 @@ sampling:
   server_top_k: 64
   server_min_p: 0.0
   server_seed: -1  # random: k=5 samples a distribution; reproducibility comes from job.yaml, lock.json, and the fixed task manifest, not a server seed.
-  server_n_predict: 32768  # Target aligned to the Pi global model configuration; live endpoint restart still required.
+  server_n_predict: 32768  # Target aligned to the Pi global model configuration; requires endpoint restart before measurement.
   terminus_temperature: 1.0  # Verified via terminus-2 agent kwargs in the §4–§5 probes.
 
 terminal_bench:
@@ -119,7 +119,7 @@ terminal_bench:
   max_turns: 30  # 900 s / observed 19.07 s p95 = 47.2; keep the lower predeclared guard, about 572 s at observed p95.
   max_format_errors: null  # Unsupported/no-op in Harbor 0.18.0 terminus-2; retries are bounded by max_turns and task timeout.
   format_error_policy: bounded_by_max_turns_and_task_timeout
-  agent_max_tokens: 32768  # Endpoint-enforced through llama.cpp n_predict; Terminus 2 has no max_tokens kwarg. Live endpoint restart still required.
+  agent_max_tokens: 32768  # Endpoint-enforced through llama.cpp n_predict; Terminus 2 has no max_tokens kwarg; requires endpoint restart before measurement.
   agent_timeout_policy: task_defined_default
   agent_timeout_multiplier: 1.0
   probe_agent_timeout_seconds: 900

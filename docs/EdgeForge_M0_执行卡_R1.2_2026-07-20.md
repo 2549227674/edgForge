@@ -102,63 +102,39 @@ Gemma4 为 iSWA 拓扑，KV 必须将两段相加，而不是只记其中一条�
 
 ### 1.3 alias 与 tools-API〔已完成，范围受限〕
 
-`logs/m0/v1_models_c32768_q8_0.json` 返回 alias `gemma4-e4b`；`logs/m0/tools_smoke_c32768_q8_0.json` 返回 `finish_reason: tool_calls` 和 `get_current_weather` 的结构化调用。因此 Q4_K_M 的 `/v1/models` alias 与 OpenAI tools-API 路径已在 **32768/q8_0** 配置验证。
+实际 TB 探测服务的 `logs/m0/v1_models_tb_probe_c131072.json` 返回 alias `gemma4-e4b`，故 alias 已以本线冻结的 131072 / `-n 4096` 服务复核。此前 32768 的 `/v1/models` 与 tools smoke 为未入库临时文件，已按清理决定删除，不再作为证据，也不应被引用。
 
-该 tools smoke 不应扩写为 terminus-2 已通：terminus-2 从纯文本解析 JSON/XML，不走 OpenAI `tools` 字段；它仍由 §2 的 harbor 单题探测验证。131K 日志也没有单独保存 `/v1/models` 或 tools 响应，故当前只把 131K 认定为 server/request 闭环，不把它写成 131K tools-API 的独立证据。
+OpenAI tools-API 不是本线过门条件：terminus-2 从纯文本解析 JSON/XML，不走 OpenAI `tools` 字段；它由 §2 的 harbor 单题探测验证。当前未保留 131K 的独立 tools 响应，因此不能声称该路径已在本线协议下验证。
 
-### 1.4 尚待 §2 钉死的协议项〔待办/雷区〕
+### 1.4 §2 已钉死的协议项〔事实/雷区〕
 
-1. harbor 侧必须显式传 `--agent-kwarg temperature=1.0`；这是 future agent 请求的冻结目标，不能把 server 日志误作 agent 侧已验证。
-2. **已定**：`enable_summarize=false`，上下文溢出计为失败，作为评测协议的显式声明；`model_info=null`。`max_turns` 与 `max_format_errors` 仍待 TB probe 实测定案，不可虚填。
+1. Harbor agent 侧 `temperature=1.0` 已实传验证；不要把 server 采样日志误作该结论的唯一证据。
+2. `enable_summarize=false`、上下文溢出计失败、`model_info=null` 均保持冻结。TB probe 已反推并冻结 `max_turns=30`；Harbor 0.18.0 terminus-2 不支持 `max_format_errors`，配置必须保持 `null`，由轮数与任务 timeout 共同限住重试。
 
-**本节产出**：已更新 `eval_config.yaml`；审计证据为转换、量化和 `logs/m0/llama_server_pi_c131072_q8_reasoning_unrestricted.log`。待 §2 完成后，再把 harbor/job 的冻结快照和 TB 探测结论补入配置。
+**本节产出**：`eval_config.yaml` 已回填；审计证据包括转换/量化日志、`logs/m0/llama_server_tb_probe_c131072_q8.log`、端点自检日志及 §2 的 lock.json。Pi 历史日志仅作 131K KV/显存背景证据。
 
 ---
 
 ## 2. 线 A · TB 2.1 接自家端点跑通（半天，全卡风险最高一步）〔事实/雷区〕
 
-**目的**：W0 跑的是 oracle（不经过模型），"terminus-2 + 自家端点 + Gemma 模板"这条链**从未验证过**（补遗 §4.4）。本步先跑通 1 题，不论成败，只要 agent 正常发请求→收回复→执行命令→verifier 出结果即算过门。W0 已证 TB 2.1 本地可解析、容器闭环可用——本步只补"模型在环"这一段。
+**完成状态（2026-08-02）**：已完成“端点 → terminus-2 → 容器 tmux → verifier”的单题闭环。端点随后按要求停止；下列实测结论均对应实际执行的 `-n 4096`。当前配置已恢复为 32768 的待重启目标，但尚未以该值启动或测量，不能把它与下列 4096 证据混用。
 
-**〔网核〕harbor / terminus-2 机制（2026-07-17，来源：harborframework.com/docs、tbench.ai/docs、harbor releases）**：
-- 数据集名：2.1 官方运行文档用全名 `-d terminal-bench/terminal-bench-2-1`（与 04 台账/R 报告一致）；`terminal-bench@2.1` 简写亦有官方先例（论文用 `@2.0`）。**统一用全名**，简写作备注；实际解析结果以 lock.json 为准（R1/D16）。
-- 子集/单题：`--include-task-name "<task>"`（单题）、`-t "<glob>"` + `-l <n>`（模式+限量）；**成套子集走 job.yaml**（§3.2）。
-- k 值 `-k`（attempts），并发 `--n-concurrent`；job 配置字段名 `n_attempts`。断点续跑 = **`harbor jobs resume -p jobs/<目录>`**（按 trial 配置识别已完成试验、只补未完成的）——不是初版误写的 `--reuse`（R1/A2）。
-- terminus-2 kwargs（官方文档全部证实）：`api_base`、`parser_name`（json/xml，默认 json；官方注明 xml 对部分模型更稳）、`max_turns`（即 max_episodes，**默认 1,000,000，务必显式设小**）、`enable_summarize`（默认 true）、`proactive_summarization_threshold`（默认 8000 free tokens）、`temperature`、`model_info`、`session_id`。
-- **terminus-2 是单工具（tmux）设计**：从纯文本回复里解析 JSON/XML 结构化命令，**不使用 OpenAI tools/function-calling 字段**（R1/C13）。社区跑本地小模型有 `--agent-kwarg max_format_errors=64` 护栏先例——小模型吐坏 JSON 是常态，**显式设置并记录**（它是影响成功率的协议参数）。
+| 冻结项 | 实测定案 | 证据 / 说明 |
+|---|---|---|
+| 模型接入 | `openai/gemma4-e4b`，`api_base=http://localhost:8080/v1`，`OPENAI_API_KEY=not-needed` | Harbor 0.18 的 `hosted_vllm` 与 `model_info=null` 不兼容；provider 选择器改为 `openai`，推理后端仍是 llama.cpp。 |
+| 服务协议 | `-c 131072`、q8_0 K/V、`--jinja`、`--reasoning-format auto`、`-n 4096`、temperature 1.0 / top-p 0.95 / top-k 64 / min-p 0 | `logs/m0/llama_server_tb_probe_c131072_q8.log`；模型 alias 为 `gemma4-e4b`。 |
+| reasoning 分离 | `reasoning_content` 非空，`content` 为可解析 JSON | `logs/m0/reasoning_format_check.json`。 |
+| parser | `json` | 本地 hello-world：JSON reward=1；XML reward=0 的直接原因是模型命令缺换行，不是端点不可达。故在任何 TB 真题之前定案为 JSON。 |
+| 轮数 / 超时 | `max_turns=30`；任务定义的 900 秒 agent timeout 不放大；`agent_setup_timeout_multiplier=3.0` | 见下方实测反推；轮数耗尽与任务超时均计失败。 |
+| 格式错误护栏 | `max_format_errors: null` / unsupported | Harbor 0.18.0 的 terminus-2 未实现该参数；曾传入的 `64` 为 no-op，重试边界只能由 `max_turns` 与 task timeout 提供。 |
 
-**〔事实/雷区，R1.3 已定案〕摘要与上下文核算**：`enable_summarize=false`，上下文溢出**计为失败**，`model_info=null`。原 (a)/(b) 取舍以 16K 上下文和高溢出风险为前提；实测端点为 131072，TB 任务不再受该前提约束。关闭摘要使轨迹天然线性，§3.4 的 `linear_history` / `raw_content` 透传依赖随之消解，且轮数/token 指标不含摘要子代理调用。
+**正式单题探测**：数据集 `terminal-bench/terminal-bench-2-1`，完整 task ID 为 `terminal-bench/kv-store-grpc`，`k=1`、串行。最终 trial 目录为 `results/m0_tb_probe/2026-08-02__16-31-43/kv-store-grpc__7FvkxNN/`：agent 完成 7 轮、7 次命令调用，verifier 运行 7 项检查，reward=0.0 但无异常，因而“模型在环”的链路过门。reward=0 的实现原因是提交代码使用 `Server` 类名且 proto `value` 字段不匹配，不是 endpoint、harness 或 parser 故障。早先 agent 安装超时只用于确定 `--agent-setup-timeout-multiplier 3`，不计入正式结果。
 
-**未采纳方案 (a)，留档**：开启摘要并注册 `model_info.max_input_tokens`、下调 proactive 阈值。该方案在 16K 时可降低上下文溢出风险，但会引入摘要子代理调用，污染轮数/token 指标并破坏磁带保真度；131K 端点下不采用。
+**实测反推**（正式 trial，分位数按线性口径 `q=(n-1)p`）：completion tokens 为 `[690, 465, 378, 761, 952, 195, 229]`，p50=465、p95=894.7（配置取 895），4096 触顶 0/7；完整 agent 响应周期 p50=9.43 s、p95=19.07 s，agent 合计 81.65 s，trial 总时长 110.90 s，API 请求耗时合计 74.38 s，峰值上下文为 5,770 tokens。以 900 / 19.07 = 47.2 轮估算，30 轮约占 572.1 秒，保留约 327.9 秒尾部余量，故冻结上述轮数与超时政策。
 
-```bash
-# 先 hello-world 验证 harness 自身
-# （R1/D15）examples/tasks 是 harbor 仓库内路径，pip 安装环境不存在——
-#  要么 clone harbor 仓库取该路径，要么 `harbor tasks init` 造一个本地最小任务
-harbor run -a terminus-2 -m hosted_vllm/gemma4-e4b \
-  --path <harbor仓库>/examples/tasks/ --task-name hello-world \
-  --agent-kwarg api_base=http://localhost:8080/v1 \
-  --agent-kwarg temperature=<模型卡值> \
-  --agent-kwarg max_turns=30 \
-  --agent-kwarg parser_name=json \
-  --agent-kwarg max_format_errors=<定值并记录> \
-  --agent-kwarg enable_summarize=false \        # 或方案(a)：true + model_info + 阈值
-  --jobs-dir outputs/m0_hello
+**关键排障事实更正**：`-lv 4` 中的 `logit bias = -inf` 候选 token 行会在未启用 `--ignore-eos` 时同样出现，不能据此推断 EOG 被抑制。实际重起端点的 `/props` 显示 `ignore_eos=false`，启动命令也未带该旗标；以后只以 `/props` 与实际命令行判定该状态，旧 Pi log 仅保留作 KV/显存历史证据。
 
-# 通过后跑 1 题 TB 2.1（R1/A1：必须带任务过滤，否则跑满全部 89 题）
-harbor run -d terminal-bench/terminal-bench-2-1 -a terminus-2 -m hosted_vllm/gemma4-e4b \
-  --include-task-name "<从 89 题里挑一个轻量题>" \
-  --agent-kwarg api_base=http://localhost:8080/v1 \
-  --agent-kwarg temperature=<同上> --agent-kwarg max_turns=30 \
-  --agent-kwarg max_format_errors=<同上> --agent-kwarg enable_summarize=false \
-  -k 1 --n-concurrent 1 \
-  --jobs-dir outputs/m0_tb_probe
-```
-
-**〔雷区〕排障顺序（补遗 §4.4 + R1 扩一条）**：agent 发不出/解析不了 → ① chat template（`--jinja` + parser_name json↔xml 换一下）；② 上下文不够（`-c` 加到实测上限；若走方案(a)查 `model_info` 是否注册、阈值是否过高）；③ 输出格式 terminus 解析不了（看 `outputs/m0_tb_probe/**/trial_*` 原始交互；format error 计数是否触顶 `max_format_errors`）；④ LiteLLM 对未知模型的 token 核算异常（unknown model 警告行）。
-**〔雷区〕环境**：安装 harbor 会把 `datasets` 升到 ≥4.0——**数据管线（线 C）用独立 venv**。Docker ≥20.10、Compose ≥2.0、Python 3.12。
-**〔雷区〕TB 版本**：W0 已证 2.1 本地可用；仅当当日拉取失败才降 `terminal-bench-2`（89→2.0 小模型分差 ~3pp，降锚不伤主线），记录探测日期。网络抖动不解释为模型失败（补遗 §4.5，W0 同口径）。
-
-**产出**：`outputs/m0_tb_probe` 一题闭环证据；**摘要方案 (a)/(b) 决定 + model_info（若用）+ max_format_errors 值**入 `eval_config.yaml`；链路结论一行入 `docs/m0_eval_base.md`。
+**归档与后续**：`results/` 已整体忽略，仅强制提交本 probe 的 lock.json；结论已写入 `docs/m0_eval_base.md`，相关配置、日志与快照已在提交 `8d0e903` 入库。§3 的锁题和基线尚未开始。32768 现为配置目标，需在独立重起和复检后才可成为评测证据；在此之前，parser、超时、轮数等仍以 4096 实测结论为准。
 
 ---
 

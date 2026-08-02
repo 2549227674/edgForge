@@ -1,6 +1,6 @@
 # EdgeForge M0 §2：线 A · TB 2.1 接自家端点跑通（R1.4 实际执行版）
 
-> 状态：§1–§6 与 §8 已于 2026-08-02 执行；§7 是按需排障、未触发；§9 及后续步骤未执行。本文件是执行前的定案版操作卡，替换原执行卡 §2 中写于端点实测之前的部分。
+> 状态：§1–§6、§8–§10 已于 2026-08-02 执行；§7 是按需排障、未触发。端点在产物入库后已按要求停止。本文件保留实际执行卡与证据索引；现有实测协议为单轮 4096。Pi 对齐的 32768 已恢复为 `eval_config.yaml` 的待重启目标，但尚未用于本线运行或成为证据。
 > 前置：§1 已完成（`eval_config.yaml` 冻结、`logs/m0/` 三份日志在库）。
 > 本节目标不变：跑通 1 题，**不论成败**，只要 agent 发请求 → 收回复 → 执行命令 → verifier 出结果，即算过门。
 > 本节新增的实质工作是端点重起与协议参数定案——原卡假设 §1 的端点状态可直接复用，boot log 落地后该假设不成立（见 0.2）。
@@ -21,21 +21,11 @@
 | harness | **terminus-2 不变** | Pi 方案已评估否决，见 0.3 |
 | 摘要 | `enable_summarize=false`，溢出计为失败，`model_info=null` | R1.3 定案，不复议 |
 
-### 0.2 为什么必须重起服务〔雷区〕
+### 0.2 为什么重起服务并留新证〔事实/雷区〕
 
-`logs/m0/llama_server_pi_c131072_q8_reasoning_unrestricted.log` 中出现：
+本节确实以一条显式、逐旗标可审计的命令重起了服务，并留下 `logs/m0/llama_server_tb_probe_c131072_q8.log`。这避免把此前 Pi 会话日志混入 TB 协议证据。
 
-```text
-common_init_: added <eos> logit bias = -inf
-common_init_: added <|tool_response> logit bias = -inf
-common_init_: added <turn|> logit bias = -inf
-```
-
-对全部 EOG token 加 `-inf` 偏置是 `--ignore-eos` 的打印路径，而 §1 文档记录的启动命令没有该旗标——那份日志来自一次 Pi 会话的实际配置，与文档不一致。
-
-若 §2 沿用同一命令行：模型永远采不到 `<turn|>`，每轮生成到上限，terminus-2 收到超长回复、JSON 解析必崩，而现象长得像"小模型不会按格式吐命令"——**归因错位**。
-
-处置：本节用一条显式写全、逐旗标可审计的命令重起，落**新** boot log；旧日志继续作 §1 的 KV/显存证据，不再兼任 §2 的端点状态证据。
+**更正原先的 EOG 推断**：`-lv 4` 中 `common_init_: added ... logit bias = -inf` 是候选 token bias 的诊断输出，未启用 `--ignore-eos` 时也会出现，不能用其行数判断 EOG 抑制是否生效。实际 TB 端点的启动命令不含 `--ignore-eos`，且 `/props` 返回 `ignore_eos=false`；这是唯一采用的状态证据。旧 Pi 日志仍可作为 KV/显存历史证据，但不再承担 endpoint flag 证明。
 
 ### 0.3 Pi 替换 terminus-2：已评估，否决〔决策留档〕
 
@@ -53,7 +43,7 @@ common_init_: added <turn|> logit bias = -inf
 
 ### 0.4 本节不做〔边界〕
 
-- 不补交 §1.3 引用的 `logs/m0/v1_models_c32768_q8_0.json` / `tools_smoke_c32768_q8_0.json`（本轮决定，不入库）。
+- 不恢复或补交已删除的 32768 临时 smoke 文件；alias 的正式证据为 `logs/m0/v1_models_tb_probe_c131072.json`，tools-API 不属于 terminus-2 过门条件。
 - 不做 harbor 独立钉版动作；`eval_config.harbor.version` 保持 `null`，旗标拼写以当日 `harbor run --help` 为准，运行配置的冻结由 **lock.json** 承担。
 - 不跑成套子集、不锁题单（§3.1）、不跑官方 QAT 锚（§3.3）。
 - 探测题的成败**不得进入 §3.1 选题判据**——与"题单锁定后不因任何模型分数换题"同一条防选择偏差纪律。
@@ -67,7 +57,7 @@ mkdir -p logs/m0 results
 ```
 
 ```bash
-./build/bin/llama-server \
+third_party/llama.cpp/build/bin/llama-server \
   -m models/gguf/gemma4-e4b-it-Q4_K_M.gguf \
   --alias gemma4-e4b \
   -ngl 99 \
@@ -97,8 +87,8 @@ mkdir -p logs/m0 results
 **起服后立刻做三条防呆检查**：
 
 ```bash
-# ① EOG 抑制必须为 0 行
-grep -c 'logit bias = -inf' logs/m0/llama_server_tb_probe_c131072_q8.log
+# ① 直接查看实际生效值；不可由 boot log 的 logit-bias 行反推
+curl -s http://localhost:8080/props | rg 'ignore_eos'
 
 # ② KV 两段仍与冻结值一致（non-SWA 1088.00 + SWA 21.25 = 1109.25 MiB）
 grep -E 'llama_kv_cache: size|creating .*KV cache' logs/m0/llama_server_tb_probe_c131072_q8.log
@@ -107,7 +97,7 @@ grep -E 'llama_kv_cache: size|creating .*KV cache' logs/m0/llama_server_tb_probe
 grep -A3 'sampler params' logs/m0/llama_server_tb_probe_c131072_q8.log | head -20
 ```
 
-① 非 0 即停：`--ignore-eos` 仍在生效，先修命令行再继续。②③ 与 `eval_config.yaml` 冲突时，按仓库纪律**以实测为准并回改配置**。
+① 必须显示 `ignore_eos=false`；否则停下核对实际命令行再继续。②③ 与 `eval_config.yaml` 冲突时，按仓库纪律**以实测为准并回改配置**。
 
 ---
 
@@ -290,7 +280,7 @@ harbor run -d terminal-bench/terminal-bench-2-1 -a terminus-2 -m openai/gemma4-e
 原卡顺序写于 16K 上下文假设下，"上下文不够"曾排第二；131K 端点下该项降至末位，新增两条排在最前。
 
 1. **reasoning_format**：`content` 里是否混进思考文本 → 重跑 §2 的 curl 看 `reasoning_content` 是否分离。这是解析失败的第一嫌疑。
-2. **EOG 抑制**：`grep -c 'logit bias = -inf' <新 boot log>` 是否为 0。非 0 则每轮生成到上限，表现为"模型不会收尾"。
+2. **EOG 状态**：查 `/props` 的 `ignore_eos` 与实际启动命令；不得由 boot log 的 `logit bias = -inf` 行推断。实测应为 `false`。
 3. **chat template / parser_name**：`--jinja` 是否生效；json ↔ xml 换一下（仅在 §4 定案前允许换）。
 4. **单轮上限触顶**：`finish_reason=length` 是否高频、`n_decoded` 是否稳定停在 4096 → 模型没自然收尾，查 template 与 EOG，不要直接调大上限。
 5. **format error 重试**：Harbor 0.18.0 terminus-2 无 `max_format_errors` 计数器；直接看 trajectory 中 `Previous response had parsing errors` / parser `ERROR`，重试上界由冻结的 `max_turns=30` 与 task timeout 给出。warning 不算 error。
@@ -359,6 +349,8 @@ terminal_bench:
 
 ## 9. 产物入库
 
+**已完成（提交 `8d0e903`）**：以下忽略规则、显式快照、配置、日志和结论文档已入库。命令保留为可审计的归档配方，不需重复执行。
+
 `results/` 为 harbor 运行产物目录，整体不入库，只提交显式挑选的快照。`.gitignore` 追加：
 
 ```text
@@ -389,9 +381,11 @@ git commit -m "feat(m0): verify terminus-2 x local endpoint link, freeze agent p
 
 ## 10. 本节产出
 
+**已完成**：以下产物均已生成并按 §9 处理；服务已在归档后停止。
+
 - **链路结论一行**入 `docs/m0_eval_base.md`：探测日期、题名、四段是否齐、成败（成败不作为任何判据）。
 - **协议六项定案**入 `eval_config.yaml`：`parser_name` / `max_turns` / `max_format_errors` / `reasoning_format` / 单轮上限 / 超时与轮数耗尽政策。
-- **端点新证据**：`logs/m0/llama_server_tb_probe_c131072_q8.log`（无 `--ignore-eos`、`min_p=0`、KV 两段与冻结值一致）、`v1_models_tb_probe_c131072.json`、`reasoning_format_check.json`。
+- **端点新证据**：`logs/m0/llama_server_tb_probe_c131072_q8.log`（`min_p=0`、KV 两段与冻结值一致；`ignore_eos=false` 由 `/props` 与启动命令确认）、`v1_models_tb_probe_c131072.json`、`reasoning_format_check.json`。
 - **实测分布四项**：per-turn token / 墙钟 / 总轮数 / 峰值上下文——直接喂 §3.2 的墙钟预算与 §3.1 的选题可行性。
 - **`results/m0_tb_probe/**/lock.json`**：本次探测的官方快照。
 
@@ -403,7 +397,7 @@ git commit -m "feat(m0): verify terminus-2 x local endpoint link, freeze agent p
 
 | 项 | 原卡 | 本版 | 理由 |
 |---|---|---|---|
-| 端点状态 | 复用 §1 | **必须重起并留新证** | 旧 log 带 `--ignore-eos` 嫌疑，与文档命令不符 |
+| 端点状态 | 复用 §1 | **已重起并留新证** | 旧 log 的 logit-bias 行不能诊断 `--ignore-eos`；实际状态由 `/props` 与命令行确认 |
 | `--reasoning-format` | 未提及 | **auto，冻结项** | terminus 只解析 `content`；内联思考必崩 |
 | `--min-p` | 未提及 | **显式 0** | 实测 0.05 在生效但未冻结 |
 | 单轮上限 | 未提及 | **4096，冻结项** | 防单轮跑飞吃掉任务超时 |
