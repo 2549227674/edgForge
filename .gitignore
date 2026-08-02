@@ -17,6 +17,7 @@
 
 # Generated model-conversion and benchmark artifacts.  Commit only the
 # explicitly selected, small reproducibility snapshots (for example lock.json).
+/results/
 *.gguf
 *.rkllm
 

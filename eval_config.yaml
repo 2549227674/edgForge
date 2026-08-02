@@ -36,7 +36,7 @@ model:
 llama_cpp:
   commit: ad8d8219915df8e423768d082d1dccfccb6e8437
   build: 9987
-  binary: ./build/bin/llama-server
+  binary: third_party/llama.cpp/build/bin/llama-server
   # Frozen longitudinal protocol for all M1-M7 candidates: K/V q8_0 at
   # n_ctx=131072.  With 3517 MiB available for KV, f16 needs about 2088 MiB
   # per sequence (one slot), while q8_0 needs 1109 MiB (about three slots).
@@ -45,7 +45,7 @@ llama_cpp:
   # token slots require -c = 131072 * N; -c 131072 --parallel N gives each
   # slot only 131072/N tokens.
   context_size: 131072
-  context_size_source: logs/m0/llama_server_pi_c131072_q8_reasoning_unrestricted.log
+  context_size_source: logs/m0/llama_server_tb_probe_c131072_q8.log
   gpu_layers: 99
   parallel: 1
   jinja: true
@@ -77,8 +77,17 @@ llama_cpp:
     context_mib: 1109
     compute_mib: 711
     free_after_load_mib: 2364
-  kv_cache_log: logs/m0/llama_server_pi_c131072_q8_reasoning_unrestricted.log
+  kv_cache_log: logs/m0/llama_server_tb_probe_c131072_q8.log
   reasoning_mode: unrestricted
+  reasoning_format: auto
+  reasoning_budget: unrestricted
+  ignore_eos: false
+  flash_attn: enabled  # Automatic activation; not an explicit server flag.
+  n_predict_default: 32768  # Target aligned to the Pi global model configuration; live endpoint restart still required.
+  prompt_cache_ram_mib: 8192
+  context_checkpoints_max: 32
+  ttft_convention: cache_warm
+  boot_log_tb_probe: logs/m0/llama_server_tb_probe_c131072_q8.log
   endpoint_validation:
     server_started: true
     prompt_tokens: 5121
@@ -93,21 +102,41 @@ sampling:
   server_temperature: 1.0
   server_top_p: 0.95
   server_top_k: 64
+  server_min_p: 0.0
   server_seed: -1  # random: k=5 samples a distribution; reproducibility comes from job.yaml, lock.json, and the fixed task manifest, not a server seed.
-  terminus_temperature: 1.0  # Required future agent-side setting; not yet harness-verified.
+  server_n_predict: 32768  # Target aligned to the Pi global model configuration; live endpoint restart still required.
+  terminus_temperature: 1.0  # Verified via terminus-2 agent kwargs in the §4–§5 probes.
 
 terminal_bench:
   dataset: terminal-bench/terminal-bench-2-1
-  probe_date: null
+  probe_date: "2026-08-02"
+  probe_task: terminal-bench/kv-store-grpc
+  probe_link_closed: true  # Agent request/reply, container commands, and verifier result all observed in §5 probe.
   task_manifest: null
   smoke_pair: []
   n_attempts: 5
-  parser_name: json
-  max_turns: null
-  max_format_errors: null
+  parser_name: json  # Frozen by 2026-08-02 hello-world json/xml probe; both had 0 parser rejections, so the predeclared tie-break selected json.
+  max_turns: 30  # 900 s / observed 19.07 s p95 = 47.2; keep the lower predeclared guard, about 572 s at observed p95.
+  max_format_errors: null  # Unsupported/no-op in Harbor 0.18.0 terminus-2; retries are bounded by max_turns and task timeout.
+  format_error_policy: bounded_by_max_turns_and_task_timeout
+  agent_max_tokens: 32768  # Endpoint-enforced through llama.cpp n_predict; Terminus 2 has no max_tokens kwarg. Live endpoint restart still required.
+  agent_timeout_policy: task_defined_default
+  agent_timeout_multiplier: 1.0
+  probe_agent_timeout_seconds: 900
+  agent_setup_timeout_multiplier: 3.0
+  turn_exhaustion_policy: fail
   enable_summarize: false
   context_overflow_policy: fail  # Frozen protocol: context overflow is a failure.
   model_info: null  # Fixed null: summarization is disabled.
+  per_turn_tokens_p50: 465
+  per_turn_tokens_p95: 895
+  per_turn_wallclock_s_p50: 9.43
+  per_turn_wallclock_s_p95: 19.07
+  probe_total_turns: 7
+  probe_agent_wallclock_s: 81.65
+  probe_trial_wallclock_s: 110.90
+  peak_context_tokens: 5770
+  litellm_model_string: openai/gemma4-e4b
 
 environment:
   host_os: Linux
