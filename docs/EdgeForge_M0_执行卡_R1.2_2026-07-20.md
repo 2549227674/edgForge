@@ -161,16 +161,55 @@ OpenAI tools-API 不是本线过门条件：terminus-2 从纯文本解析 JSON/X
 
 ---
 
-## 4. 线 A · 指标脚本（半天）〔建议，R1/C13、D19 修订〕
+## 4. 线 A · Agent 指标脚本〔事实·已完成；按 §4 R1.7 同步〕
 
-写 `metrics.py` 从 `traces/` 的 session 文件算四个数：成功率、**terminus 解析格式错误率**、平均修复轮数、每任务 token 消耗。
+**执行状态（2026-08-05）**：已对 `results/baseline_e4b_q4km/*/agent/trajectory.json` 的 100 条真实 trajectory 完成勘察、哈希校验、token 计数与 v2 指标计算；schema 固定为 **B**。旧文“从 `traces/` session 文件算四个数、半天待办”的描述已失效：`traces/` 只保存磁带与 SHA-256 manifest，原始 trajectory 留在被 Git 忽略的 `results/` 目录。本线的完整执行、参考复现和审计 diff 见 `docs/EdgeForge_M0_§4_指标脚本_R1.7_执行终稿.md`。
 
-- **待办**：将“每任务 token”拆为 thinking / answer / tool 三列。thinking 模式开启后 thinking token 会主导总量；不拆列则无法测出工具调用效率的前后变化。
-- **（C13）指标命名必须拆分**：TB 轨迹里测到的是 **terminus parser 格式错误率**（模型吐的 JSON/XML 结构坏，被 terminus 计为 format error——单工具 tmux 机制，不走 tools 字段）；**BFCL 测的才是 tools-API 调用准确率**。两者是不同机制的两列，M1 归因时不得混用。若 §2 走方案 (a)，轮数/token 统计需标注是否含摘要子代理调用。
-- 理由（补遗 §4.1）：100 次二值试验统计功效弱，但里面有上千次结构化调用，后三个指标功效高一个量级，是 M1 之后真正测得出训练前后差异的地方。**（E2）鉴于官方 TB2 锚 ≈2.2%，这四个指标从"归因辅助"升格为主要测量手段**：成功率列保留但预期低信噪（除非 §3.1 可测区间达成），报告叙事以高功效指标为主线。
-- **统计纪律写进脚本注释**：TB 成功率差 <7pp 一律输出"未分辨"。**（D19）加一句：SE≈3.5pp 按 100 次独立试验估，20 题×k=5 为聚簇结构，真实 SE 略大，故 7pp 是下界而非精确线。**
+| 项 | 已执行结果 | 冻结解释 |
+|---|---|---|
+| 输入完整性 | 100/100 trajectory 哈希通过 | 每次重跑仍由 `traces/trajectories_sha256.txt` 强制校验。 |
+| 成功率 | 0/100；按 20 个锁定任务 rule of three，95% 上界 **15%** | 不用 p̂=0 时失真的 Wald SE，也不用“掉分 ≤3pp”作 M1 判据；只判是否出现非零成功。 |
+| parser 两列 | 硬错误 **149/836 = 17.823%**；软警告 **498/836 = 59.569%** | 两列独立，不能相加。硬错误按任务 cluster bootstrap SE **5.93pp**、设计效应约 **20×**；优势是“不在地板上”，不是功效高一个量级。 |
+| 轮数与恢复 | trial 轮数中位数 **6**；7 个达 `max_turns=30`；1 个 `AgentTimeoutError`；42 个 parser 恢复事件中位数 1 轮；未恢复锁定 3 trial | 30 轮是 harness 上限，不是自然结束；这些 trial 的真实所需轮数只能写作 **≥30**。M1 并列比较中位数、达上限数和超时数，不只比较均值。 |
+| reasoning 缺失 | **125/836 = 14.95%**；其中 111 个发生在 parser 接受的短回复上 | 这是模型行为列，不是日志缺陷；thinking token 仅在有字段的 711 条响应上统计。 |
+| token / command | B0 `/tokenize` 端点产出只含计数的 sidecar；残差 `stable=true`（min 1、median 54）；`tool_calls` 1340 次 / 559 个响应，`keystrokes` 字段 446 个响应 | 输出 thinking / message / command-content 三段；`message` 与 command 是 Harbor 规范化视图，不冒充原始响应 JSON。 |
 
-**产出**：`metrics.py` + 基线四指标表（+ replayer 输出的系统指标三列）。
+### 实现与重跑口径
+
+- `metrics.py` 已升级为 `edgeforge-agent-metrics/v2`，写入 `results/baseline_e4b_q4km/agent_metrics.json`，**不改写**历史 `parser_metrics.json`。其内置 v1 回归断言：`--verify-v1` 必须逐位复现 **149 / 498 / 836 / 125**；把临时副本的 hard count 改为 148 时，已验证会按预期以退出码 2 失败。远端参考 JSON 的全部计算值和逐 trial 内容也已逐位复现；唯一差异是远端记录 manifest 路径为 `/tmp/man.txt`，本地为 `traces/trajectories_sha256.txt`。
+- `scripts/count_response_tokens.py` 以同一冻结 B0 GGUF 的 `/tokenize` 端点生成 `token_counts.json`；sidecar 只保存计数、ID 与端点指纹，绝不保存 `reasoning_content`、响应正文或 command 原文。
+- 先运行 token sidecar，再离线计算指标；两阶段命令保留为下一次基线或 M1 的重跑配方：
+
+```bash
+# 阶段一：B0 transient service 若不在当前用户会话，先按 §3 冻结的模型、
+# 131072 context、Q8 K/V、单并发、模板、采样、32768 上限与 8080 端口恢复；
+# 不得更改这些参数。sidecar 只落计数，不落文本。
+python3 scripts/count_response_tokens.py \
+  --input results/baseline_e4b_q4km \
+  --tokenizer-mode endpoint --endpoint http://localhost:8080 \
+  --schema-branch B \
+  --output results/baseline_e4b_q4km/token_counts.json \
+  2>&1 | tee logs/m0/m0_token_counts.log
+
+# 阶段二：离线计算，不需要端点。
+python3 metrics.py \
+  --input results/baseline_e4b_q4km \
+  --job-result results/baseline_e4b_q4km/result.json \
+  --trajectory-manifest traces/trajectories_sha256.txt \
+  --token-sidecar results/baseline_e4b_q4km/token_counts.json \
+  --verify-v1 results/baseline_e4b_q4km/parser_metrics.json \
+  --schema-branch B \
+  --output results/baseline_e4b_q4km/agent_metrics.json \
+  2>&1 | tee logs/m0/m0_agent_metrics.log
+```
+
+### 指标边界与 M1 比较纪律
+
+- **三机制永不混用**：terminus 文本解析 → `agent_metrics.json`；BFCL tools API → `baseline_bfcl.json`；lm-eval → `baseline_lmeval.json`。因此 TB parser 错误率不叫 tools-API 准确率，也不能替代 BFCL 分数。
+- 每个指标必须保留自己的分母：trial 100、锁定任务 20、agent 响应 836、带 reasoning 的响应 711、可用 cache token 响应 835。`premature_complete_rate` 不输出，因为 trajectory 中没有 `task_complete` 字段。
+- M1 按 20 个锁定任务配对比较。成功率贴地板时以“是否出现非零成功”为主；parser 同时报告 pooled 值、per-trial 中位数和聚簇 SE；轮数按“受 30 轮上限截断”解释，不能把 30 当作模型自然结束轮数。
+
+**产物与冻结**：`metrics.py` v2、`scripts/count_response_tokens.py`、`agent_metrics.json`、`token_counts.json`、`logs/m0/m0_agent_metrics.log`、`logs/m0/m0_token_counts.log` 与输入勘察日志已在提交 `9fafc90` 入库；原始 trajectory 不入库。`eval_config.yaml` 已分列记录 v1 parser runner 与 v2 agent runner 的 SHA，B0 主表 agent 列已补齐；官方 QAT-Q4_0 锚尚无 TB 慢档，agent 列保持空白并加脚注，不得以 B0 值代填。
 
 ---
 
@@ -220,7 +259,7 @@ OpenAI tools-API 不是本线过门条件：terminus-2 从纯文本解析 JSON/X
 - [ ] TB 链路跑通 ≥1 题（terminus-2 + 自家端点，非 oracle）
 - [ ] 官方 E4B 基线入主表第一行（TB 20×5 慢档 + BFCL/GSM8K/MMLU/HumanEval 快档 + **replayer 系统指标三列**）
 - [ ] 官方 QAT-Q4_0 锚快档四件入锚区（含 training_lineage/sha 登记；慢档=M6，R1.2）
-- [ ] `metrics.py` + 基线四指标表（parser 错误率与 tools-API 准确率分列）
+- [x] `metrics.py` v2 + B0 agent 指标表/令牌 sidecar 已入库；parser 错误率与 BFCL tools-API 准确率严格分列（§4）
 - [ ] 磁带首批 5–10 盘固化 + 最小 replayer 脚本
 - [ ] 数据七门漏斗表齐 + 去污染声明表 + mix.yaml（带 provenance）+ **sha256 manifest**
 - [ ] 板端转换 smoke 有结论（成败皆记录）

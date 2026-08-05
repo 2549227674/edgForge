@@ -1,12 +1,21 @@
 # Large, reproducible local assets.  Record their hashes and provenance in
 # versioned manifests/configuration; do not commit the assets themselves.
 /data/archive/
+/data/eval/
 /models/
 /third_party/
 /rknn-llm-release-v*.zip
 
+# Local virtual machines and task-specific Python environments.
+/vm/
+/.venv-bfcl/
+/.venv-lmeval/
+
 # Local task transcripts are kept for reference but are not project sources.
 /docs/1.md
+/tmp/
+/logs/w0/
+/tasks/worktrees/
 
 # Python environments and transient tooling state.
 /.venv/
