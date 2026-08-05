@@ -494,7 +494,9 @@ external_anchors:
 
 入库边界保持“**源码/配置/小型冻结件进 Git，大型可再生数据和原始 trajectory 留本地并登记哈希**”：不提交 43 MiB 的 `results/baseline_e4b_q4km/` 全目录、不提交 lm-eval 大型 samples JSONL、不提交 5.3 GiB GGUF 和本地 parquet 数据缓存；这些对象已由 `eval_config.yaml`、结果摘要和 manifest 钉住来源或 SHA-256。中断的 17/22 B0 重放记录只作本地审计，不进入正式冻结集；正式集只接纳完整 22/22、第二遍 11/11 成功的输出。
 
-实际暂存按下列四组精确执行，避免 `git add results/` 或 `git add data/` 把大文件误带入：
+**补充入库（2026-08-05）**：在首次冻结后复核到 B0 的 BFCL 原始输出/评分明细，以及 MMLU、GSM8K、HumanEval 在配置中明确指向的正式或有效 smoke 聚合结果 JSON；其中 BFCL 的两个 `.json` 是逐行 JSON（JSONL）记录。它们先前仅由 `results/baseline_bfcl.json`、`results/baseline_lmeval.json` 和 SHA-256 摘要定位。七个 JSON/JSONL 合计约 672 KiB，均非 samples JSONL；将其逐一强制入库，使远端可直接复核原生 harness 结果，仍不提交任何 samples、原始 trajectory 或 `results/bfcl/.env`。
+
+实际暂存按下列五组精确执行，避免 `git add results/` 或 `git add data/` 把大文件误带入：
 
 ```bash
 git add \
@@ -559,6 +561,16 @@ git add -f \
   results/anchor_official_qat_q4_0/gsm8k_fast_200/gemma4-e4b-qat-q4_0/results_2026-08-05T01-48-40.988614.json \
   results/anchor_official_qat_q4_0/replayer/records.jsonl \
   results/anchor_official_qat_q4_0/replayer/summary.json
+
+# 补充：B0 原生聚合结果（不含 samples JSONL；切勿添加 results/bfcl/ 整目录）。
+git add -f \
+  results/bfcl/result/edgeforge-gemma4-e4b-FC/non_live/BFCL_v4_simple_python_result.json \
+  results/bfcl/score/edgeforge-gemma4-e4b-FC/non_live/BFCL_v4_simple_python_score.json \
+  results/lmeval/mmlu_fast_500_llamacpp_logits/models__gemma-4-E4B-it/results_2026-08-04T22-26-56.630433.json \
+  results/lmeval/mmlu_smoke_5shot_llamacpp_logits/models__gemma-4-E4B-it/results_2026-08-04T21-20-04.183529.json \
+  results/lmeval/gsm8k_fast_200/gemma4-e4b/results_2026-08-04T23-11-46.389008.json \
+  results/lmeval/gsm8k_smoke_fixed/gemma4-e4b/results_2026-08-04T20-46-10.907230.json \
+  results/lmeval/humaneval_smoke_fixed/gemma4-e4b/results_2026-08-04T21-08-20.611861.json
 
 # 原始运行日志保持原样，不因行尾空格/空行篡改证据；
 # whitespace 硬检查覆盖其余全部暂存件。
