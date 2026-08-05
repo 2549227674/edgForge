@@ -399,7 +399,7 @@ BFCL 走 OpenAI `tools` 字段，与 terminus-2 的纯文本解析是**两套机
 | server 侧录制（若 §2.1 触发） | 同上，manifest 入库，原始体积大不入库 |
 | `results/baseline_e4b_q4km/lock.json` | `git add -f` 入库 |
 
-**实际执行记录（2026-08-05）**：已逐项校验 5 盘 `traces/tapes/` 冻结件（合计 11 请求/遍）及其 `source_trajectory_sha256`；每盘 tape 哈希均与其本地 B0 原始 trajectory 一致。`traces/trajectories_sha256.txt` 已扩展为**完整 100 条**保留的 B0 ATIF trajectory 哈希（其中 5 条为磁带源），而非只列磁带源；`traces/tapes/manifest.json` 同时声明该完整 manifest 的路径和条目数。`traces/` 不受 `.gitignore` 影响，供 §10 统一暂存；原始 trajectory 仍在 `results/baseline_e4b_q4km/` 本地保留且按规则忽略，不复制入仓库。§2.1 已实证 Terminus trajectory 可持久化 `reasoning_content`，故未触发 server 侧请求录制；全量基线的 836 个 agent 响应中 711 个有该字段，缺失的 125 个恰为硬 parser-error 记录的原始响应。交接状态与两份 manifest 的 SHA-256 已登记在 `eval_config.yaml.replayer`；实际 `git add` / `git add -f lock.json` 留待 §10，避免提前改变 index。
+**实际执行记录（2026-08-05）**：已逐项校验 5 盘 `traces/tapes/` 冻结件（合计 11 请求/遍）及其 `source_trajectory_sha256`；每盘 tape 哈希均与其本地 B0 原始 trajectory 一致。`traces/trajectories_sha256.txt` 已扩展为**完整 100 条**保留的 B0 ATIF trajectory 哈希（其中 5 条为磁带源），而非只列磁带源；`traces/tapes/manifest.json` 同时声明该完整 manifest 的路径和条目数。`traces/` 不受 `.gitignore` 影响，供 §10 统一暂存；原始 trajectory 仍在 `results/baseline_e4b_q4km/` 本地保留且按规则忽略，不复制入仓库。§2.1 已实证 Terminus trajectory 可持久化 `reasoning_content`，故未触发 server 侧请求录制；全量基线的 836 个 agent 响应中 711 个有该字段。缺失的 125 个**并非**硬 parser-error 响应——与 149 个硬错误的交集仅 14，其余 111 个落在 parser 接受的响应上。该缺失是模型行为（无思考的被接受响应 completion 中位数 110，有思考的 677），非日志缺陷；详见 §4 与 `agent_metrics.json`。交接状态与两份 manifest 的 SHA-256 已登记在 `eval_config.yaml.replayer`；实际 `git add` / `git add -f lock.json` 留待 §10，避免提前改变 index。
 
 ### 8.3 最小 replayer〔C9〕
 

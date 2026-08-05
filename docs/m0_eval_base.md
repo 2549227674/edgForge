@@ -29,11 +29,31 @@ single slot, q8_0 K/V cache, `n_predict=32768`.
 | Cache-warm TTFT p50 / p95 | 349.459 / 1762.491 ms |
 | Cache-warm throughput p50 | 52.029 tok/s |
 | Cache-warm TPOT p50 | 19.220 ms/token |
+| Parser hard-error cluster SE / design effect | 5.929pp / 20.064× |
+| Parser hard-error per-trial median / zero-hard trials | 0 / 64 of 100 |
+| Turns per trial, median / restricted mean / censored at 30 | 6.0 / 8.36 / 7 |
+| Parser recovery events, median turns / lock-in trials | 42, 1.0 / 3 |
+| No-reasoning responses | 125/836 (14.952%) |
+| Completion / prompt tokens per trial, median | 5801 / 19831.5 |
+| Cached-token share per response, median (n=835) | 81.613% |
+| Thinking / message / command-content tokens, response median | 273 (n=711) / 159 / 4 |
+| Harbor tool calls | 1340 across 559 turns (2.397 per tool-call turn) |
 
 TB failure classes F1/F2/F3/F4 are 92/7/1/0; `finish_reason=length` is 0.
 Per-trial peak-context p50/p95 is 6292.5/22340.55 tokens. The final 5-task
 sanity was 0/5; the list was frozen after one swap round as predeclared, so
 the score is retained rather than selecting tasks until it rises.
+
+Agent-metric notes: (1) 0/100 success is reported with the task-clustered
+rule-of-three upper 95% bound of 15%, rather than a Wald SE of zero. (2) Parser
+hard/soft rates remain disjoint 149/836 and 498/836; the hard rate's clustered
+SE is the reportable uncertainty, while the 1.324pp naive binomial SE is marked
+do-not-cite. (3) `reasoning_content` is absent on 125 responses, including 111
+parser-accepted short completions (median 110 tokens versus 677 with reasoning),
+so it is a model-behaviour signal, not a logging gap. (4) F1 means zero reward
+without turn exhaustion or agent timeout; it is not a `task_complete`-derived
+"premature completion" rate. Token segment counts are Harbor-normalized views;
+the positive branch-B residual is stable (min 1, median 54 tokens).
 
 ## Official QAT-Q4_0 deployment anchor
 

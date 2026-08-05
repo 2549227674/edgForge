@@ -44,7 +44,7 @@ PURPOSES = {
     "m0_baseline_job.yaml": "B0 TB 20 题 × 5 的 Harbor job 定义。",
     "m0_allowlist_check.yaml": "WSL allowlist 检查配置。",
     "m0_allowlist_check_vm.yaml": "原生 Ubuntu VM allowlist 检查配置。",
-    "metrics.py": "从 B0 ATIF trajectory 计算 parser 指标。",
+    "metrics.py": "从 B0 ATIF trajectory 计算 parser 与 agent 指标。",
     "docker": "TB agent 预热镜像的 Dockerfile。",
     "scripts": "冻结 manifest/磁带、评测和回放的可执行源码。",
     "tasks": "lm-eval 自定义 GSM8K、HumanEval、MMLU task 定义。",
@@ -190,8 +190,8 @@ def main() -> None:
 
     print("# 本地项目目录索引")
     print()
-    print(f"> 生成时间：`{now}`  ")
-    print(f"> 基准提交：`{head}`  ")
+    print(f"> 生成时间：`{now}`")
+    print(f"> 基准提交：`{head}`")
     print("> 目的：让远程仓库读者了解此工作区的目录结构、用途以及哪些对象只保留在本地。"
     )
     print()

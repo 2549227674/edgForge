@@ -179,8 +179,14 @@ terminal_bench:
 
 metrics:
   parser_source: terminus_2_atif_trajectory
-  parser_runner: metrics.py
-  parser_runner_sha256: 1e3d19bb54db8843488b8686269ab57cd20b3b8ca2b8752fe10ff88ccd9bef8a
+  parser_runner_sha256_v1: 1e3d19bb54db8843488b8686269ab57cd20b3b8ca2b8752fe10ff88ccd9bef8a
+  agent_runner: metrics.py
+  agent_runner_sha256: ce939347ec9fa159b7b9120054931e2d15f611393b55ec4c5c936c81389d96b4
+  agent_result: results/baseline_e4b_q4km/agent_metrics.json
+  agent_result_sha256: 9b2fefd29290c11945ca19c4d3631e9a56ed4f08f2f010c0681aec11e6b119ef
+  schema_branch: B
+  input_probe: logs/m0/m0_input_probe.json
+  v1_regression_check: passed
   parser_input: results/baseline_e4b_q4km
   parser_trajectory_files: 100
   parser_result: results/baseline_e4b_q4km/parser_metrics.json
@@ -197,6 +203,38 @@ metrics:
     separate columns. The soft numerator excludes rejected responses, including
     the 125 hard parser errors that also carried an extra-text warning. These
     text-parser metrics must not be combined with BFCL OpenAI-tools accuracy.
+  cluster_unit: task
+  cluster_bootstrap_draws: 4000
+  cluster_bootstrap_seed: 0
+  parser_hard_error_rate_cluster_se: 0.05928809903738477
+  parser_hard_error_rate_design_effect: 20.063693200877402
+  parser_hard_error_rate_per_trial_median: 0.0
+  trials_with_zero_hard_errors: 64
+  naive_binomial_se_policy: computed_but_not_citable
+  success_rate_zero_ci_method: rule_of_three_over_tasks
+  success_rate_95_upper_bound: 0.15
+  m1_comparison_design: task_paired_over_20_locked_tasks
+  turns_per_trial_median: 6.0
+  turns_restricted_mean_at_30: 8.36
+  turns_censored_at_max_turns: 7
+  turns_censored_by_agent_timeout: 1
+  parser_recovery_events: 42
+  parser_recovery_turns_median: 1.0
+  unrecovered_lockin_trials: 3
+  no_reasoning_rate: 0.14952153110047847
+  no_reasoning_count: 125
+  reasoning_absence_interpretation: model_behavior_not_logging_gap
+  completion_tokens_with_reasoning_median: 677
+  completion_tokens_absent_accepted_median: 110
+  f1_semantics: zero_reward_not_turn_exhausted_not_timeout
+  premature_complete_rate: not_computed_no_task_complete_field
+  token_sidecar: results/baseline_e4b_q4km/token_counts.json
+  token_sidecar_sha256: 53142c20cafb2a17b341b5d0f94e944cd9d631163ce33e4bf5ccac0a3b4bab55
+  tokenizer_source: llama_server_tokenize_endpoint_same_gguf
+  thinking_tokens_denominator: 711
+  cached_token_share_denominator: 835
+  cached_tokens_missing_step: pypi-server__H4HV8jE:step2
+  token_split_residual_stable: true
 
 environment:
   host_os: Linux
@@ -419,7 +457,14 @@ replayer:
     reasoning_content_coverage:
       baseline_agent_response_attempts: 836
       persisted: 711
-      absent_on_hard_parser_error_steps: 125
+      absent_steps: 125
+      # Corrected 2026-08-05: the 125 absent steps are NOT the hard-parser-error
+      # steps. Overlap with the 149 hard errors is only 14; 111 absent steps are
+      # on parser-ACCEPTED responses. The absence is model behaviour (absent-
+      # accepted completions median 110 vs 677 with reasoning), not a logging gap.
+      absent_on_accepted_responses: 111
+      absent_on_hard_error_responses: 14
+      hard_error_responses_total: 149
     staging: completed_in_section_10
 
 external_anchors:

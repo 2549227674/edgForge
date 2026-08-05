@@ -1,0 +1,94 @@
+{
+  "schema_version": "edgeforge-input-probe/v1",
+  "probe_date": "2026-08-05",
+  "repo": {
+    "head_commit": "fd1a05bdd11a11cd714cd9556efd0a32dfb996ce",
+    "index_basis_commit": "57b6f99",
+    "index_stale": true,
+    "worktree_dirty": true
+  },
+  "input_integrity": {
+    "manifest_entries": 100,
+    "hash_ok_count": 100,
+    "hash_failed": []
+  },
+  "trial_layout": {
+    "trial_dirs": 100,
+    "files_total": 1010,
+    "per_trial_file_layout": {
+      "agent/recording.cast": 100,
+      "agent/terminus_2.pane": 100,
+      "agent/trajectory.json": 100,
+      "artifacts/manifest.json": 100,
+      "config.json": 100,
+      "lock.json": 100,
+      "result.json": 100,
+      "trial.log": 100,
+      "verifier/reward.txt": 100,
+      "verifier/test-stdout.txt": 100
+    },
+    "candidate_raw_request_logs": []
+  },
+  "trajectory_schema": {
+    "agent_steps_total": 836,
+    "root_keys": {
+      "schema_version": 100,
+      "session_id": 100,
+      "agent": 100,
+      "steps": 100,
+      "final_metrics": 100
+    },
+    "agent_step_keys": {
+      "step_id": 836,
+      "timestamp": 836,
+      "source": 836,
+      "model_name": 836,
+      "message": 836,
+      "reasoning_content": 711,
+      "tool_calls": 559,
+      "observation": 836,
+      "metrics": 836
+    },
+    "metrics_keys": {
+      "prompt_tokens": 836,
+      "completion_tokens": 836,
+      "cached_tokens": 835
+    },
+    "raw_body_field": null,
+    "reasoning_field": "steps[].reasoning_content",
+    "task_complete_field": null
+  },
+  "branch": {
+    "selected": "B",
+    "rationale": "711/836 条 agent step 有 steps[].reasoning_content，但未保存含 commands 数组的原始模型响应体。steps[].tool_calls 是 559 条的规范化结构，不能还原原始 commands JSON；task_complete 亦无结构化字段。"
+  },
+  "missing_reasoning_identity": {
+    "s_missing": 125,
+    "s_hard": 149,
+    "s_hard_warn": 125,
+    "intersection": 14,
+    "missing_not_hard": 111,
+    "hard_not_missing": 135,
+    "verified": false,
+    "suggested_field_rename": "reasoning_content_absent_steps（并将其与硬解析错误关系另列核验；不应继续断言 absent_on_hard_parser_error_steps）"
+  },
+  "frozen_value_recheck": {
+    "parser_counts_identical": true,
+    "f1": 92,
+    "f2": 7,
+    "f3": 1,
+    "f4": 0,
+    "success_rate": 0.0,
+    "all_reproducible": true
+  },
+  "tokenizer_paths": {
+    "b0_service_active": false,
+    "tokenize_endpoint_ok": false,
+    "llama_tokenize_binary_present": true,
+    "hf_tokenizer_present": true
+  },
+  "blockers": [
+    "分支为 B：原始响应体及 commands 数组未留存，§4 的列集需改为 B 分支并在改 eval_config token 字段名前取得远端确认。",
+    "reasoning_content 缺失集合与硬解析错误集合不相符：|S_missing|=125、|S_hard_warn|=125，但交集仅 14；且 S_missing 中有 111 条不在 S_hard。已冻结字段 absent_on_hard_parser_error_steps 的身份断言被推翻，须停下回传。"
+  ]
+}
