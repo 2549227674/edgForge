@@ -138,9 +138,9 @@ OpenAI tools-API 不是本线过门条件：terminus-2 从纯文本解析 JSON/X
 
 ---
 
-## 3. 线 A · 锁题 + 镜像预拉 + 官方基线（1–2 天，主要是等）〔建议+事实〕
+## 3. 线 A · 锁题 + 镜像预拉 + 官方基线〔事实·已完成〕
 
-**实际执行回填（2026-08-05，本块优先于下方保留的原计划）**：详细命令、排障过程和哈希见 `docs/EdgeForge_M0_§3_锁题与官方基线_R1.4_实际执行版.md`；本节只保留可供后续里程碑直接引用的冻结结论。
+**实际执行状态（2026-08-05，已完成）**：详细命令、排障过程和哈希见 `docs/EdgeForge_M0_§3_锁题与官方基线_R1.4_实际执行版.md`；本节只保留可供后续里程碑直接引用的冻结结论。
 
 | 环节 | 实际结果 | 冻结件 / 说明 |
 |---|---|---|
@@ -157,54 +157,7 @@ OpenAI tools-API 不是本线过门条件：terminus-2 从纯文本解析 JSON/X
 
 **统计口径提醒**：TB 成功率已贴地板，后续主要看 parser、轮数/token 和系统列；BFCL `simple_python` 与官方 overall 66.6% 不是同一 scope；HumanEval 0/5 虽是有效 smoke 分数，但样本量不足以作正式基线。
 
-**以下 3.1–3.4 保留为原计划和决策来源；若与上述实际回填冲突，以回填和 R1.4 实际执行版为准。**
-
-**3.1 选题〔建议〕**：列 TB 2.1 全部 89 任务，手筛 20 个（`[未复核]` 20 这个数）——判据：不需要 GPU、单容器不过大、本地几分钟级可完成、**（R1/D17）运行期不依赖外网下载，或其 pip/apt 依赖可并入预拉**（"镜像预拉"只覆盖容器镜像，task 内下载是网络纪律的另一个漏点）。参考 TB 官方 empirical difficulty 优先 Easy/Medium；**（E1）选题显式目标 = 让官方 E4B 基线落在可测区间（子集成功率 15–30% 一带）**——官方发布图 E4B 在 TB2 全集仅 ≈2.2%（前代 0.0%），随机取题会让成功率贴地板、before/after 在该列失效。因此锁定动作分两步：手筛 20 题后，**仅由 B0-PTQ-Q4KM（基线本尊）**对其中 3–5 题各跑 1 次做量级 sanity（半小时级），基线明显 <10% 则回换更容易的题；**sanity 通过后清单锁定、从此不改，且不因官方 QAT 锚或任何其他模型的分数回头换题**（防选择偏差污染，R1.2）。选完：① `docker pull` 全部镜像预拉；② **20 个 task 写进 `m0_baseline_job.yaml`**（见 3.2，取代"手抄 ID 进 eval_config"）；③ 挑 2 个最快的标为烟测对。
-
-**3.2 官方 E4B 基线（before 列，主表第一行）〔事实，R1/A1 重写〕**：
-
-冻结载体改用 harbor 原生机制：job 是一个 YAML 文件（dataset/agent/model/task/`n_attempts` 全字段），`harbor run -c <yaml>` 运行；**解析后的 JobConfig 持久化为 job 目录内 lock.json**——它就是"一条可重复命令挂快照"的官方实现，`eval_config.yaml` 挂其指针即可。
-
-```yaml
-# m0_baseline_job.yaml（骨架，字段名以当日 harbor 文档为准）
-job_name: baseline_e4b_q4km
-jobs_dir: results/
-n_attempts: 5
-# dataset: terminal-bench/terminal-bench-2-1 + 20 个 task 的显式清单
-# agent: terminus-2 + §2 冻结的全部 agent_kwargs（api_base/temperature/max_turns/
-#        parser_name/max_format_errors/enable_summarize[/model_info]）
-# n_concurrent: 1（串行，网络纪律）
-```
-
-```bash
-harbor run -c m0_baseline_job.yaml          # 20 题 × k=5 × 串行
-# 中断后续跑：
-harbor jobs resume -p results/baseline_e4b_q4km/
-```
-
-**待办（基线完成后）**：从 trajectory 记录每题峰值上下文占用（零额外成本）。该分布同时决定 M2 板端 `max_context_len` 与 §3.4 的磁带上下文档位。
-
-预期量级（E1 修正）：台账"小模型 TB ~15%"是通用小模型锚；官方发布图给出 E4B @TB2 全集 ≈2.2%（前代 0.0%）——不做 §3.1 的可测区间控制，100 试验可能只有 0–2 个成功、成功率列贴地板。目标：子集基线落在 15–30%（对应 100 试验 15–30 个成功，SE≈3.5–4.6pp；聚簇修正见 §4）——这就是 before。若 sanity 后基线仍偏低，成功率列如实记录、不硬拗，测量重心按 §4 移到四个高功效指标。**所有 session/trajectory 文件保留进 `traces/`，不删**（快档指标来源 + 磁带素材 + kernel shape 采样源）。
-
-**3.3 快档基线（R1/A3、B6、C10 修订）**：
-- **BFCL 工具调用准确率**〔网核〕：`pip install bfcl-eval`（勿混淆 PyPI 上无关的 `bfcl` 包；CalVer 锁版记进 config）。**PyPI 安装必须设 `BFCL_PROJECT_ROOT`**（结果/配置存放位置，.env 在 `$BFCL_PROJECT_ROOT/.env` 下查找）——不设则结果埋进 site-packages。本地端点：`--skip-server-setup` + .env 里 `VLLM_ENDPOINT`/`VLLM_PORT` 或 `REMOTE_OPENAI_BASE_URL=http://localhost:8080/v1`（+ `REMOTE_OPENAI_API_KEY` 给 dummy key，社区有 401 先例）；**模型名按 BFCL 支持列表对好 handler**（`[未复核]`，与 category 清单一并锁定）。`--test-category` 选非 live 子集起步（单轮 AST 评分，分钟级，量化退化金丝雀）。**（E2）校准锚：官方发布图 E4B @BFCL ≈66.6%（+0.5）**——M0 快档基线与其量级严重偏离时（非 live 子集与配置差异会带来偏差，但量级应对得上），先怀疑 handler/模板配置而非模型。该数与 TB2 ≈2.2% 一并记入 `eval_config.yaml` 新增 `external_anchors:` 段（值+出处=官方发布图+采录日期）。
-- **lm-eval**〔网核〕：钉版本（commit + task 版本）。**任务→端点映射不可自由选**：
-  - **MMLU（loglikelihood/MCQ）只能走 `local-completions`**——官方文档明确 chat-completion 端点不支持 loglikelihood 类任务；base_url 写全路径 `http://localhost:8080/v1/completions`，指定 tokenizer（loglikelihood 必需），instruct 模型加 `--apply_chat_template`。
-  - GSM8K / HumanEval（生成式）：`local-chat-completions` 指 `.../v1/chat/completions` 即可。
-  - **HumanEval 需显式 `--confirm_run_unsafe_code`**（代码执行任务强制开关）。
-  - **API 模式 max_length 默认仅 2048**——GSM8K CoT + thinking 模板下必炸，显式调大并与 `-c` 实测值对齐后记入 config；`num_concurrent=1` 与 server `--parallel 1` 匹配。
-  - **（R1/C10）MMLU 抽样清单在 D2 冻结**（起步 500–1000 题〔建议〕），门⑤去污染按该清单扫；若不愿提前定，门⑤改扫 MMLU 全量。GPQA-Diamond 不跑（4B 贴地板）。
-
-**（E3）选型附注——tau2-bench 已考虑未选**：官方发布图另一半（Tau2 Retail/Airline/Telecom 三域，测"模拟用户对话 + 工具使用 + 政策遵循"中间层）不入本项目：① 需要模拟用户 LLM 在环，引入 API 成本 + 一个**无法冻结的评测组件**（模拟器换版本分数即漂，与"全程冻结协议"直接冲突）；② 客服对话域与终端 agent 部署叙事不贴。此结论建议同步进蓝图 §1 决策表（作"为何不跑官方 benchmark 组合"的面试现成答案）。另注：发布图 "TB2 (Agents)" 的括号是能力类别标注，非官方子集——TB 2.1 无 agents 子集，只有任务级难度/类别元数据（即 §3.1 选题所用维度）。
-
-**官方 QAT-Q4_0 锚快档（R1.2 新增，约 1–2h，零下载）**：在盘官方 `qat-q4_0-gguf` 以独立 alias（`gemma4-e4b-qat-q4_0`）起服务，过四件：① endpoint smoke（`/v1/models` + tools 请求）；② BFCL 同 category 子集；③ GSM8K 快抽样；④ §3.4 磁带回放取系统指标。结果入 `results/anchor_official_qat_q4_0/`，登记进 eval_config `external_anchors` 区（非主表 before 行）。**慢档（TB 20×5）明确不在 M0 跑**——定于 M6 三点对照时与"我的 QAT Q4_0""我的 PTQ Q4_0"同场同鲜落成。协议参数（题单/采样/上下文/模板/agent kwargs）与基线完全一致，仅 alias 与模型文件不同。
-
-**产出**：`results/baseline_e4b_q4km/`（lock.json + 逐 trial 结果）；`results/baseline_bfcl.json`、`results/baseline_lmeval.json`；`results/anchor_official_qat_q4_0/` 快档四件；主表第一行（官方 Q4_K_M @PC）+ 锚区一行（官方 QAT-Q4_0，标注 training_lineage）。
-
-**3.4 磁带首批固化 + 最小 replayer（R1/B8、C9 重写）〔建议，加半天〕**：
-- 从 3.2 的 trajectory 里挑 5–10 条固化成 replay 磁带（含 repeated-prefix 场景；上下文档位由基线跑出的真实任务上下文分布确定），存 `traces/tapes/`。**磁带唯一来源 = B0-PTQ-Q4KM 的轨迹（R1.2）**：固化一次后，同一批磁带回放所有模型（含官方 QAT 锚与后续全部 candidate），不得按各模型自己的成功轨迹分别选带——负载定死，模型文件才是唯一变量。
-- **保真度（B8，R1.3 已消解）**：`enable_summarize=false`，轨迹天然线性，不再依赖 `linear_history` / `raw_content` 经 `--agent-kwarg` 透传，也无需因此改走 server 侧请求日志录制。
-- **最小 replayer（C9）**：蓝图主表列含 TTFT/TPOT/吞吐，快档第①项就是磁带回放——初版卡"只固化不扫描"导致基线行系统指标列无产出路径。**R1 决定：M0 加半天写最小 replayer**（读磁带逐条重发请求、记 TTFT/TPOT/总吞吐；不做扫描矩阵，只对官方 E4B 跑一遍补齐第一行）。若进度崩，退回初版方案：第一行系统列留空 + 主表脚注"M1 补测"，但该决定要写进 m0_summary。
+**历史计划留档**：原 3.1–3.4 的计划、备选方案与决策演进不再重复保留在当前执行卡正文；详细实际命令、排障过程及“原卡 → 实际执行”的逐项差异见 R1.4 实际执行版，原始计划文本可由 Git 历史追溯。
 
 ---
 
