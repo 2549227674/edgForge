@@ -4,8 +4,8 @@
 
 project:
   milestone: M0
-  frozen_date: null
-  status: draft
+  frozen_date: "2026-08-05"
+  status: frozen_with_declared_humaneval_gap
 
 # B0 is the longitudinal "before" model.  Its lineage must not be conflated
 # with the separately registered official QAT Q4_0 anchor below.
@@ -83,11 +83,12 @@ llama_cpp:
   reasoning_budget: unrestricted
   ignore_eos: false
   flash_attn: enabled  # Automatic activation; not an explicit server flag.
-  n_predict_default: 32768  # Target aligned to the Pi global model configuration; requires endpoint restart before measurement.
+  n_predict_default: 32768  # Active baseline endpoint, restarted 2026-08-03 before measurement.
   prompt_cache_ram_mib: 8192
   context_checkpoints_max: 32
   ttft_convention: cache_warm
   boot_log_tb_probe: logs/m0/llama_server_tb_probe_c131072_q8.log
+  baseline_boot_log: logs/m0/llama_server_baseline_c131072_q8_n32768.log
   endpoint_validation:
     server_started: true
     prompt_tokens: 5121
@@ -104,7 +105,7 @@ sampling:
   server_top_k: 64
   server_min_p: 0.0
   server_seed: -1  # random: k=5 samples a distribution; reproducibility comes from job.yaml, lock.json, and the fixed task manifest, not a server seed.
-  server_n_predict: 32768  # Target aligned to the Pi global model configuration; requires endpoint restart before measurement.
+  server_n_predict: 32768  # Active baseline endpoint, restarted 2026-08-03 before measurement.
   terminus_temperature: 1.0  # Verified via terminus-2 agent kwargs in the §4–§5 probes.
 
 terminal_bench:
@@ -112,14 +113,14 @@ terminal_bench:
   probe_date: "2026-08-02"
   probe_task: terminal-bench/kv-store-grpc
   probe_link_closed: true  # Agent request/reply, container commands, and verifier result all observed in §5 probe.
-  task_manifest: null
-  smoke_pair: []
+  task_manifest: m0_baseline_job.yaml
+  smoke_pair: [nginx-request-logging, count-dataset-tokens]
   n_attempts: 5
   parser_name: json  # Frozen by 2026-08-02 hello-world json/xml probe; both had 0 parser rejections, so the predeclared tie-break selected json.
   max_turns: 30  # 900 s / observed 19.07 s p95 = 47.2; keep the lower predeclared guard, about 572 s at observed p95.
   max_format_errors: null  # Unsupported/no-op in Harbor 0.18.0 terminus-2; retries are bounded by max_turns and task timeout.
   format_error_policy: bounded_by_max_turns_and_task_timeout
-  agent_max_tokens: 32768  # Endpoint-enforced through llama.cpp n_predict; Terminus 2 has no max_tokens kwarg; requires endpoint restart before measurement.
+  agent_max_tokens: 32768  # Endpoint-enforced through active llama.cpp n_predict; Terminus 2 has no max_tokens kwarg.
   agent_timeout_policy: task_defined_default
   agent_timeout_multiplier: 1.0
   probe_agent_timeout_seconds: 900
@@ -132,11 +133,70 @@ terminal_bench:
   per_turn_tokens_p95: 895
   per_turn_wallclock_s_p50: 9.43
   per_turn_wallclock_s_p95: 19.07
+  per_turn_distribution_note: >-
+    p50/p95 measured under a non-binding 4096 cap (0/7 turns reached it;
+    max observed 952 tokens). The distribution is a model property, not a
+    cap artifact, so it is not re-measured after raising n_predict to 32768.
+    Falsifier: any finish_reason=length observed at 32768 invalidates this
+    claim and requires re-deriving max_turns.
   probe_total_turns: 7
   probe_agent_wallclock_s: 81.65
   probe_trial_wallclock_s: 110.90
   peak_context_tokens: 5770
   litellm_model_string: openai/gemma4-e4b
+  baseline_result: results/baseline_e4b_q4km/result.json
+  baseline_result_sha256: e71292d3f344eae857a8f68711a81759d28febc3832f4d30cac79ee90b11f17c
+  baseline_trials: 100
+  baseline_successes: 0
+  baseline_success_rate: 0.0
+  finish_reason_length_turns: 0
+  finish_reason_length_evidence: >-
+    Across 836 recorded agent responses, the largest completion was 7428
+    tokens, below the endpoint-enforced 32768 limit; the baseline server log
+    also has 1673 slot releases with truncated = 0. No response reached the
+    generation or context ceiling.
+  failure_breakdown:
+    f1_verifier_zero: 92
+    f2_turn_exhausted: 7
+    f3_agent_timeout: 1
+    f4_infrastructure_rerun: 0
+    accounting_note: >-
+      F1 excludes the seven no-task-complete trajectories that exhausted the
+      30-turn guard and the one AgentTimeoutError, making the four classes
+      mutually exclusive and exhaustive over 100 baseline trials.
+  task_selection_swap_rounds: 1
+  task_selection_note: >-
+    The final five-task sanity pass is recorded as m0_tb_sanity_round2;
+    after one replacement round, the 20-task manifest was locked without
+    further score-conditioned changes.
+  sanity_subset_trials: 5
+  sanity_subset_successes: 0
+  sanity_subset_success_rate: 0.0
+  sanity_subset_result_root: results/m0_tb_sanity_round2
+  baseline_peak_context_tokens_p50: 6292.5
+  baseline_peak_context_tokens_p95: 22340.55
+  baseline_peak_context_quantile_method: inclusive_linear_over_per_trial_max_prompt_tokens
+
+metrics:
+  parser_source: terminus_2_atif_trajectory
+  parser_runner: metrics.py
+  parser_runner_sha256: 1e3d19bb54db8843488b8686269ab57cd20b3b8ca2b8752fe10ff88ccd9bef8a
+  parser_input: results/baseline_e4b_q4km
+  parser_trajectory_files: 100
+  parser_result: results/baseline_e4b_q4km/parser_metrics.json
+  parser_result_sha256: 4903c43da896f2a36959162664d33c715bbc86f5c852c411aa8bab76eae1c408
+  parser_response_denominator: 836  # Every source=agent ATIF step.
+  parser_hard_error_count: 149
+  parser_hard_error_rate: 0.17822966507177032
+  parser_soft_warning_count: 498
+  parser_soft_warning_rate: 0.5956937799043063
+  parser_soft_warning_scope: accepted_responses_only
+  parser_hard_error_with_extra_text_warning_count: 125
+  parser_metric_note: >-
+    Both rates use all agent response attempts as their denominator and are
+    separate columns. The soft numerator excludes rejected responses, including
+    the 125 hard parser errors that also carried an extra-text warning. These
+    text-parser metrics must not be combined with BFCL OpenAI-tools accuracy.
 
 environment:
   host_os: Linux
@@ -150,42 +210,153 @@ environment:
   system_ram_mib: 15687
 
 harbor:
-  version: null
+  version: "0.18.0"
   baseline_job: m0_baseline_job.yaml
-  lock_json: null
+  baseline_job_sha256: 8a0edb921eb95f121e61ec980b25f20db7f479f633c956397c6cff5508508e9b
+  lock_json: results/baseline_e4b_q4km/lock.json
+  lock_json_sha256: 29d579000a63faa4717b824efdb3a4b968a8931bceabe2ef9acd963e1a202bd0
 
 lm_eval:
-  version: null
+  version: "0.4.9.1"
+  release_tag: v0.4.9.1
+  release_tag_commit: d021bf846218f1bb3bdc0603864789329476d464
+  installed_package_git_hash: 275d43e
+  transformers_version: "5.14.1"
+  runner: scripts/run_lm_eval.py
   num_concurrent: 1
   apply_chat_template: true
   tasks:
     mmlu:
-      endpoint: local-completions
-      task_version: null
-      manifest: null
+      endpoint: llama_cpp_prompt_loglikelihood
+      endpoint_url: null
+      task: edgeforge_mmlu_fast_500
+      task_definition: tasks/edgeforge_mmlu_fast/edgeforge_mmlu_fast_500.yaml
+      task_version: "1.0-edgeforge-fast-500"
+      manifest: manifests/mmlu_fast_500.json
+      manifest_sha256: 53819e8860712011bcc0df483a5aef2f9dd303a68fb83e318084b5b73c00185b
+      manifest_generator: scripts/freeze_lmeval_fast_manifests.py
+      manifest_generator_sha256: e14277b8772c390308c97021d481d7f614026cd8bbb7589d4e0bef5e394a4c9d
+      data_revision: c30699e8356da336a370243923dbaf21066bb9fe
+      data_root: data/eval/mmlu/cais_mmlu
+      data_fetch_log: logs/m0/m0_fetch_mmlu_pinned.log
+      formal_fast_samples: 500
+      formal_fast_selection: seeded_stratified_by_subject
+      formal_fast_status: complete
+      formal_fast_accuracy: 0.598
+      formal_fast_accuracy_stderr: 0.0200325794339127
+      formal_fast_result: results/lmeval/mmlu_fast_500_llamacpp_logits/models__gemma-4-E4B-it/results_2026-08-04T22-26-56.630433.json
+      formal_fast_result_sha256: c710eb8c8f5ea035d076c7935da2b4aa00092722e6698a18ea609753b7309771
+      formal_fast_samples_sha256: 1305d41279b370eab5b02f5807eecbe64b74232042d34ed2a3c4b9a17723b329
+      formal_fast_log: logs/m0/m0_lmeval_mmlu_fast_500_llamacpp_logits.log
       num_fewshot: 5
-      tokenizer: null
-      max_length: null
+      tokenizer: models/gemma-4-E4B-it
+      max_length: 32768
+      scorer_source: scripts/llama_loglikelihood.cpp
+      scorer_source_sha256: 82eea2aadb0a585080dddffbc241c1b09b6d7a88c9f003e27dfedad6b0afd1bf
+      lm_eval_adapter: scripts/edgeforge_llamacpp_loglikelihood.py
+      lm_eval_adapter_sha256: 8f3aba5c00d59d725b97dc5615361628a387870f9e1fdda1e6749be01dae1e52
+      scorer_binary: third_party/llama.cpp/build/bin/edgeforge-llama-loglikelihood
+      scorer_binary_sha256: 9115aee798dec4a6be3bc226c07085f018953281a98a024c863db7a05c8107e8
+      scorer_llama_cpp_commit: ad8d8219915df8e423768d082d1dccfccb6e8437
+      scorer_n_batch: 16384
+      smoke_samples: 5
+      smoke_accuracy: 0.2
+      smoke_result: results/lmeval/mmlu_smoke_5shot_llamacpp_logits/models__gemma-4-E4B-it/results_2026-08-04T21-20-04.183529.json
+      smoke_result_sha256: d2535f31ba7d374fb66b8cc5d148672b2713f8ec6a340ebc38c9b7df3793f587
+      smoke_samples_file: results/lmeval/mmlu_smoke_5shot_llamacpp_logits/models__gemma-4-E4B-it/samples_mmlu_college_mathematics_2026-08-04T21-20-04.183529.jsonl
+      smoke_samples_sha256: d16a3f7e4794486c9e05273f5a5a136a3c576715b30a4d7b07b6a241fbc1c3a3
+      smoke_log: logs/m0/m0_lmeval_mmlu_smoke_5shot_llamacpp_logits.log
+      status: formal_fast_complete
+      prior_failed_smoke_log: logs/m0/m0_lmeval_mmlu_smoke.log
+      endpoint_diagnostic_log: logs/m0/m0_lmeval_mmlu_logprob_diagnostic.log
+      resolved_blocker: >-
+        llama.cpp /v1/completions emits generated-token logprobs.content but
+        not echo prompt token_logprobs/top_logprobs, so lm-eval cannot calculate
+        MCQ loglikelihood. A pinned in-process llama.cpp scorer now returns the
+        continuation-token logits to lm-eval while retaining the same GGUF,
+        chat template, tokenizer, context settings, and llama.cpp commit.
     gsm8k:
       endpoint: local-chat-completions
-      task_version: null
-      num_fewshot: null
-      max_length: null
+      endpoint_url: http://127.0.0.1:8080/v1/chat/completions
+      task: edgeforge_gsm8k_fast_200
+      task_definition: tasks/edgeforge_gsm8k_fast_200.yaml
+      task_version: 3.0-edgeforge-fast-200
+      data_revision: 740312add88f781978c0658806c59bc2815b9866
+      data_files:
+        train:
+          path: data/eval/gsm8k/main/train-00000-of-00001.parquet
+          sha256: ea82612ea9582142387730c793eb67d3b12849002bc0b7fa6f8efafa7351419d
+        test:
+          path: data/eval/gsm8k/main/test-00000-of-00001.parquet
+          sha256: ee7b8da9e381df27b9e3f7758a159ab2bdaa4dbaa910546cbbc47e0cb44e4f59
+      num_fewshot: 5
+      max_length: 32768
+      max_gen_toks: 4096
+      smoke_samples: 5
+      smoke_strict_exact_match: 0.8
+      smoke_result: results/lmeval/gsm8k_smoke_fixed/gemma4-e4b/results_2026-08-04T20-46-10.907230.json
+      smoke_log: logs/m0/m0_lmeval_gsm8k_smoke.log
+      formal_fast_manifest: manifests/gsm8k_fast_200.json
+      formal_fast_manifest_sha256: a04b131f870e856a901844b903188e3c62fe643a66ac74cd5f3a17faa97a94af
+      formal_fast_manifest_generator: scripts/freeze_lmeval_fast_manifests.py
+      formal_fast_manifest_generator_sha256: e14277b8772c390308c97021d481d7f614026cd8bbb7589d4e0bef5e394a4c9d
+      formal_fast_samples: 200
+      formal_fast_selection: seeded_simple_random_sample_without_replacement
+      formal_fast_status: complete
+      formal_fast_strict_exact_match: 0.84
+      formal_fast_strict_exact_match_stderr: 0.02598801424545769
+      formal_fast_flexible_exact_match: 0.845
+      formal_fast_flexible_exact_match_stderr: 0.02565474281971524
+      formal_fast_result: results/lmeval/gsm8k_fast_200/gemma4-e4b/results_2026-08-04T23-11-46.389008.json
+      formal_fast_result_sha256: 39c187933c210af4484f197ab46b4cff7bd13e554a5eaa886a3327b9bfc05e92
+      formal_fast_samples_file: results/lmeval/gsm8k_fast_200/gemma4-e4b/samples_edgeforge_gsm8k_fast_200_2026-08-04T23-11-46.389008.jsonl
+      formal_fast_samples_sha256: 7b1cfcca44a48b2a27ad4296014f2b92bb46a746a449d1feee7083f41516f96f
+      formal_fast_samples_lines: 400
+      formal_fast_log: logs/m0/m0_lmeval_gsm8k_fast_200.log
+      status: formal_fast_complete
     humaneval:
       endpoint: local-chat-completions
-      task_version: null
-      num_fewshot: null
-      max_length: null
+      endpoint_url: http://127.0.0.1:8080/v1/chat/completions
+      task: edgeforge_humaneval
+      task_definition: tasks/edgeforge_humaneval.yaml
+      task_version: 1.0-edgeforge.1
+      data_revision: 7dce6050a7d6d172f3cc5c32aa97f52fa1a2e544
+      data_file:
+        path: data/eval/humaneval/openai_humaneval/test-00000-of-00001.parquet
+        sha256: 2f2871a15fbc95b6c683043359f4ed8e144c5a1c4f24f25f66bc51f598dfcfb6
+      num_fewshot: 0
+      max_length: 32768
+      max_gen_toks: 4096
       confirm_run_unsafe_code: true
+      temp_environment: TMPDIR=/tmp TMP=/tmp TEMP=/tmp
+      smoke_samples: 5
+      smoke_pass_at_1: 0.0
+      smoke_result: results/lmeval/humaneval_smoke_fixed/gemma4-e4b/results_2026-08-04T21-08-20.611861.json
+      smoke_result_sha256: 22b8cfee8bedbb333b157c0b59ba7548fe2986c527bdf919dbd2663ea353cdd5
+      smoke_samples_file: results/lmeval/humaneval_smoke_fixed/gemma4-e4b/samples_edgeforge_humaneval_2026-08-04T21-08-20.611861.jsonl
+      smoke_samples_sha256: cf0b47c55ad12357a752c85c5d659b21dcbaa7f62a3c7103aeeb3313bdc157cb
+      smoke_log: logs/m0/m0_lmeval_humaneval_smoke_fixed.log
+      status: smoke_complete_not_formal_baseline
+      resolved_blocker: >-
+        WSL itself supports the code_eval multiprocessing listener. The failure
+        came from tempfile selecting the Windows-mounted AppData temp directory,
+        which does not support the AF_UNIX socket. Pinning TMPDIR/TMP/TEMP to
+        native Linux /tmp allows the official code_eval executor to run.
 
 bfcl:
-  version: null
-  project_root: null
+  version: "2025.12.17"
+  project_root: results/bfcl
   base_url: http://localhost:8080/v1
   api_key: dummy
   skip_server_setup: true
-  categories: []
-  handler: null
+  categories: [simple_python]
+  handler: OpenAICompletionsHandler
+  handler_registration: scripts/run_bfcl.py
+  model_id: edgeforge-gemma4-e4b-FC
+  temperature: 0.001
+  num_threads: 1
+  underscore_to_dot: true
+  result_summary: results/baseline_bfcl.json
 
 templates:
   gguf_template: null
@@ -194,9 +365,62 @@ templates:
   thinking_mode: unrestricted
 
 replayer:
-  tapes_manifest: null
-  trajectory_linear_history: null
-  trajectory_raw_content: null
+  tapes_manifest: traces/tapes/manifest.json
+  tapes_manifest_sha256: d0e98b875ae6aa6de1bc7122b75e6dc86fd2037e651832735b9f64c57c45091d
+  tapes_count: 5
+  requests_per_pass: 11
+  trajectories_sha256_manifest: traces/trajectories_sha256.txt
+  trajectories_sha256_manifest_sha256: fdfb20b89fc093125fd0cbeba01c85b0312be77d0d990738f6f03782289deca7
+  freezer: scripts/freeze_b0_tapes.py
+  freezer_sha256: 53ee9795caecd36dc6c6df53dc13c64d2fae3ad743768231aa897b94bfff8def
+  runner: scripts/replay_tapes.py
+  runner_sha256: 6bbc82dc1968824fa0cc25b4caf90974e743440acd63a93dcfe02df8fc8499bc
+  trajectory_linear_history: not_required_enable_summarize_false
+  trajectory_raw_content: not_required_enable_summarize_false
+  baseline_results:
+    status: complete
+    completed_date: 2026-08-05
+    model: gemma4-e4b
+    base_url: http://127.0.0.1:8080/v1/chat/completions
+    measurement_convention: each_tape_twice_metrics_from_pass_2_cache_warm
+    total_requests: 22
+    total_successful: 22
+    cache_warm_requests: 11
+    cache_warm_successful: 11
+    ttft_ms_p50: 349.459
+    ttft_ms_p95: 1762.491
+    throughput_tok_s_p50: 52.029416992282336
+    tpot_ms_p50: 19.2198963165075
+    cache_n_p50: 996.0
+    summary: results/baseline_e4b_q4km/replayer/summary.json
+    summary_sha256: 6ea8dfc9bce4b36eebba9cd07d7b3a2e2851c02a085d8365b527ba216a922237
+    records: results/baseline_e4b_q4km/replayer/records.jsonl
+    records_sha256: 46457b6b97b5e5b77bfa1472bdad82240f98d6f2d220f150c020435d31d4bc28
+    log: logs/m0/m0_baseline_replayer.log
+    log_sha256: f5b72e55b1f246dd528beaf7a2911bc0afc713f78d425a9eceab3a09e25dc99b
+    interrupted_audit_note: >-
+      An earlier foreground run was interrupted after 17/22 successful
+      requests. Its partial records were retained locally but excluded from
+      metrics and the frozen artifact set; the reported run restarted from
+      zero and completed all 22 requests in one process.
+  repository_handoff:
+    tape_assets: traces/tapes/
+    tape_assets_repository_visible: true
+    source_trajectory_manifest: traces/trajectories_sha256.txt
+    source_trajectory_files: 100
+    selected_tape_source_trajectories: 5
+    source_trajectories_retained_locally: true
+    raw_trajectory_root: results/baseline_e4b_q4km
+    raw_trajectory_repository_ignored: true
+    server_side_request_recording: not_triggered
+    server_side_request_recording_reason: >-
+      The §2.1 probe confirmed that Terminus trajectory records persist
+      reasoning_content, so no server-side request capture was required.
+    reasoning_content_coverage:
+      baseline_agent_response_attempts: 836
+      persisted: 711
+      absent_on_hard_parser_error_steps: 125
+    staging: completed_in_section_10
 
 external_anchors:
   official_qat_q4_0:
@@ -210,7 +434,89 @@ external_anchors:
     path: models/gguf/google__gemma-4-E4B-it-qat-q4_0-gguf/gemma-4-E4B_q4_0-it.gguf
     sha256: 676c35070db6dbe52f93e9c864ee0fba4eddea94b9c875d9cb10daff453fbaee
     alias: gemma4-e4b-qat-q4_0
-    fast_gate_results: null
+    fast_gate_results:
+      status: complete
+      completed_date: 2026-08-05
+      endpoint_smoke:
+        models: results/anchor_official_qat_q4_0/endpoint_smoke/models.json
+        models_sha256: 27932a3d666cf5222cb04c64eb43c71c8216ce7a9fd85457b405f3aeb5ff98e6
+        chat_probe: results/anchor_official_qat_q4_0/endpoint_smoke/chat_probe.json
+        chat_probe_sha256: 20053eb750ca83d839a829f03a54a6eb63098f241957dcebe0f66bcb44bd0984
+        tools_probe: results/anchor_official_qat_q4_0/endpoint_smoke/tools_probe.json
+        tools_probe_sha256: ecd25a55ac9db5d0adffd2554d01a5c8732579e3a1c4fd8514799dd2a04f8856
+        alias_observed: gemma4-e4b-qat-q4_0
+        tools_finish_reason: tool_calls
+      bfcl_simple_python:
+        task_category: simple_python
+        model_id: edgeforge-gemma4-e4b-qat-q4_0-FC
+        temperature: 0.001
+        num_threads: 1
+        total_count: 400
+        correct_count: 364
+        accuracy: 0.91
+        raw_result: results/anchor_official_qat_q4_0/bfcl/result/edgeforge-gemma4-e4b-qat-q4_0-FC/non_live/BFCL_v4_simple_python_result.json
+        raw_result_sha256: 7173c27b29a1db7ff74812cd95c16b0b9792824eda9de0449ed9f429497672af
+        score_detail: results/anchor_official_qat_q4_0/bfcl/score/edgeforge-gemma4-e4b-qat-q4_0-FC/non_live/BFCL_v4_simple_python_score.json
+        score_detail_sha256: 4aafd24f8e49a60a77316d025a76d4ddb43421e16acc779c23d3287e86774073
+        handler_registration: scripts/run_bfcl.py
+        handler_registration_sha256: 85ca0194e62fcd556cc091a345c9389006300bc020012d5fbffd0ef225dd432a
+        log: logs/m0/m0_anchor_qat_q4_0_bfcl_simple_python.log
+      gsm8k_fast_200:
+        task: edgeforge_gsm8k_fast_200
+        task_version: 3.0-edgeforge-fast-200
+        manifest: manifests/gsm8k_fast_200.json
+        manifest_sha256: a04b131f870e856a901844b903188e3c62fe643a66ac74cd5f3a17faa97a94af
+        samples: 200
+        num_fewshot: 5
+        chat_template: true
+        temperature: 0.0
+        max_gen_toks: 4096
+        strict_exact_match: 0.85
+        strict_exact_match_stderr: 0.025312121949531252
+        flexible_exact_match: 0.865
+        flexible_exact_match_stderr: 0.02422414178513103
+        result: results/anchor_official_qat_q4_0/gsm8k_fast_200/gemma4-e4b-qat-q4_0/results_2026-08-05T01-48-40.988614.json
+        result_sha256: 3be4534a47767c2a0bb62ce54626153dde58f39d8fa2c98b4ca55377bf712988
+        samples_file: results/anchor_official_qat_q4_0/gsm8k_fast_200/gemma4-e4b-qat-q4_0/samples_edgeforge_gsm8k_fast_200_2026-08-05T01-48-40.988614.jsonl
+        samples_sha256: a4be6e9507878b4a646af5f6d428e87c13797cf9874fb26625550d970294033d
+        samples_lines: 400
+        log: logs/m0/m0_anchor_qat_q4_0_gsm8k_fast_200.log
+      cache_warm_replayer:
+        tapes_manifest: traces/tapes/manifest.json
+        tapes_manifest_sha256_at_run: cb25b9b2d0701c5d8747b93d1f5323b8f260aba10d4950965ecd4b9e1ca01ece
+        tapes_manifest_sha256_note: >-
+          The at-run manifest already fixed these same five tape payloads. It
+          was later extended with hashes for all 100 retained B0 trajectories;
+          the tape payload hashes and replay load did not change.
+        tapes: 5
+        requests_per_pass: 11
+        total_requests: 22
+        cache_warm_requests: 11
+        cache_warm_successful: 11
+        ttft_ms_p50: 377.423
+        ttft_ms_p95: 848.9765
+        throughput_tok_s_p50: 52.18824416896012
+        tpot_ms_p50: 19.161403414195867
+        cache_n_p50: 996.0
+        summary: results/anchor_official_qat_q4_0/replayer/summary.json
+        summary_sha256: c64a6dd35910c4e04cb26767bd39edec3e40063f494066c433e01f148692f62c
+        records: results/anchor_official_qat_q4_0/replayer/records.jsonl
+        records_sha256: dbfd498d250bedd094c778fbfe2fd06419c525f790dd494af7f08a55e2e86ce5
+        log: logs/m0/m0_anchor_qat_q4_0_replayer.log
+      b0_restored:
+        alias_observed: gemma4-e4b
+        health: ok
+        chat_probe_content: OK
+        models_probe_sha256: 22159370f5136dc1f5cacc4340c33423f95f87d3e951d6951039e73c2ab4f4f0
+        chat_probe_sha256: c473e3c1722f754ecda64c8568ed25de77e9eccbe60b4374192409f2a1929e7e
+        server_log: logs/m0/llama_server_baseline_c131072_q8_n32768.log
+        persistent_recovery:
+          service: edgeforge-b0.service
+          service_manager: systemd_user_transient_service
+          server_log: logs/m0/llama_server_baseline_systemd_2026-08-05.log
+          health: ok
+          alias_observed: gemma4-e4b
+          chat_probe_content: OK
     slow_gate: deferred_to_M6_three_point
   terminal_bench_2:
     metric: success_rate

@@ -1,0 +1,9 @@
+include: /home/qbz415/piloop-edge-inference-profiler/tasks/edgeforge_gsm8k.yaml
+task: edgeforge_gsm8k_fast_200
+dataset_path: parquet
+dataset_kwargs:
+  data_files:
+    train: data/eval/gsm8k/main/train-00000-of-00001.parquet
+    test: data/eval/gsm8k/fast_200/test-00000-of-00001.parquet
+metadata:
+  version: 3.0-edgeforge-fast-200

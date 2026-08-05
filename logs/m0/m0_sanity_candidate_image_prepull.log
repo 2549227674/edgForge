@@ -1,0 +1,304 @@
+20260403: Pulling from alexgshaw/fix-git
+4f4fb700ef54: Pulling fs layer
+ea003e349189: Pulling fs layer
+792aba8f9d95: Pulling fs layer
+6db0909c4473: Pulling fs layer
+63706ab84aa5: Pulling fs layer
+e92b4fb0a981: Pulling fs layer
+55493703d495: Pulling fs layer
+582253a64dc5: Pulling fs layer
+219a2e93422d: Pulling fs layer
+0dfe80c3a7bd: Pulling fs layer
+0dfe80c3a7bd: Download complete
+ea003e349189: Download complete
+582253a64dc5: Download complete
+219a2e93422d: Download complete
+4f4fb700ef54: Download complete
+6db0909c4473: Download complete
+6db0909c4473: Pull complete
+792aba8f9d95: Download complete
+792aba8f9d95: Pull complete
+e92b4fb0a981: Download complete
+63706ab84aa5: Download complete
+582253a64dc5: Pull complete
+219a2e93422d: Pull complete
+63706ab84aa5: Pull complete
+0dfe80c3a7bd: Pull complete
+ea003e349189: Pull complete
+e92b4fb0a981: Pull complete
+20260403: Pulling from alexgshaw/fix-git
+4f4fb700ef54: Pulling fs layer
+55493703d495: Pulling fs layer
+4f4fb700ef54: Already exists
+55493703d495: Download complete
+4f4fb700ef54: Pull complete
+55493703d495: Pull complete
+Digest: sha256:389b9c8247610c2c5be080b1ac00429007c2c69bf57f7f26c79f0f75ba2d5c74
+Status: Downloaded newer image for alexgshaw/fix-git:20260403
+docker.io/alexgshaw/fix-git:20260403
+20260403: Pulling from alexgshaw/fix-git
+Digest: sha256:389b9c8247610c2c5be080b1ac00429007c2c69bf57f7f26c79f0f75ba2d5c74
+Status: Image is up to date for alexgshaw/fix-git:20260403
+docker.io/alexgshaw/fix-git:20260403
+20251031: Pulling from alexgshaw/kv-store-grpc
+Digest: sha256:3399400800dcb207634daa42bc1b052e831e285cc9d221eea66c47bc0fc79791
+Status: Image is up to date for alexgshaw/kv-store-grpc:20251031
+docker.io/alexgshaw/kv-store-grpc:20251031
+Error response from daemon: failed to resolve reference "docker.io/alexgshaw/constraints-scheduling:20251031": failed to do request: Head "https://registry-1.docker.io/v2/alexgshaw/constraints-scheduling/manifests/20251031": EOF
+PREPULL_FAILED: alexgshaw/constraints-scheduling:20251031
+20251031: Pulling from alexgshaw/constraints-scheduling
+dacaa4c4b456: Pulling fs layer
+20929a28fe1e: Pulling fs layer
+dacaa4c4b456: Download complete
+20260403: Pulling from alexgshaw/fix-git
+Digest: sha256:389b9c8247610c2c5be080b1ac00429007c2c69bf57f7f26c79f0f75ba2d5c74
+Status: Image is up to date for alexgshaw/fix-git:20260403
+docker.io/alexgshaw/fix-git:20260403
+20251031: Pulling from alexgshaw/kv-store-grpc
+Digest: sha256:3399400800dcb207634daa42bc1b052e831e285cc9d221eea66c47bc0fc79791
+Status: Image is up to date for alexgshaw/kv-store-grpc:20251031
+docker.io/alexgshaw/kv-store-grpc:20251031
+20251031: Pulling from alexgshaw/constraints-scheduling
+dacaa4c4b456: Pulling fs layer
+20929a28fe1e: Pulling fs layer
+dacaa4c4b456: Already exists
+20929a28fe1e: Download complete
+dacaa4c4b456: Pull complete
+20929a28fe1e: Pull complete
+Digest: sha256:567ce5a189f8d11ac461790876e934cc7af38391baf89a78f95f4dafc1fec3b0
+Status: Downloaded newer image for alexgshaw/constraints-scheduling:20251031
+docker.io/alexgshaw/constraints-scheduling:20251031
+20251031: Pulling from alexgshaw/break-filter-js-from-html
+8dec4e611b06: Pulling fs layer
+48fe277dcdc5: Pulling fs layer
+9242be66e84b: Pulling fs layer
+d78de09d486d: Pulling fs layer
+20a136b3f316: Pulling fs layer
+48fe277dcdc5: Download complete
+8dec4e611b06: Download complete
+9242be66e84b: Download complete
+d78de09d486d: Download complete
+20a136b3f316: Download complete
+20a136b3f316: Pull complete
+9242be66e84b: Pull complete
+d78de09d486d: Pull complete
+48fe277dcdc5: Pull complete
+8dec4e611b06: Pull complete
+Digest: sha256:d7bfb45e47cf10d2e21dc520239215498f4eba9c1ab2d0cd7d647985dddb4fa8
+Status: Downloaded newer image for alexgshaw/break-filter-js-from-html:20251031
+docker.io/alexgshaw/break-filter-js-from-html:20251031
+20251031: Pulling from alexgshaw/nginx-request-logging
+failed to copy: httpReadSeeker: failed open: failed to do request: Get "https://registry-1.docker.io/v2/alexgshaw/nginx-request-logging/manifests/sha256:693e64431a0dbf45952e8b91a298d54fd60247e501c6623fb8fa3ebc07fc3d3d": EOF
+20251031: Pulling from alexgshaw/nginx-request-logging
+53c2b0dacd31: Pulling fs layer
+c655b75aad51: Pulling fs layer
+53c2b0dacd31: Download complete
+53c2b0dacd31: Pull complete
+c655b75aad51: Download complete
+c655b75aad51: Pull complete
+Digest: sha256:693e64431a0dbf45952e8b91a298d54fd60247e501c6623fb8fa3ebc07fc3d3d
+Status: Downloaded newer image for alexgshaw/nginx-request-logging:20251031
+docker.io/alexgshaw/nginx-request-logging:20251031
+20251031: Pulling from alexgshaw/openssl-selfsigned-cert
+failed to copy: httpReadSeeker: failed open: failed to do request: Get "https://registry-1.docker.io/v2/alexgshaw/openssl-selfsigned-cert/manifests/sha256:4c948a4e630af2435ae0a19108fc0814a946ac2fa29a512469e0fc77b38c8c12": EOF
+20251031: Pulling from alexgshaw/openssl-selfsigned-cert
+0d61612c452d: Pulling fs layer
+0d61612c452d: Download complete
+0d61612c452d: Pull complete
+Digest: sha256:4c948a4e630af2435ae0a19108fc0814a946ac2fa29a512469e0fc77b38c8c12
+Status: Downloaded newer image for alexgshaw/openssl-selfsigned-cert:20251031
+docker.io/alexgshaw/openssl-selfsigned-cert:20251031
+Error response from daemon: failed to resolve reference "docker.io/alexgshaw/polyglot-c-py:20251031": failed to authorize: failed to fetch anonymous token: unable to decode token response: unexpected EOF
+20251031: Pulling from alexgshaw/polyglot-c-py
+failed to copy: httpReadSeeker: failed open: failed to do request: Get "https://registry-1.docker.io/v2/alexgshaw/polyglot-c-py/manifests/sha256:0f1c3b7816d70cf5551573fd6aeef76893f2ae3000be2419997b6871b5d987ed": EOF
+20251031: Pulling from alexgshaw/polyglot-c-py
+e6212ba761b9: Pulling fs layer
+e6212ba761b9: Download complete
+e6212ba761b9: Pull complete
+Digest: sha256:0f1c3b7816d70cf5551573fd6aeef76893f2ae3000be2419997b6871b5d987ed
+Status: Downloaded newer image for alexgshaw/polyglot-c-py:20251031
+docker.io/alexgshaw/polyglot-c-py:20251031
+20251031: Pulling from alexgshaw/count-dataset-tokens
+Digest: sha256:9c513c4ba342bd95be501f6f5eadd4806a2b18749c87c251615825100130232d
+Status: Downloaded newer image for alexgshaw/count-dataset-tokens:20251031
+docker.io/alexgshaw/count-dataset-tokens:20251031
+20251031: Pulling from alexgshaw/dna-insert
+f4f5c7323e80: Pulling fs layer
+f4f5c7323e80: Download complete
+f4f5c7323e80: Pull complete
+Digest: sha256:4dd8760694e355de85ecf03605cb487ccdb33322f6afad513d2920829baa33b2
+Status: Downloaded newer image for alexgshaw/dna-insert:20251031
+docker.io/alexgshaw/dna-insert:20251031
+20251031: Pulling from alexgshaw/multi-source-data-merger
+failed to copy: httpReadSeeker: failed open: failed to do request: Get "https://registry-1.docker.io/v2/alexgshaw/multi-source-data-merger/blobs/sha256:5096d3409e5c692afd62a136f90a2e52dd87653aa6637a3e1ca31ad30fab1096": EOF
+20251031: Pulling from alexgshaw/multi-source-data-merger
+eed93e57e79f: Pulling fs layer
+38513bd72563: Pulling fs layer
+e03ee4aed2eb: Pulling fs layer
+a9ffe18d7fdb: Pulling fs layer
+e73850a50582: Pulling fs layer
+d37114942cef: Pulling fs layer
+19fb8589da02: Pulling fs layer
+216effbc0807: Pulling fs layer
+eed93e57e79f: Download complete
+216effbc0807: Download complete
+19fb8589da02: Download complete
+failed to copy: httpReadSeeker: failed open: failed to do request: Get "https://production.cloudfront.docker.com/registry-v2/docker/registry/v2/blobs/sha256/38/38513bd7256313495cdd83b3b0915a633cfa475dc2a07072ab2c8d191020ca5d/data?Expires=1785742774&Signature=o0xtgUfkfs46RwCC4i0RZiKGVwSiu6EYK1Y-ITS2MClw8ZOxaVyngqVYFnaN7SQglwbj3T~9z-qJqJOO~32lnszMRwsgQK1xjmUkRo8iejxIQrsa99sVJh-6Iwr6Nd-d8~pw9LZic9rQ-~7O30Nhl1xmZS1RY2f8SIfNyLO2fKqZMl7VY0WDRysalHoS2URlXxIzRFG84gfQqafsbgZrFuqsOjuOMWP2FX2ZwjepNHq~bPAIvIiNgQLkEl8BTWXyqqb~HPrpezJS81BYgRuYZ1VZfFWM-yRG5GIb6rdCAk70kbwx1bkM-beOH6p-VaOkKztMkp-ZnDu4-MibYeeqVg__&Key-Pair-Id=K2C9XPB6FLAKUF": EOF
+Error response from daemon: failed to resolve reference "docker.io/alexgshaw/multi-source-data-merger:20251031": failed to do request: Head "https://registry-1.docker.io/v2/alexgshaw/multi-source-data-merger/manifests/20251031": EOF
+PREPULL_FAILED_AFTER_3_ATTEMPTS: alexgshaw/multi-source-data-merger:20251031
+20251031: Pulling from alexgshaw/multi-source-data-merger
+eed93e57e79f: Pulling fs layer
+216effbc0807: Pulling fs layer
+a9ffe18d7fdb: Pulling fs layer
+e73850a50582: Pulling fs layer
+e03ee4aed2eb: Pulling fs layer
+19fb8589da02: Pulling fs layer
+d37114942cef: Pulling fs layer
+38513bd72563: Pulling fs layer
+216effbc0807: Download complete
+19fb8589da02: Download complete
+eed93e57e79f: Download complete
+a9ffe18d7fdb: Download complete
+e73850a50582: Download complete
+38513bd72563: Download complete
+38513bd72563: Pull complete
+a9ffe18d7fdb: Pull complete
+e73850a50582: Pull complete
+19fb8589da02: Pull complete
+d37114942cef: Download complete
+d37114942cef: Pull complete
+Error response from daemon: failed to resolve reference "docker.io/alexgshaw/multi-source-data-merger:20251031": failed to do request: Head "https://registry-1.docker.io/v2/alexgshaw/multi-source-data-merger/manifests/20251031": EOF
+20251031: Pulling from alexgshaw/multi-source-data-merger
+eed93e57e79f: Pulling fs layer
+216effbc0807: Pulling fs layer
+e03ee4aed2eb: Pulling fs layer
+eed93e57e79f: Already exists
+216effbc0807: Already exists
+e03ee4aed2eb: Download complete
+eed93e57e79f: Pull complete
+216effbc0807: Pull complete
+e03ee4aed2eb: Pull complete
+Digest: sha256:8b32782078ff7383a1b4e5d3cecca8ce287e30f50bb4c0e5db009a18064e666e
+Status: Downloaded newer image for alexgshaw/multi-source-data-merger:20251031
+docker.io/alexgshaw/multi-source-data-merger:20251031
+20251031: Pulling from alexgshaw/sanitize-git-repo
+4f4fb700ef54: Pulling fs layer
+cc1961159cf2: Pulling fs layer
+f6a76dba383b: Pulling fs layer
+607df89562e8: Pulling fs layer
+4f4fb700ef54: Already exists
+4f4fb700ef54: Pull complete
+cc1961159cf2: Download complete
+607df89562e8: Download complete
+cc1961159cf2: Pull complete
+607df89562e8: Pull complete
+f6a76dba383b: Download complete
+f6a76dba383b: Pull complete
+Digest: sha256:4b5234da5bb0d67f3b0bf8db40a2883c07a5219f62b64c2bf9ff1ac84cd0f672
+Status: Downloaded newer image for alexgshaw/sanitize-git-repo:20251031
+docker.io/alexgshaw/sanitize-git-repo:20251031
+Error response from daemon: failed to resolve reference "docker.io/alexgshaw/filter-js-from-html:20251031": failed to do request: Head "https://registry-1.docker.io/v2/alexgshaw/filter-js-from-html/manifests/20251031": EOF
+20251031: Pulling from alexgshaw/filter-js-from-html
+99fd6525a4b7: Pulling fs layer
+9a039149dac2: Pulling fs layer
+ad4a7a69f112: Pulling fs layer
+99fd6525a4b7: Download complete
+9a039149dac2: Download complete
+ad4a7a69f112: Download complete
+ad4a7a69f112: Pull complete
+9a039149dac2: Pull complete
+99fd6525a4b7: Pull complete
+Digest: sha256:92acda0f124b988036a6f426ce0bc47fac19f5efe9fc5e6ea3ea52ccb075d0a4
+Status: Downloaded newer image for alexgshaw/filter-js-from-html:20251031
+docker.io/alexgshaw/filter-js-from-html:20251031
+20251031: Pulling from alexgshaw/build-cython-ext
+1076d6a31df3: Pulling fs layer
+80fcd3e2399e: Pulling fs layer
+80fcd3e2399e: Download complete
+1076d6a31df3: Download complete
+1076d6a31df3: Pull complete
+80fcd3e2399e: Pull complete
+Digest: sha256:3612a38fadb89a96f74a1a951fb0b0af734198fd160571eeaba6401593234594
+Status: Downloaded newer image for alexgshaw/build-cython-ext:20251031
+docker.io/alexgshaw/build-cython-ext:20251031
+20251031: Pulling from alexgshaw/gcode-to-text
+failed to copy: httpReadSeeker: failed open: failed to do request: Get "https://registry-1.docker.io/v2/alexgshaw/gcode-to-text/manifests/sha256:0979ef40c6a3e8c4e7ab5b6c2524c74625a84799e15cd45dd98dcf83b11efd4d": EOF
+20251031: Pulling from alexgshaw/gcode-to-text
+333f8ac46b6e: Pulling fs layer
+e37c25268cfe: Pulling fs layer
+333f8ac46b6e: Download complete
+e37c25268cfe: Download complete
+333f8ac46b6e: Pull complete
+e37c25268cfe: Pull complete
+Digest: sha256:0979ef40c6a3e8c4e7ab5b6c2524c74625a84799e15cd45dd98dcf83b11efd4d
+Status: Downloaded newer image for alexgshaw/gcode-to-text:20251031
+docker.io/alexgshaw/gcode-to-text:20251031
+20251031: Pulling from alexgshaw/largest-eigenval
+80209f3bb3d9: Pulling fs layer
+f01dd3689923: Pulling fs layer
+2fce69189eab: Pulling fs layer
+f01dd3689923: Download complete
+80209f3bb3d9: Download complete
+Error response from daemon: failed to resolve reference "docker.io/alexgshaw/largest-eigenval:20251031": failed to do request: Head "https://registry-1.docker.io/v2/alexgshaw/largest-eigenval/manifests/20251031": EOF
+20251031: Pulling from alexgshaw/largest-eigenval
+80209f3bb3d9: Pulling fs layer
+f01dd3689923: Pulling fs layer
+2fce69189eab: Pulling fs layer
+80209f3bb3d9: Already exists
+f01dd3689923: Already exists
+2fce69189eab: Download complete
+f01dd3689923: Pull complete
+2fce69189eab: Pull complete
+80209f3bb3d9: Pull complete
+Digest: sha256:cb9e3e3b09d0783f3bbcfeec8d77bc32d3791204fb2be6650b19be4fbc082b2e
+Status: Downloaded newer image for alexgshaw/largest-eigenval:20251031
+docker.io/alexgshaw/largest-eigenval:20251031
+20251031: Pulling from alexgshaw/mailman
+cc022af94ad8: Pulling fs layer
+184fb57f3d7e: Pulling fs layer
+3062260cfd7d: Pulling fs layer
+cc022af94ad8: Download complete
+3062260cfd7d: Download complete
+184fb57f3d7e: Download complete
+3062260cfd7d: Pull complete
+184fb57f3d7e: Pull complete
+cc022af94ad8: Pull complete
+Digest: sha256:04fac73db7e2b4f49d43f09fbc2266a94d70131f07efa1393d370abc059f4094
+Status: Downloaded newer image for alexgshaw/mailman:20251031
+docker.io/alexgshaw/mailman:20251031
+20251031: Pulling from alexgshaw/sqlite-db-truncate
+d1a1b7d21001: Pulling fs layer
+d1a1b7d21001: Download complete
+d1a1b7d21001: Pull complete
+Digest: sha256:aabac93c93bd1f310e6a6fb893911d7735026ed18491c72133c9196a09092ca4
+Status: Downloaded newer image for alexgshaw/sqlite-db-truncate:20251031
+docker.io/alexgshaw/sqlite-db-truncate:20251031
+20251031: Pulling from alexgshaw/log-summary-date-ranges
+e314e4cd5538: Pulling fs layer
+49e1b278b007: Pulling fs layer
+b79cb5816acd: Pulling fs layer
+49e1b278b007: Download complete
+49e1b278b007: Pull complete
+e314e4cd5538: Download complete
+b79cb5816acd: Download complete
+e314e4cd5538: Pull complete
+b79cb5816acd: Pull complete
+Digest: sha256:cbeb6ba905c2fec294f16cd5e16e3ea7f2e04d38ac2484d51a11de262aa7dc51
+Status: Downloaded newer image for alexgshaw/log-summary-date-ranges:20251031
+docker.io/alexgshaw/log-summary-date-ranges:20251031
+20251031: Pulling from alexgshaw/build-pmars
+047f34fb7de9: Pulling fs layer
+7449371de95f: Pulling fs layer
+396b1da7636e: Pulling fs layer
+0db927ebd1de: Pulling fs layer
+047f34fb7de9: Download complete
+7449371de95f: Download complete
+396b1da7636e: Download complete
+396b1da7636e: Pull complete
+0db927ebd1de: Download complete
+047f34fb7de9: Pull complete
+7449371de95f: Pull complete
+0db927ebd1de: Pull complete
+Digest: sha256:57a82706f7491e0b2d1ff7e927e97ae5339892dd09c47ac43290b4ba1f5abc6f
+Status: Downloaded newer image for alexgshaw/build-pmars:20251031
+docker.io/alexgshaw/build-pmars:20251031

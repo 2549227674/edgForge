@@ -1,0 +1,77 @@
+{
+  "all_passes": {
+    "cache_n": {
+      "mean": 1024.909090909091,
+      "p50": 904.5,
+      "p95": 4360.899999999998
+    },
+    "predicted_n": {
+      "mean": 1788.8181818181818,
+      "p50": 965.0,
+      "p95": 4939.75
+    },
+    "predicted_per_second": {
+      "mean": 51.951047489687035,
+      "p50": 52.06209178061543,
+      "p95": 53.16872522315846
+    },
+    "prompt_ms": {
+      "mean": 544.3977272727273,
+      "p50": 492.991,
+      "p95": 1355.6499
+    },
+    "prompt_n": {
+      "mean": 1124.5454545454545,
+      "p50": 900.5,
+      "p95": 3134.45
+    },
+    "requests": 22,
+    "successful": 22,
+    "tpot_ms": {
+      "mean": 19.255719931169054,
+      "p50": 19.20794645997539,
+      "p95": 19.92117977652678
+    }
+  },
+  "base_url": "http://127.0.0.1:8080/v1/chat/completions",
+  "cache_warm_pass_2": {
+    "cache_n": {
+      "mean": 1411.090909090909,
+      "p50": 996.0,
+      "p95": 4828.5
+    },
+    "predicted_n": {
+      "mean": 1596.909090909091,
+      "p50": 817.0,
+      "p95": 4458.5
+    },
+    "predicted_per_second": {
+      "mean": 52.05343024601564,
+      "p50": 52.18824416896012,
+      "p95": 53.198206169912766
+    },
+    "prompt_ms": {
+      "mean": 366.8712727272727,
+      "p50": 377.423,
+      "p95": 848.9765
+    },
+    "prompt_n": {
+      "mean": 738.3636363636364,
+      "p50": 663.0,
+      "p95": 2022.5
+    },
+    "requests": 11,
+    "successful": 11,
+    "tpot_ms": {
+      "mean": 19.217831726096495,
+      "p50": 19.161403414195867,
+      "p95": 19.82961447273417
+    }
+  },
+  "completed_unix_s": 1785863297.0596964,
+  "measurement_convention": "each tape replayed consecutively twice; metrics summarize pass 2 only",
+  "model": "gemma4-e4b-qat-q4_0",
+  "records": "results/anchor_official_qat_q4_0/replayer/records.jsonl",
+  "schema_version": "1.0",
+  "tapes_manifest": "traces/tapes/manifest.json"
+}

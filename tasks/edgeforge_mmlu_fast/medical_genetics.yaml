@@ -1,0 +1,11 @@
+include: /home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/lm_eval/tasks/mmlu/default/_default_template_yaml
+dataset_path: parquet
+dataset_name: null
+dataset_kwargs:
+  data_files:
+    dev: data/eval/mmlu/cais_mmlu/medical_genetics/dev-00000-of-00001.parquet
+    test: data/eval/mmlu/fast_500/medical_genetics/test-00000-of-00001.parquet
+task: edgeforge_mmlu_fast_medical_genetics
+task_alias: medical genetics
+metadata:
+  version: 1.0-edgeforge-fast-500

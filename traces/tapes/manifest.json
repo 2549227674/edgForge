@@ -1,0 +1,67 @@
+{
+  "kind": "edgeforge_b0_inference_replay_tape_manifest",
+  "sampling": {
+    "max_tokens": 32768,
+    "min_p": 0.0,
+    "temperature": 1.0,
+    "top_k": 64,
+    "top_p": 0.95
+  },
+  "schema_version": "1.0",
+  "selection": {
+    "count": 5,
+    "method": "predeclared five distinct B0 trajectories with two or more agent turns",
+    "purpose": "fixed cache-warm systems replay load for all model variants"
+  },
+  "source_model": "B0-PTQ-Q4KM",
+  "source_run": "results/baseline_e4b_q4km",
+  "source_trajectory_hash_entries": 100,
+  "source_trajectory_hash_manifest": "traces/trajectories_sha256.txt",
+  "tapes": [
+    {
+      "path": "traces/tapes/regex-log__HM89SBD.json",
+      "requests": 2,
+      "sha256": "eb21a70fec35258ae74000c60570adbaf415c8f461854266c105508f993a760b",
+      "source_trajectory": "results/baseline_e4b_q4km/regex-log__HM89SBD/agent/trajectory.json",
+      "source_trajectory_sha256": "7c6b52ba1886633b4d699d66ce554ef4b10e9ec6679b12bc3c875d8efcdf0226",
+      "tape_id": "regex-log__HM89SBD",
+      "task_id": "regex-log"
+    },
+    {
+      "path": "traces/tapes/openssl-selfsigned-cert__oCvmg5c.json",
+      "requests": 2,
+      "sha256": "9fb427ee454096630a2d680459d5fbefcabb39cb4dc76e0b92b93d75ed84e249",
+      "source_trajectory": "results/baseline_e4b_q4km/openssl-selfsigned-cert__oCvmg5c/agent/trajectory.json",
+      "source_trajectory_sha256": "dafc40981cf4f21ee256398922c520a61ac864a79d6e19dbd293309ae1eb53fc",
+      "tape_id": "openssl-selfsigned-cert__oCvmg5c",
+      "task_id": "openssl-selfsigned-cert"
+    },
+    {
+      "path": "traces/tapes/multi-source-data-merger__bUyWMFa.json",
+      "requests": 2,
+      "sha256": "cae6620fb7646c143531cdb684db6c57871e4c865d9f1eb713b6a7c9ed0df808",
+      "source_trajectory": "results/baseline_e4b_q4km/multi-source-data-merger__bUyWMFa/agent/trajectory.json",
+      "source_trajectory_sha256": "5d042f6c31c871ea4841f40c5bf41226edeb908e22eb3a42de32ba9498dde55f",
+      "tape_id": "multi-source-data-merger__bUyWMFa",
+      "task_id": "multi-source-data-merger"
+    },
+    {
+      "path": "traces/tapes/constraints-scheduling__aaSRUnD.json",
+      "requests": 2,
+      "sha256": "a46a6a14d0caa3df9029d86a116cf1d17a0488b7c31010023f2f8e889e77417d",
+      "source_trajectory": "results/baseline_e4b_q4km/constraints-scheduling__aaSRUnD/agent/trajectory.json",
+      "source_trajectory_sha256": "dfc948c63645a27dadfe5f63b369fdf800ca384fbc7268d4ab9d847bfb6d9de9",
+      "tape_id": "constraints-scheduling__aaSRUnD",
+      "task_id": "constraints-scheduling"
+    },
+    {
+      "path": "traces/tapes/sqlite-db-truncate__Z9iGbrN.json",
+      "requests": 3,
+      "sha256": "3e0594078830f82406c393e38b7eac83007a1424a128dfb240d2dbbd1962b207",
+      "source_trajectory": "results/baseline_e4b_q4km/sqlite-db-truncate__Z9iGbrN/agent/trajectory.json",
+      "source_trajectory_sha256": "3b67ee15d78d7fe828fbc3e622404fe0c383956707f3931dc566a7e7d6cdab7e",
+      "tape_id": "sqlite-db-truncate__Z9iGbrN",
+      "task_id": "sqlite-db-truncate"
+    }
+  ]
+}

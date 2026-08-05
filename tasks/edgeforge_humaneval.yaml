@@ -1,0 +1,11 @@
+# Preserve lm-eval 0.4.9.1's HumanEval task and metric implementation while
+# pinning the official parquet locally to remove runtime Hub metadata requests.
+include: /home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/lm_eval/tasks/humaneval/humaneval.yaml
+task: edgeforge_humaneval
+dataset_path: parquet
+dataset_name: null
+dataset_kwargs:
+  data_files:
+    test: data/eval/humaneval/openai_humaneval/test-00000-of-00001.parquet
+metadata:
+  version: 1.0-edgeforge.1

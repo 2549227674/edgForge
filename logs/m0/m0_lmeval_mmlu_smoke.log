@@ -1,0 +1,162 @@
+2026-08-04:20:37:05 WARNING  [__main__:369]  --limit SHOULD ONLY BE USED FOR TESTING.REAL METRICS SHOULD NOT BE COMPUTED USING LIMIT.
+2026-08-04:20:37:05 INFO     [__main__:446] Selected Tasks: ['mmlu_college_mathematics']
+2026-08-04:20:37:05 INFO     [evaluator:202] Setting random seed to 0 | Setting numpy seed to 1234 | Setting torch manual seed to 1234 | Setting fewshot manual seed to 1234
+2026-08-04:20:37:05 INFO     [evaluator:240] Initializing local-completions model, with arguments: {'model': 'gemma4-e4b', 'base_url': 'http://127.0.0.1:8080/v1/completions',
+        'tokenizer': '/home/qbz415/piloop-edge-inference-profiler/models/gemma-4-E4B-it', 'tokenizer_backend': 'huggingface', 'max_length':
+        32768, 'num_concurrent': 1, 'tokenized_requests': False}
+2026-08-04:20:37:05 INFO     [models.api_models:170] Using max length 32768 - 1
+2026-08-04:20:37:05 INFO     [models.api_models:173] Concurrent requests are disabled. To enable concurrent requests, set `num_concurrent` > 1.
+2026-08-04:20:37:05 INFO     [models.api_models:189] Using tokenizer huggingface
+Traceback (most recent call last):
+  File "/home/qbz415/piloop-edge-inference-profiler/scripts/run_lm_eval.py", line 21, in <module>
+    raise SystemExit(cli_evaluate())
+                     ^^^^^^^^^^^^^^
+  File "/home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/lm_eval/__main__.py", line 455, in cli_evaluate
+    results = evaluator.simple_evaluate(
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/lm_eval/utils.py", line 456, in _wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/lm_eval/evaluator.py", line 283, in simple_evaluate
+    task_dict = get_task_dict(
+                ^^^^^^^^^^^^^^
+  File "/home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/lm_eval/tasks/__init__.py", line 635, in get_task_dict
+    task_name_from_string_dict = task_manager.load_task_or_group(
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/lm_eval/tasks/__init__.py", line 426, in load_task_or_group
+    collections.ChainMap(
+  File "/home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/lm_eval/tasks/__init__.py", line 428, in <lambda>
+    lambda task: self._load_individual_task_or_group(task),
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/lm_eval/tasks/__init__.py", line 326, in _load_individual_task_or_group
+    return _load_task(task_config, task=name_or_config)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/lm_eval/tasks/__init__.py", line 286, in _load_task
+    task_object = ConfigurableTask(config=config)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/lm_eval/api/task.py", line 865, in __init__
+    self.download(self.config.dataset_kwargs)
+  File "/home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/lm_eval/api/task.py", line 997, in download
+    self.dataset = datasets.load_dataset(
+                   ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/datasets/load.py", line 2062, in load_dataset
+    builder_instance = load_dataset_builder(
+                       ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/datasets/load.py", line 1782, in load_dataset_builder
+    dataset_module = dataset_module_factory(
+                     ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/datasets/load.py", line 1664, in dataset_module_factory
+    raise e1 from None
+  File "/home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/datasets/load.py", line 1534, in dataset_module_factory
+    dataset_readme_path = api.hf_hub_download(
+                          ^^^^^^^^^^^^^^^^^^^^
+  File "/home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/huggingface_hub/utils/_validators.py", line 88, in _inner_fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/huggingface_hub/hf_api.py", line 6640, in hf_hub_download
+    return hf_hub_download(
+           ^^^^^^^^^^^^^^^^
+  File "/home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/huggingface_hub/utils/_validators.py", line 88, in _inner_fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/huggingface_hub/file_download.py", line 1019, in hf_hub_download
+    return _hf_hub_download_to_cache_dir(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/huggingface_hub/file_download.py", line 1089, in _hf_hub_download_to_cache_dir
+    (url_to_download, etag, commit_hash, expected_size, xet_file_data, head_call_error) = _get_metadata_or_catch_error(
+                                                                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/huggingface_hub/file_download.py", line 1713, in _get_metadata_or_catch_error
+    metadata = get_hf_file_metadata(
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/huggingface_hub/utils/_validators.py", line 88, in _inner_fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/huggingface_hub/file_download.py", line 1621, in get_hf_file_metadata
+    response = _httpx_follow_relative_redirects_with_backoff(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/huggingface_hub/utils/_http.py", line 719, in _httpx_follow_relative_redirects_with_backoff
+    response = http_backoff(
+               ^^^^^^^^^^^^^
+  File "/home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/huggingface_hub/utils/_http.py", line 596, in http_backoff
+    return next(
+           ^^^^^
+  File "/home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/huggingface_hub/utils/_http.py", line 461, in _http_backoff_base
+    client = get_session()
+             ^^^^^^^^^^^^^
+  File "/home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/huggingface_hub/utils/_http.py", line 379, in get_session
+    _GLOBAL_CLIENT = _GLOBAL_CLIENT_FACTORY()
+                     ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/huggingface_hub/utils/_http.py", line 308, in default_client_factory
+    return httpx.Client(
+           ^^^^^^^^^^^^^
+  File "/home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/httpx/_client.py", line 700, in __init__
+    else self._init_proxy_transport(
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/httpx/_client.py", line 750, in _init_proxy_transport
+    return HTTPTransport(
+           ^^^^^^^^^^^^^^
+  File "/home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/httpx/_transports/default.py", line 191, in __init__
+    raise ImportError(
+ImportError: Using SOCKS proxy, but the 'socksio' package is not installed. Make sure to install httpx using `pip install httpx[socks]`.
+2026-08-04:20:37:24 WARNING  [__main__:369]  --limit SHOULD ONLY BE USED FOR TESTING.REAL METRICS SHOULD NOT BE COMPUTED USING LIMIT.
+2026-08-04:20:37:24 INFO     [__main__:446] Selected Tasks: ['mmlu_college_mathematics']
+2026-08-04:20:37:24 INFO     [evaluator:202] Setting random seed to 0 | Setting numpy seed to 1234 | Setting torch manual seed to 1234 | Setting fewshot manual seed to 1234
+2026-08-04:20:37:24 INFO     [evaluator:240] Initializing local-completions model, with arguments: {'model': 'gemma4-e4b', 'base_url': 'http://127.0.0.1:8080/v1/completions',
+        'tokenizer': '/home/qbz415/piloop-edge-inference-profiler/models/gemma-4-E4B-it', 'tokenizer_backend': 'huggingface', 'max_length':
+        32768, 'num_concurrent': 1, 'tokenized_requests': False}
+2026-08-04:20:37:24 INFO     [models.api_models:170] Using max length 32768 - 1
+2026-08-04:20:37:24 INFO     [models.api_models:173] Concurrent requests are disabled. To enable concurrent requests, set `num_concurrent` > 1.
+2026-08-04:20:37:24 INFO     [models.api_models:189] Using tokenizer huggingface
+2026-08-04:20:37:27 INFO     [httpx:1025] HTTP Request: GET https://huggingface.co/api/agent-harnesses "HTTP/1.1 200 OK"
+2026-08-04:20:37:27 INFO     [httpx:1025] HTTP Request: HEAD https://huggingface.co/datasets/cais/mmlu/resolve/main/README.md "HTTP/1.1 307 Temporary Redirect"
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-08-04:20:37:27 WARNING  [huggingface_hub.utils._http:951] Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-08-04:20:37:27 INFO     [httpx:1025] HTTP Request: HEAD https://huggingface.co/api/resolve-cache/datasets/cais/mmlu/c30699e8356da336a370243923dbaf21066bb9fe/README.md "HTTP/1.1 200 OK"
+2026-08-04:20:37:27 INFO     [httpx:1025] HTTP Request: GET https://huggingface.co/api/resolve-cache/datasets/cais/mmlu/c30699e8356da336a370243923dbaf21066bb9fe/README.md "HTTP/1.1 200 OK"
+2026-08-04:20:37:28 INFO     [httpx:1025] HTTP Request: HEAD https://huggingface.co/datasets/cais/mmlu/resolve/c30699e8356da336a370243923dbaf21066bb9fe/mmlu.py "HTTP/1.1 404 Not Found"
+2026-08-04:20:37:29 INFO     [httpx:1025] HTTP Request: HEAD https://s3.amazonaws.com/datasets.huggingface.co/datasets/datasets/cais/mmlu/cais/mmlu.py "HTTP/1.1 404 Not Found"
+2026-08-04:20:37:30 INFO     [httpx:1025] HTTP Request: GET https://huggingface.co/api/datasets/cais/mmlu/revision/c30699e8356da336a370243923dbaf21066bb9fe "HTTP/1.1 200 OK"
+2026-08-04:20:37:30 INFO     [httpx:1025] HTTP Request: HEAD https://huggingface.co/datasets/cais/mmlu/resolve/c30699e8356da336a370243923dbaf21066bb9fe/.huggingface.yaml "HTTP/1.1 404 Not Found"
+2026-08-04:20:37:31 INFO     [httpx:1025] HTTP Request: GET https://datasets-server.huggingface.co/info?dataset=cais/mmlu "HTTP/1.1 200 OK"
+2026-08-04:20:37:32 INFO     [httpx:1025] HTTP Request: GET https://huggingface.co/api/datasets/cais/mmlu/tree/c30699e8356da336a370243923dbaf21066bb9fe/abstract_algebra?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-08-04:20:37:32 INFO     [httpx:1025] HTTP Request: GET https://huggingface.co/api/datasets/cais/mmlu/tree/c30699e8356da336a370243923dbaf21066bb9fe?recursive=false&expand=false "HTTP/1.1 200 OK"
+2026-08-04:20:37:33 INFO     [httpx:1025] HTTP Request: HEAD https://huggingface.co/datasets/cais/mmlu/resolve/c30699e8356da336a370243923dbaf21066bb9fe/dataset_infos.json "HTTP/1.1 307 Temporary Redirect"
+2026-08-04:20:37:33 INFO     [httpx:1025] HTTP Request: HEAD https://huggingface.co/api/resolve-cache/datasets/cais/mmlu/c30699e8356da336a370243923dbaf21066bb9fe/dataset_infos.json "HTTP/1.1 200 OK"
+2026-08-04:20:37:33 INFO     [httpx:1025] HTTP Request: GET https://huggingface.co/api/resolve-cache/datasets/cais/mmlu/c30699e8356da336a370243923dbaf21066bb9fe/dataset_infos.json "HTTP/1.1 200 OK"
+2026-08-04:20:37:33 INFO     [httpx:1025] HTTP Request: GET https://huggingface.co/api/datasets/cais/mmlu/tree/c30699e8356da336a370243923dbaf21066bb9fe/college_mathematics?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-08-04:20:37:34 INFO     [httpx:1025] HTTP Request: HEAD https://huggingface.co/datasets/cais/mmlu/resolve/c30699e8356da336a370243923dbaf21066bb9fe/college_mathematics/test-00000-of-00001.parquet "HTTP/1.1 302 Found"
+2026-08-04:20:37:37 INFO     [httpx:1025] HTTP Request: HEAD https://huggingface.co/datasets/cais/mmlu/resolve/c30699e8356da336a370243923dbaf21066bb9fe/college_mathematics/validation-00000-of-00001.parquet "HTTP/1.1 302 Found"
+2026-08-04:20:37:40 INFO     [httpx:1025] HTTP Request: HEAD https://huggingface.co/datasets/cais/mmlu/resolve/c30699e8356da336a370243923dbaf21066bb9fe/college_mathematics/dev-00000-of-00001.parquet "HTTP/1.1 302 Found"
+Generating test split:   0%|          | 0/100 [00:00<?, ? examples/s]Generating test split: 100%|██████████| 100/100 [00:00<00:00, 13288.25 examples/s]
+Generating validation split:   0%|          | 0/11 [00:00<?, ? examples/s]Generating validation split: 100%|██████████| 11/11 [00:00<00:00, 5669.37 examples/s]
+Generating dev split:   0%|          | 0/5 [00:00<?, ? examples/s]Generating dev split: 100%|██████████| 5/5 [00:00<00:00, 1290.40 examples/s]
+2026-08-04:20:37:43 WARNING  [evaluator:480] Chat template formatting change affects loglikelihood and multiple-choice tasks. See docs/chat-template-readme.md for details.
+2026-08-04:20:37:43 INFO     [api.task:434] Building contexts for mmlu_college_mathematics on rank 0...
+  0%|          | 0/5 [00:00<?, ?it/s]100%|██████████| 5/5 [00:00<00:00, 668.76it/s]
+2026-08-04:20:37:43 INFO     [evaluator:574] Running loglikelihood requests
+Traceback (most recent call last):
+  File "/home/qbz415/piloop-edge-inference-profiler/scripts/run_lm_eval.py", line 21, in <module>
+    raise SystemExit(cli_evaluate())
+                     ^^^^^^^^^^^^^^
+  File "/home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/lm_eval/__main__.py", line 455, in cli_evaluate
+    results = evaluator.simple_evaluate(
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/lm_eval/utils.py", line 456, in _wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/lm_eval/evaluator.py", line 357, in simple_evaluate
+    results = evaluate(
+              ^^^^^^^^^
+  File "/home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/lm_eval/utils.py", line 456, in _wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/lm_eval/evaluator.py", line 585, in evaluate
+    resps = getattr(lm, reqtype)(cloned_reqs)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/lm_eval/api/model.py", line 387, in loglikelihood
+    context_enc, continuation_enc = self._encode_pair(context, continuation)
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/lm_eval/api/model.py", line 356, in _encode_pair
+    n_spaces = len(context) - len(context.rstrip())
+                                  ^^^^^^^^^^^^^^
+AttributeError: 'JsonChatStr' object has no attribute 'rstrip'

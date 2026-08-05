@@ -1,0 +1,21 @@
+task	reward	exception_type
+break-filter-js-from-html__Gg8uSW6	0.0	
+build-cython-ext__fojZn4w	0.0	
+build-pmars__xZTE2QA	0.0	
+constraints-scheduling__T2yE8dK	0.0	
+count-dataset-tokens__Don59Jt	0.0	
+dna-insert__aeQFGRW	0.0	
+filter-js-from-html__urhD2GY	0.0	
+gcode-to-text__y5kDjKo	0.0	
+largest-eigenval__2ywLCz9	0.0	
+log-summary-date-ranges__R8r3Gxt	0.0	
+mailman__WjTwKQj	0.0	
+multi-source-data-merger__cusFHnt	0.0	
+nginx-request-logging__m6wgWNy	0.0	
+openssl-selfsigned-cert__6DPuhAh	0.0	
+overfull-hbox__4UiS7mq	0.0	
+polyglot-c-py__2GxEopK	0.0	
+pypi-server__siKQhsH	0.0	
+regex-log__sC2Vg63	0.0	
+sanitize-git-repo__Mf2Cqzb	0.0	
+sqlite-db-truncate__gDNr3Am	0.0	

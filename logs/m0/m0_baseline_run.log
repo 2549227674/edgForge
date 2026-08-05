@@ -1,0 +1,269 @@
+
+[2026-08-04T14:13:37+08:00] resume existing frozen baseline job
+╭───────────────────── Traceback (most recent call last) ──────────────────────╮
+│ /home/qbz415/.local/share/uv/tools/harbor/lib/python3.12/site-packages/harbo │
+│ r/cli/jobs.py:1753 in resume                                                 │
+│                                                                              │
+│   1750 │   │   │   │   )                                                     │
+│   1751 │   │   │   │   shutil.rmtree(trial_dir)                              │
+│   1752 │                                                                     │
+│ ❱ 1753 │   config = JobConfig.model_validate_json(config_path.read_text())   │
+│   1754 │                                                                     │
+│   1755 │   from harbor.environments.factory import EnvironmentFactory        │
+│   1756                                                                       │
+│                                                                              │
+│ /home/qbz415/.local/share/uv/tools/harbor/lib/python3.12/site-packages/pydan │
+│ tic/main.py:782 in model_validate_json                                       │
+│                                                                              │
+│    779 │   │   │   │   code='validate-by-alias-and-name-false',              │
+│    780 │   │   │   )                                                         │
+│    781 │   │                                                                 │
+│ ❱  782 │   │   return cls.__pydantic_validator__.validate_json(              │
+│    783 │   │   │   json_data, strict=strict, extra=extra, context=context,   │
+│        by_alias=by_alias, by_name=by_name                                    │
+│    784 │   │   )                                                             │
+│    785                                                                       │
+╰──────────────────────────────────────────────────────────────────────────────╯
+ValidationError: 1 validation error for JobConfig
+datasets.0
+  Value error, Cannot set both 'version' and 'ref'. [type=value_error, 
+input_value={'name': 'terminal-bench/...nal-bench/build-pmars']}, 
+input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.13/v/value_error
+
+[2026-08-04T14:14:42+08:00] validated config; resume pending trials
+╭───────────────────── Traceback (most recent call last) ──────────────────────╮
+│ /home/qbz415/.local/share/uv/tools/harbor/lib/python3.12/site-packages/harbo │
+│ r/cli/jobs.py:1811 in resume                                                 │
+│                                                                              │
+│   1808 │   │   │   await hub_plugin.on_job_end(job_result)                   │
+│   1809 │   │   return job_result                                             │
+│   1810 │                                                                     │
+│ ❱ 1811 │   job_result = run_async(_run_job())                                │
+│   1812 │                                                                     │
+│   1813 │   # Print results tables                                            │
+│   1814 │   print_job_results_tables(job_result)                              │
+│                                                                              │
+│ /home/qbz415/.local/share/uv/tools/harbor/lib/python3.12/site-packages/harbo │
+│ r/cli/utils.py:62 in run_async                                               │
+│                                                                              │
+│    59 │   """                                                                │
+│    60 │   if sys.platform == "win32":                                        │
+│    61 │   │   return asyncio.run(coro,                                       │
+│       loop_factory=asyncio.ProactorEventLoop)                                │
+│ ❱  62 │   return asyncio.run(coro)                                           │
+│    63                                                                        │
+│    64                                                                        │
+│    65 def parse_kwargs(kwargs_list: list[str] | None) -> dict[str, Any]:     │
+│                                                                              │
+│ /usr/lib/python3.12/asyncio/runners.py:194 in run                            │
+│                                                                              │
+│   191 │   │   │   "asyncio.run() cannot be called from a running event       │
+│       loop")                                                                 │
+│   192 │                                                                      │
+│   193 │   with Runner(debug=debug, loop_factory=loop_factory) as runner:     │
+│ ❱ 194 │   │   return runner.run(main)                                        │
+│   195                                                                        │
+│   196                                                                        │
+│   197 def _cancel_all_tasks(loop):                                           │
+│                                                                              │
+│ /usr/lib/python3.12/asyncio/runners.py:118 in run                            │
+│                                                                              │
+│   115 │   │                                                                  │
+│   116 │   │   self._interrupt_count = 0                                      │
+│   117 │   │   try:                                                           │
+│ ❱ 118 │   │   │   return self._loop.run_until_complete(task)                 │
+│   119 │   │   except exceptions.CancelledError:                              │
+│   120 │   │   │   if self._interrupt_count > 0:                              │
+│   121 │   │   │   │   uncancel = getattr(task, "uncancel", None)             │
+│                                                                              │
+│ /usr/lib/python3.12/asyncio/base_events.py:687 in run_until_complete         │
+│                                                                              │
+│    684 │   │   if not future.done():                                         │
+│    685 │   │   │   raise RuntimeError('Event loop stopped before Future      │
+│        completed.')                                                          │
+│    686 │   │                                                                 │
+│ ❱  687 │   │   return future.result()                                        │
+│    688 │                                                                     │
+│    689 │   def stop(self):                                                   │
+│    690 │   │   """Stop running the event loop.                               │
+│                                                                              │
+│ /home/qbz415/.local/share/uv/tools/harbor/lib/python3.12/site-packages/harbo │
+│ r/cli/jobs.py:1775 in _run_job                                               │
+│                                                                              │
+│   1772 │   │   │   if upload                                                 │
+│   1773 │   │   │   else False                                                │
+│   1774 │   │   )                                                             │
+│ ❱ 1775 │   │   job = await Job.create(config)                                │
+│   1776 │   │   from harbor.cli.job_plugins import attach_job_plugins,        │
+│        finalize_job_plugins                                                  │
+│   1777 │   │                                                                 │
+│   1778 │   │   plugins = await attach_job_plugins(job, plugin_configs)       │
+│                                                                              │
+│ /home/qbz415/.local/share/uv/tools/harbor/lib/python3.12/site-packages/harbo │
+│ r/job.py:128 in create                                                       │
+│                                                                              │
+│   125 │   │                                                                  │
+│   126 │   │   task_download_results = await cls._cache_tasks(task_configs)   │
+│   127 │   │                                                                  │
+│ ❱ 128 │   │   return cls(                                                    │
+│   129 │   │   │   config,                                                    │
+│   130 │   │   │   _task_configs=task_configs,                                │
+│   131 │   │   │   _metrics=metrics,                                          │
+│                                                                              │
+│ /home/qbz415/.local/share/uv/tools/harbor/lib/python3.12/site-packages/harbo │
+│ r/job.py:105 in __init__                                                     │
+│                                                                              │
+│   102 │   │   self._console_handler: logging.Handler | None = None           │
+│   103 │   │   self._init_logger()                                            │
+│   104 │   │                                                                  │
+│ ❱ 105 │   │   self._maybe_init_existing_job()                                │
+│   106 │   │   self._init_progress_tracking()                                 │
+│   107 │   │                                                                  │
+│   108 │   │   self._init_remaining_trial_configs()                           │
+│                                                                              │
+│ /home/qbz415/.local/share/uv/tools/harbor/lib/python3.12/site-packages/harbo │
+│ r/job.py:216 in _maybe_init_existing_job                                     │
+│                                                                              │
+│   213 │   │   )                                                              │
+│   214 │   │                                                                  │
+│   215 │   │   if existing_config != self.config:                             │
+│ ❱ 216 │   │   │   raise FileExistsError(                                     │
+│   217 │   │   │   │   f"Job directory {self.job_dir} already exists and      │
+│       cannot be "                                                            │
+│   218 │   │   │   │   "resumed with a different config."                     │
+│   219 │   │   │   )                                                          │
+╰──────────────────────────────────────────────────────────────────────────────╯
+FileExistsError: Job directory results/baseline_e4b_q4km already exists and 
+cannot be resumed with a different config.
+
+[2026-08-04T14:15:39+08:00] normalized-ref config validated; resume pending trials
+max_turns (f.k.a. max_episodes) artificially limited to 30. Consider removing this limit for better task completion.
+max_turns (f.k.a. max_episodes) artificially limited to 30. Consider removing this limit for better task completion.
+max_turns (f.k.a. max_episodes) artificially limited to 30. Consider removing this limit for better task completion.
+max_turns (f.k.a. max_episodes) artificially limited to 30. Consider removing this limit for better task completion.
+max_turns (f.k.a. max_episodes) artificially limited to 30. Consider removing this limit for better task completion.
+max_turns (f.k.a. max_episodes) artificially limited to 30. Consider removing this limit for better task completion.
+max_turns (f.k.a. max_episodes) artificially limited to 30. Consider removing this limit for better task completion.
+max_turns (f.k.a. max_episodes) artificially limited to 30. Consider removing this limit for better task completion.
+max_turns (f.k.a. max_episodes) artificially limited to 30. Consider removing this limit for better task completion.
+max_turns (f.k.a. max_episodes) artificially limited to 30. Consider removing this limit for better task completion.
+max_turns (f.k.a. max_episodes) artificially limited to 30. Consider removing this limit for better task completion.
+max_turns (f.k.a. max_episodes) artificially limited to 30. Consider removing this limit for better task completion.
+max_turns (f.k.a. max_episodes) artificially limited to 30. Consider removing this limit for better task completion.
+max_turns (f.k.a. max_episodes) artificially limited to 30. Consider removing this limit for better task completion.
+max_turns (f.k.a. max_episodes) artificially limited to 30. Consider removing this limit for better task completion.
+max_turns (f.k.a. max_episodes) artificially limited to 30. Consider removing this limit for better task completion.
+max_turns (f.k.a. max_episodes) artificially limited to 30. Consider removing this limit for better task completion.
+max_turns (f.k.a. max_episodes) artificially limited to 30. Consider removing this limit for better task completion.
+max_turns (f.k.a. max_episodes) artificially limited to 30. Consider removing this limit for better task completion.
+max_turns (f.k.a. max_episodes) artificially limited to 30. Consider removing this limit for better task completion.
+max_turns (f.k.a. max_episodes) artificially limited to 30. Consider removing this limit for better task completion.
+max_turns (f.k.a. max_episodes) artificially limited to 30. Consider removing this limit for better task completion.
+max_turns (f.k.a. max_episodes) artificially limited to 30. Consider removing this limit for better task completion.
+max_turns (f.k.a. max_episodes) artificially limited to 30. Consider removing this limit for better task completion.
+max_turns (f.k.a. max_episodes) artificially limited to 30. Consider removing this limit for better task completion.
+max_turns (f.k.a. max_episodes) artificially limited to 30. Consider removing this limit for better task completion.
+max_turns (f.k.a. max_episodes) artificially limited to 30. Consider removing this limit for better task completion.
+max_turns (f.k.a. max_episodes) artificially limited to 30. Consider removing this limit for better task completion.
+max_turns (f.k.a. max_episodes) artificially limited to 30. Consider removing this limit for better task completion.
+max_turns (f.k.a. max_episodes) artificially limited to 30. Consider removing this limit for better task completion.
+max_turns (f.k.a. max_episodes) artificially limited to 30. Consider removing this limit for better task completion.
+max_turns (f.k.a. max_episodes) artificially limited to 30. Consider removing this limit for better task completion.
+max_turns (f.k.a. max_episodes) artificially limited to 30. Consider removing this limit for better task completion.
+max_turns (f.k.a. max_episodes) artificially limited to 30. Consider removing this limit for better task completion.
+max_turns (f.k.a. max_episodes) artificially limited to 30. Consider removing this limit for better task completion.
+max_turns (f.k.a. max_episodes) artificially limited to 30. Consider removing this limit for better task completion.
+max_turns (f.k.a. max_episodes) artificially limited to 30. Consider removing this limit for better task completion.
+max_turns (f.k.a. max_episodes) artificially limited to 30. Consider removing this limit for better task completion.
+max_turns (f.k.a. max_episodes) artificially limited to 30. Consider removing this limit for better task completion.
+max_turns (f.k.a. max_episodes) artificially limited to 30. Consider removing this limit for better task completion.
+max_turns (f.k.a. max_episodes) artificially limited to 30. Consider removing this limit for better task completion.
+max_turns (f.k.a. max_episodes) artificially limited to 30. Consider removing this limit for better task completion.
+max_turns (f.k.a. max_episodes) artificially limited to 30. Consider removing this limit for better task completion.
+max_turns (f.k.a. max_episodes) artificially limited to 30. Consider removing this limit for better task completion.
+max_turns (f.k.a. max_episodes) artificially limited to 30. Consider removing this limit for better task completion.
+max_turns (f.k.a. max_episodes) artificially limited to 30. Consider removing this limit for better task completion.
+max_turns (f.k.a. max_episodes) artificially limited to 30. Consider removing this limit for better task completion.
+max_turns (f.k.a. max_episodes) artificially limited to 30. Consider removing this limit for better task completion.
+max_turns (f.k.a. max_episodes) artificially limited to 30. Consider removing this limit for better task completion.
+max_turns (f.k.a. max_episodes) artificially limited to 30. Consider removing this limit for better task completion.
+max_turns (f.k.a. max_episodes) artificially limited to 30. Consider removing this limit for better task completion.
+max_turns (f.k.a. max_episodes) artificially limited to 30. Consider removing this limit for better task completion.
+max_turns (f.k.a. max_episodes) artificially limited to 30. Consider removing this limit for better task completion.
+max_turns (f.k.a. max_episodes) artificially limited to 30. Consider removing this limit for better task completion.
+max_turns (f.k.a. max_episodes) artificially limited to 30. Consider removing this limit for better task completion.
+max_turns (f.k.a. max_episodes) artificially limited to 30. Consider removing this limit for better task completion.
+max_turns (f.k.a. max_episodes) artificially limited to 30. Consider removing this limit for better task completion.
+max_turns (f.k.a. max_episodes) artificially limited to 30. Consider removing this limit for better task completion.
+max_turns (f.k.a. max_episodes) artificially limited to 30. Consider removing this limit for better task completion.
+max_turns (f.k.a. max_episodes) artificially limited to 30. Consider removing this limit for better task completion.
+max_turns (f.k.a. max_episodes) artificially limited to 30. Consider removing this limit for better task completion.
+max_turns (f.k.a. max_episodes) artificially limited to 30. Consider removing this limit for better task completion.
+max_turns (f.k.a. max_episodes) artificially limited to 30. Consider removing this limit for better task completion.
+max_turns (f.k.a. max_episodes) artificially limited to 30. Consider removing this limit for better task completion.
+max_turns (f.k.a. max_episodes) artificially limited to 30. Consider removing this limit for better task completion.
+max_turns (f.k.a. max_episodes) artificially limited to 30. Consider removing this limit for better task completion.
+max_turns (f.k.a. max_episodes) artificially limited to 30. Consider removing this limit for better task completion.
+max_turns (f.k.a. max_episodes) artificially limited to 30. Consider removing this limit for better task completion.
+max_turns (f.k.a. max_episodes) artificially limited to 30. Consider removing this limit for better task completion.
+max_turns (f.k.a. max_episodes) artificially limited to 30. Consider removing this limit for better task completion.
+max_turns (f.k.a. max_episodes) artificially limited to 30. Consider removing this limit for better task completion.
+max_turns (f.k.a. max_episodes) artificially limited to 30. Consider removing this limit for better task completion.
+max_turns (f.k.a. max_episodes) artificially limited to 30. Consider removing this limit for better task completion.
+max_turns (f.k.a. max_episodes) artificially limited to 30. Consider removing this limit for better task completion.
+max_turns (f.k.a. max_episodes) artificially limited to 30. Consider removing this limit for better task completion.
+max_turns (f.k.a. max_episodes) artificially limited to 30. Consider removing this limit for better task completion.
+max_turns (f.k.a. max_episodes) artificially limited to 30. Consider removing this limit for better task completion.
+max_turns (f.k.a. max_episodes) artificially limited to 30. Consider removing this limit for better task completion.
+max_turns (f.k.a. max_episodes) artificially limited to 30. Consider removing this limit for better task completion.
+max_turns (f.k.a. max_episodes) artificially limited to 30. Consider removing this limit for better task completion.
+max_turns (f.k.a. max_episodes) artificially limited to 30. Consider removing this limit for better task completion.
+max_turns (f.k.a. max_episodes) artificially limited to 30. Consider removing this limit for better task completion.
+max_turns (f.k.a. max_episodes) artificially limited to 30. Consider removing this limit for better task completion.
+max_turns (f.k.a. max_episodes) artificially limited to 30. Consider removing this limit for better task completion.
+max_turns (f.k.a. max_episodes) artificially limited to 30. Consider removing this limit for better task completion.
+max_turns (f.k.a. max_episodes) artificially limited to 30. Consider removing this limit for better task completion.
+max_turns (f.k.a. max_episodes) artificially limited to 30. Consider removing this limit for better task completion.
+max_turns (f.k.a. max_episodes) artificially limited to 30. Consider removing this limit for better task completion.
+max_turns (f.k.a. max_episodes) artificially limited to 30. Consider removing this limit for better task completion.
+max_turns (f.k.a. max_episodes) artificially limited to 30. Consider removing this limit for better task completion.
+max_turns (f.k.a. max_episodes) artificially limited to 30. Consider removing this limit for better task completion.
+max_turns (f.k.a. max_episodes) artificially limited to 30. Consider removing this limit for better task completion.
+max_turns (f.k.a. max_episodes) artificially limited to 30. Consider removing this limit for better task completion.
+max_turns (f.k.a. max_episodes) artificially limited to 30. Consider removing this limit for better task completion.
+max_turns (f.k.a. max_episodes) artificially limited to 30. Consider removing this limit for better task completion.
+max_turns (f.k.a. max_episodes) artificially limited to 30. Consider removing this limit for better task completion.
+max_turns (f.k.a. max_episodes) artificially limited to 30. Consider removing this limit for better task completion.
+max_turns (f.k.a. max_episodes) artificially limited to 30. Consider removing this limit for better task completion.
+max_turns (f.k.a. max_episodes) artificially limited to 30. Consider removing this limit for better task completion.
+max_turns (f.k.a. max_episodes) artificially limited to 30. Consider removing this limit for better task completion.
+  100/100 Mean: 0.000 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 5:08:35 0:00:00terminal-bench/terminal-bench-2-1 • terminus-2 • gemma4-e4b
+┏━━━━━━━━┳━━━━━━━━━━━━┳━━━━━━━┳━━━━━━━━┳━━━━━━━━┳━━━━━━━━┓
+┃ Trials ┃ Exceptions ┃  Mean ┃ Pass@2 ┃ Pass@4 ┃ Pass@5 ┃
+┡━━━━━━━━╇━━━━━━━━━━━━╇━━━━━━━╇━━━━━━━━╇━━━━━━━━╇━━━━━━━━┩
+│    100 │          1 │ 0.000 │  0.000 │  0.000 │  0.000 │
+└────────┴────────────┴───────┴────────┴────────┴────────┘
+
+┏━━━━━━━━┳━━━━━━━┓
+┃ Reward ┃ Count ┃
+┡━━━━━━━━╇━━━━━━━┩
+│ 0.0    │   100 │
+└────────┴───────┘
+
+┏━━━━━━━━━━━━━━━━━━━┳━━━━━━━┓
+┃ Exception         ┃ Count ┃
+┡━━━━━━━━━━━━━━━━━━━╇━━━━━━━┩
+│ AgentTimeoutError │     1 │
+└───────────────────┴───────┘
+
+Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x794c88ed3e60>
+Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x794c951bb8c0>
+Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x794c88cb5fa0>
+Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x794c88989b20>
+Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x794c8898b8c0>

@@ -1,0 +1,3211 @@
+{
+  "dataset": "cais/mmlu",
+  "num_fewshot": 5,
+  "revision": "c30699e8356da336a370243923dbaf21066bb9fe",
+  "schema_version": "1.0",
+  "selected": [
+    {
+      "doc_id": 9,
+      "row_sha256": "7f36c884a8fbe6d349ee471736921af1afdeb5b007131827ed8fb182d629370d",
+      "subject": "abstract_algebra"
+    },
+    {
+      "doc_id": 18,
+      "row_sha256": "354c89d4867415767a3c0373373d6125bb7b5434c62766c13a64c5107c3d8225",
+      "subject": "abstract_algebra"
+    },
+    {
+      "doc_id": 22,
+      "row_sha256": "2df62bcbe7c2d1984b13f02710a80672c79f8f6fbde93a1d4f40e9a01591d548",
+      "subject": "abstract_algebra"
+    },
+    {
+      "doc_id": 25,
+      "row_sha256": "4f6817f9d1e58fee941356a990a56269dff313166ed4f642b04307ae598c1026",
+      "subject": "abstract_algebra"
+    },
+    {
+      "doc_id": 49,
+      "row_sha256": "21a3981c265e369eec0a98a53e5aec9ea32f62d49b6a53af0bb6f4f35bf4da1a",
+      "subject": "abstract_algebra"
+    },
+    {
+      "doc_id": 57,
+      "row_sha256": "cb0c24d5a469f2bb0e75a918e5878be990eafa704072a7ce00fd624e3db2895d",
+      "subject": "abstract_algebra"
+    },
+    {
+      "doc_id": 64,
+      "row_sha256": "02cd3feaa6322529b8207bea04d9b5ed9e5c7b1b22847096fd7da27137fe6881",
+      "subject": "abstract_algebra"
+    },
+    {
+      "doc_id": 88,
+      "row_sha256": "ceeb4c0347ccd07679bbfef09b1e2c8ec259443805cd5029492f8ed9ccdc81a3",
+      "subject": "abstract_algebra"
+    },
+    {
+      "doc_id": 97,
+      "row_sha256": "01c88a2ba9ab9561ea0644e912da143ad752bf221e1f4811ad234321b3aaa5c7",
+      "subject": "abstract_algebra"
+    },
+    {
+      "doc_id": 27,
+      "row_sha256": "c83b299438f5e0eef872b567cfa9f5e35094a55708db0c9f86426cdb59c23aa5",
+      "subject": "anatomy"
+    },
+    {
+      "doc_id": 47,
+      "row_sha256": "ab8e5865a32091a761fea1ccea04eb16c11ac80f3e8bcc25351ac3b0526b00c5",
+      "subject": "anatomy"
+    },
+    {
+      "doc_id": 54,
+      "row_sha256": "f6ab53bd9c58a09a982e155e694bbc7a632cb045123e7dc782288bd9d1194cd3",
+      "subject": "anatomy"
+    },
+    {
+      "doc_id": 58,
+      "row_sha256": "a441f8e76bae3e7ac062631cd3b16354faf39c343bbfaa6b23d521cb9529651f",
+      "subject": "anatomy"
+    },
+    {
+      "doc_id": 95,
+      "row_sha256": "2481362999b2363c090a6ba3e81ddc87ab8e12fd64420afc82520bec8c88ef2a",
+      "subject": "anatomy"
+    },
+    {
+      "doc_id": 111,
+      "row_sha256": "6d7dc6a7998cf53c0563ab046e8ae10374b2dfcb57af1de2ac426e1ade8ad459",
+      "subject": "anatomy"
+    },
+    {
+      "doc_id": 116,
+      "row_sha256": "1dc4e6f8f00ac64d9bbb05129264fce98fa541f3d296ef525c9529027e8b7ce6",
+      "subject": "anatomy"
+    },
+    {
+      "doc_id": 117,
+      "row_sha256": "27630678f355459521224c0fed9951562bc9fb4a44d5af8aa4fa460ba1f66bbc",
+      "subject": "anatomy"
+    },
+    {
+      "doc_id": 128,
+      "row_sha256": "52644d016ba40ae4e009afef83ef6f97571b77ccb415173d6d7b7d66c5d4fa2c",
+      "subject": "anatomy"
+    },
+    {
+      "doc_id": 26,
+      "row_sha256": "6a3ed050a54e0fa423dbe9f3df46de8e301f8aedd78a54ac1d0322c5f8040dbd",
+      "subject": "astronomy"
+    },
+    {
+      "doc_id": 27,
+      "row_sha256": "189f6eaf69aa212773bf2e59161a2ecbe47e869ff45634612e28fa3e8b39e26d",
+      "subject": "astronomy"
+    },
+    {
+      "doc_id": 32,
+      "row_sha256": "55cb3eeb07196cab1a8b611e7f991fc606a247feb47074699cd66b415d91faf6",
+      "subject": "astronomy"
+    },
+    {
+      "doc_id": 41,
+      "row_sha256": "90edcbfaea6f4def4abca96ab03ff465f02a24f16542788ceee95d30151bb13c",
+      "subject": "astronomy"
+    },
+    {
+      "doc_id": 68,
+      "row_sha256": "a935a0637dfc360f727833d8b0346534f6fb465a5ab02a96d4634c106735eb6c",
+      "subject": "astronomy"
+    },
+    {
+      "doc_id": 89,
+      "row_sha256": "26cbe1438e7c004c417aeeb2add8275f583da43de6acc076b0e42833922c2e8c",
+      "subject": "astronomy"
+    },
+    {
+      "doc_id": 94,
+      "row_sha256": "d387e64a194d1d34edbd14ee74e6bd13f74e06e77b5bd46e817fbb615f4441b8",
+      "subject": "astronomy"
+    },
+    {
+      "doc_id": 118,
+      "row_sha256": "7168fb27f3797c76f0cdf26192f3edd1db58cfe227087ca0412abe6d92994e6e",
+      "subject": "astronomy"
+    },
+    {
+      "doc_id": 138,
+      "row_sha256": "1279758d82b96231154dccb45d4fbf7383144ac82f165ae587f74f397226fa18",
+      "subject": "astronomy"
+    },
+    {
+      "doc_id": 16,
+      "row_sha256": "1a277c310da8677add55844c7c9b1bcdd1e4c5c8c12590db4b13a4da91540571",
+      "subject": "business_ethics"
+    },
+    {
+      "doc_id": 28,
+      "row_sha256": "54a7083af324ab9453c8c09bf4c75baaba9f449a3d5c0c46e68405affc0216d2",
+      "subject": "business_ethics"
+    },
+    {
+      "doc_id": 31,
+      "row_sha256": "377db39a3a2f785b47fb7c82d5ef29a1f1b86b497200abfb8470760897aa42da",
+      "subject": "business_ethics"
+    },
+    {
+      "doc_id": 33,
+      "row_sha256": "6f14ba13ca8353dccaccefd75abec8e660b8affbef89958ad2826a60febc5e85",
+      "subject": "business_ethics"
+    },
+    {
+      "doc_id": 48,
+      "row_sha256": "d09419512eec5ba9af3b7310e28b9b8cf59e118bf8296f77f51467e9ebb2a540",
+      "subject": "business_ethics"
+    },
+    {
+      "doc_id": 68,
+      "row_sha256": "8ebcb02324137cca946b2b0b82bf526290d8c0a24fef179ea4a391620e00705e",
+      "subject": "business_ethics"
+    },
+    {
+      "doc_id": 76,
+      "row_sha256": "ea0c44e95aa1353054ea33737345e8e0c605fe2c2084ef753f99619cf8ffb7a1",
+      "subject": "business_ethics"
+    },
+    {
+      "doc_id": 88,
+      "row_sha256": "3a7d4a46ba13f74fd2f3026107ab6f289c1d4636ada50129bb85f115eb986ec1",
+      "subject": "business_ethics"
+    },
+    {
+      "doc_id": 99,
+      "row_sha256": "04ffc22f1914f304da0730fc5293b84b760e0b77a4c3c7ccd07c52001c695bd7",
+      "subject": "business_ethics"
+    },
+    {
+      "doc_id": 13,
+      "row_sha256": "c9f084daa776e2a1370a8cf62b5e3294abe9b20e0258c01b985a595801ae3832",
+      "subject": "clinical_knowledge"
+    },
+    {
+      "doc_id": 70,
+      "row_sha256": "78bd50ea75cbf883ddb638dd09f186f57fb01f7af078f6510966e1a62a39d4ba",
+      "subject": "clinical_knowledge"
+    },
+    {
+      "doc_id": 74,
+      "row_sha256": "48b1cf06293f042d65a0cab612bc7d3f5fc4a949908572a1215d9445e91bd4e7",
+      "subject": "clinical_knowledge"
+    },
+    {
+      "doc_id": 77,
+      "row_sha256": "45ab6601025308f50f19278a93d3ffd8f74388e45ca98e8ace93bdd22bc29105",
+      "subject": "clinical_knowledge"
+    },
+    {
+      "doc_id": 141,
+      "row_sha256": "b4d6949875c8aace1034f1486fad8aa17a6932de3414b6a340320a80749f8789",
+      "subject": "clinical_knowledge"
+    },
+    {
+      "doc_id": 143,
+      "row_sha256": "e1c297a60c50a8b14ab15556a81f68106e19a4f0be70180d0214f41dd879d581",
+      "subject": "clinical_knowledge"
+    },
+    {
+      "doc_id": 184,
+      "row_sha256": "a1e22a80fc1cd07b8f4ff6bdf9429573b4cfb4dddbd9e1e16ee1455371b99c66",
+      "subject": "clinical_knowledge"
+    },
+    {
+      "doc_id": 192,
+      "row_sha256": "7281bd9299be977dc29a6bc1a238746b4603bdc224af0f433fd15a06be2cab43",
+      "subject": "clinical_knowledge"
+    },
+    {
+      "doc_id": 218,
+      "row_sha256": "9d3d7763d77c8da8f1ac666bd72628742b7ead5c666d5b75ffe18a0558e8c6e9",
+      "subject": "clinical_knowledge"
+    },
+    {
+      "doc_id": 8,
+      "row_sha256": "22565e92d5001e1bd13fdb59da4ba64e144575d4f812eccd0194cb9ee97851e8",
+      "subject": "college_biology"
+    },
+    {
+      "doc_id": 15,
+      "row_sha256": "d0591b6a39ac61fac51b4ef4fbc6884a85611c09380c3fb8737fcd0b70380fbd",
+      "subject": "college_biology"
+    },
+    {
+      "doc_id": 17,
+      "row_sha256": "ef67215e8cfd020b40223853e76e9d4cb339b8f6e48fce26989bbce8eb464004",
+      "subject": "college_biology"
+    },
+    {
+      "doc_id": 21,
+      "row_sha256": "3ac641d50284cac4b8bfeb033efd4c023ff8fdecc4cf16e32e49904508f33de7",
+      "subject": "college_biology"
+    },
+    {
+      "doc_id": 68,
+      "row_sha256": "08006c73976095444b2b2bf3f86ec5323840357aedc5699925d4ef3ff89169eb",
+      "subject": "college_biology"
+    },
+    {
+      "doc_id": 81,
+      "row_sha256": "da2bf85868cd30c92c4e0c6cc26dbf19fc1f9cd4ee719e8d8696f9778e48f274",
+      "subject": "college_biology"
+    },
+    {
+      "doc_id": 84,
+      "row_sha256": "2033c1aebeface78ae16561b749f935c8baabee11333b9d252256bc93eae1204",
+      "subject": "college_biology"
+    },
+    {
+      "doc_id": 95,
+      "row_sha256": "fdfbc84529479d65beb2f88b83219cf3dc2e1fcbab23e80bc897988f67f8253f",
+      "subject": "college_biology"
+    },
+    {
+      "doc_id": 114,
+      "row_sha256": "9e9a767ef38478c794c08a76e7f5c86ac1a13d46f7d3bb93d140cace279ead23",
+      "subject": "college_biology"
+    },
+    {
+      "doc_id": 1,
+      "row_sha256": "20d17a4c60317e4bb76175c2d954bcfe86d87ac2ef9242f17f1c3651402e98b2",
+      "subject": "college_chemistry"
+    },
+    {
+      "doc_id": 7,
+      "row_sha256": "4e60d975684a96a7a2efa5ad374c4a5f20388e10272816464f2e71938f45bebf",
+      "subject": "college_chemistry"
+    },
+    {
+      "doc_id": 26,
+      "row_sha256": "a915f380f356b7d933d97ce04d180e635bc4ba687c1d816ec4007dd329fdb870",
+      "subject": "college_chemistry"
+    },
+    {
+      "doc_id": 27,
+      "row_sha256": "efe99c0691830e5c5062b52af0e9f77d9ccb3c299d8641c49ccac71b790ceaf6",
+      "subject": "college_chemistry"
+    },
+    {
+      "doc_id": 41,
+      "row_sha256": "4f369a87bdf22a0fa0b170389c4613c145c65b7eb580d7e275b657eea836200a",
+      "subject": "college_chemistry"
+    },
+    {
+      "doc_id": 42,
+      "row_sha256": "9cf80ac8bdb29b0e64173b0c80aeeef833c61c412d79e5ca73333894a020c696",
+      "subject": "college_chemistry"
+    },
+    {
+      "doc_id": 49,
+      "row_sha256": "d2c58c42406c178e7c9552cf78ffd44c2530eb33e7649fc30aa93a487c2cea92",
+      "subject": "college_chemistry"
+    },
+    {
+      "doc_id": 76,
+      "row_sha256": "6b3af4c913efe2e39197c51ba3f8ff6da102ceaf431bb400f814af368b9f7b29",
+      "subject": "college_chemistry"
+    },
+    {
+      "doc_id": 78,
+      "row_sha256": "8a63ee76248eb5646025982331aa34a20f293a9015d29c6f8db0466e2e9148bf",
+      "subject": "college_chemistry"
+    },
+    {
+      "doc_id": 4,
+      "row_sha256": "19a4425ac5be4edd23bb79881e7f7575c044adcb4e2dbe794f1102ad8ac51d8f",
+      "subject": "college_computer_science"
+    },
+    {
+      "doc_id": 30,
+      "row_sha256": "6d815ca4e1ed0a711d2c21a61d29135b6e01bc6da57b7223ff58f59f202a57b9",
+      "subject": "college_computer_science"
+    },
+    {
+      "doc_id": 32,
+      "row_sha256": "8a8bc74fa5f58a3e97a1ac19eb1cf039e962a86e518e16b3b5af95751045bf16",
+      "subject": "college_computer_science"
+    },
+    {
+      "doc_id": 49,
+      "row_sha256": "256f6737ef490981060de89713c98318beec6e8a8a5412fadd6a281fcbc527b3",
+      "subject": "college_computer_science"
+    },
+    {
+      "doc_id": 61,
+      "row_sha256": "413e93c5fb98581eba70144299d5f5d9eaf8e0a3232ab4530b41c2f8609617be",
+      "subject": "college_computer_science"
+    },
+    {
+      "doc_id": 75,
+      "row_sha256": "ab69006c325096710eb58923a06a9af00cf1ace82221e5efb563eabc3903215d",
+      "subject": "college_computer_science"
+    },
+    {
+      "doc_id": 87,
+      "row_sha256": "7b6a26d5758dd7c6b42ebea168b693a9a5d9ac2135104948db8851823828b96b",
+      "subject": "college_computer_science"
+    },
+    {
+      "doc_id": 91,
+      "row_sha256": "69fe1fdc8e10d3c1dbf244942bb258b18d4f019bb54e1edf43310d614d2c7d20",
+      "subject": "college_computer_science"
+    },
+    {
+      "doc_id": 8,
+      "row_sha256": "952eb3d2b827d3167c1778fe4493bcd817db487395be19f7e170550ba4145734",
+      "subject": "college_mathematics"
+    },
+    {
+      "doc_id": 19,
+      "row_sha256": "1905bf7c9469994aff8093e48744be40ae950cffb208097d01f12ac6c69b10c8",
+      "subject": "college_mathematics"
+    },
+    {
+      "doc_id": 21,
+      "row_sha256": "48426ea9970fde05f85902de8f9f233ec4dca4f7cc5b4440f96bc280e2829bef",
+      "subject": "college_mathematics"
+    },
+    {
+      "doc_id": 25,
+      "row_sha256": "b0f9338f5afec79ac4dfce93f5d19993d5993b80093aaaf6a1af0a50b6566f31",
+      "subject": "college_mathematics"
+    },
+    {
+      "doc_id": 26,
+      "row_sha256": "9df0720494645379a41565ab3d25e8cdb91645e984f6f27249707c6881404e46",
+      "subject": "college_mathematics"
+    },
+    {
+      "doc_id": 31,
+      "row_sha256": "1c5b7cd6101829249f3894a417b0550c7cfdea320eaf32149125e19b7184f42a",
+      "subject": "college_mathematics"
+    },
+    {
+      "doc_id": 40,
+      "row_sha256": "e44c71d819e78e384e6c03589e9604d78c74c286707a0cfa343779108879c94f",
+      "subject": "college_mathematics"
+    },
+    {
+      "doc_id": 55,
+      "row_sha256": "e740e7359eecd0c62f83074ce423802185594b310bd78ef7096f13b12caccd6f",
+      "subject": "college_mathematics"
+    },
+    {
+      "doc_id": 97,
+      "row_sha256": "9d65b0dbedab34465a135ec832b1c919009fa2b8e60da5e5656acc549e50ab64",
+      "subject": "college_mathematics"
+    },
+    {
+      "doc_id": 13,
+      "row_sha256": "00cd555b984bd6e20d679b07b6d22bd1ef6b29cad11ed36ead0d98b8e782caac",
+      "subject": "college_medicine"
+    },
+    {
+      "doc_id": 14,
+      "row_sha256": "7b8a65b99eab5ef4d5dc2f34d2e87f0675219c135fb8265491b5b95644b1c8e8",
+      "subject": "college_medicine"
+    },
+    {
+      "doc_id": 19,
+      "row_sha256": "db94d20f035861355ac85c42bbdc1ba3a390a9ebbfdcdd941c3eca76af24983d",
+      "subject": "college_medicine"
+    },
+    {
+      "doc_id": 71,
+      "row_sha256": "f0e52d5eae4e69c533ed1d527c58c5c1f5788f560af3a08353e92fa62102e12d",
+      "subject": "college_medicine"
+    },
+    {
+      "doc_id": 72,
+      "row_sha256": "a8f455d7a90a1f03377d9a1d783cdac777749b1aa65da531a77a9cf34154249f",
+      "subject": "college_medicine"
+    },
+    {
+      "doc_id": 86,
+      "row_sha256": "d2822f10cf15725a4eb1d6912d43cdc5c6463209b24eac2772b782388460d47d",
+      "subject": "college_medicine"
+    },
+    {
+      "doc_id": 87,
+      "row_sha256": "c05c008c6eec263101bb28a8ce66c4bde9868446c67dda8bb1fb12b347a98bdf",
+      "subject": "college_medicine"
+    },
+    {
+      "doc_id": 101,
+      "row_sha256": "eadd83688a2d97a97a0820a4bcd855e84344044f60c3bdf811fad485555ba67a",
+      "subject": "college_medicine"
+    },
+    {
+      "doc_id": 112,
+      "row_sha256": "1a146b113569031596f69d6766559ad2063b45be90157f936637fb3b1521d84f",
+      "subject": "college_medicine"
+    },
+    {
+      "doc_id": 2,
+      "row_sha256": "3e52b42a9cb879b789bf41dd9ca47b9d3d3b93f87ae256f94cca2fe290e307f4",
+      "subject": "college_physics"
+    },
+    {
+      "doc_id": 5,
+      "row_sha256": "d82535b5781c501b83a3a11755138370f24c8a8b92eff484fac61eaae8b54388",
+      "subject": "college_physics"
+    },
+    {
+      "doc_id": 26,
+      "row_sha256": "fe3b5461d999da412fe310eca2b9aad2cc5bdc697cfba3edd5c59a085c64e5d0",
+      "subject": "college_physics"
+    },
+    {
+      "doc_id": 33,
+      "row_sha256": "c82d4103831686dd1595709e3eb3a23ea5f92d2d91344469ed21f60494abe8a2",
+      "subject": "college_physics"
+    },
+    {
+      "doc_id": 40,
+      "row_sha256": "25d84ceb1620219d1f25096e9857f35d2be35a5f58a6c8a096e148951463f3db",
+      "subject": "college_physics"
+    },
+    {
+      "doc_id": 41,
+      "row_sha256": "23f6a604a4e69e2f80a4eb96fa47e9c77dfe09346f92409eaa30807235bf8217",
+      "subject": "college_physics"
+    },
+    {
+      "doc_id": 49,
+      "row_sha256": "538be4714a68cf4be944952c696beca92d8b46f6fd4e20b9673383269c5c00a2",
+      "subject": "college_physics"
+    },
+    {
+      "doc_id": 82,
+      "row_sha256": "b9a341f5a6addd07fddb291c4b30215910888920612e6c5262168d99bc9431a5",
+      "subject": "college_physics"
+    },
+    {
+      "doc_id": 7,
+      "row_sha256": "b153a4b5caa27411d813f37f94816758ccf56fd7fac9c52151dfd0b6a581c8dc",
+      "subject": "computer_security"
+    },
+    {
+      "doc_id": 13,
+      "row_sha256": "1d8a8cc17b47f47632fe0e5f7a4df17b3e8a6b136ab50d5ed848b573d39069d7",
+      "subject": "computer_security"
+    },
+    {
+      "doc_id": 19,
+      "row_sha256": "9296a0c2697506b86bcf48de8c5a985d8f4ecdd9b24cdf0403131022f2770627",
+      "subject": "computer_security"
+    },
+    {
+      "doc_id": 54,
+      "row_sha256": "28a99031711f6561f3043f89bb2add7593c193d04c8d49a9ec2826594ba5720c",
+      "subject": "computer_security"
+    },
+    {
+      "doc_id": 57,
+      "row_sha256": "c030a44b49d0dc5c41a9d97ca3a625fd1493a7b474c977b0050a7c47514d6a5e",
+      "subject": "computer_security"
+    },
+    {
+      "doc_id": 74,
+      "row_sha256": "30e2a3becd26ebdf5625683a78259e981aa2e52f88427892c34828157843a219",
+      "subject": "computer_security"
+    },
+    {
+      "doc_id": 77,
+      "row_sha256": "9dedb88bbb1286abcc2e293e8b29986ceee2d364b43b911cca6c758307cd77c7",
+      "subject": "computer_security"
+    },
+    {
+      "doc_id": 84,
+      "row_sha256": "2cac62886efc32733910a9e2526f7033d8f1dabb9b8d970ca30453cf0bf256ac",
+      "subject": "computer_security"
+    },
+    {
+      "doc_id": 62,
+      "row_sha256": "1af2d3e76df9901571eefb627ee907fd7ada278433f501f27d7669482e7d3a0a",
+      "subject": "conceptual_physics"
+    },
+    {
+      "doc_id": 72,
+      "row_sha256": "d9fc456428093119727cc6d58e21d6db154c44623cfd5abb81fed1170ba8440b",
+      "subject": "conceptual_physics"
+    },
+    {
+      "doc_id": 109,
+      "row_sha256": "d05706e35cadee1a30f01e724c7db441ed44be458ead6021672f1245f8389ead",
+      "subject": "conceptual_physics"
+    },
+    {
+      "doc_id": 112,
+      "row_sha256": "3b567ca2086308b32f038411ccb7152e558a8f2c0b6787f24b454621ae58fc1d",
+      "subject": "conceptual_physics"
+    },
+    {
+      "doc_id": 114,
+      "row_sha256": "1eda9541c5a56243a9db113a73f2768e2ed5f715cc90b47a2e7646651fe6c2c0",
+      "subject": "conceptual_physics"
+    },
+    {
+      "doc_id": 119,
+      "row_sha256": "175613eb76ae04b48b7a193730c430181b9fbf1f528c042e5410e3a2e775c38d",
+      "subject": "conceptual_physics"
+    },
+    {
+      "doc_id": 163,
+      "row_sha256": "d5d5d6e9408549385ebc98a38b47087e7e9fe3273f22821af1a077c069c90b5b",
+      "subject": "conceptual_physics"
+    },
+    {
+      "doc_id": 177,
+      "row_sha256": "5d042f70da9a171acbf07ffd7259469c4d8538f5caae938c41f790a6cfd1d064",
+      "subject": "conceptual_physics"
+    },
+    {
+      "doc_id": 182,
+      "row_sha256": "7d672d4c2435d8dc4666a59c752f5fcc55aac21daf4a552be69991f78eedb6c9",
+      "subject": "conceptual_physics"
+    },
+    {
+      "doc_id": 14,
+      "row_sha256": "9470f06a7deeb0299ecbb5ef180bf17bb0afb2d17626447ddf86e616ecaf027e",
+      "subject": "econometrics"
+    },
+    {
+      "doc_id": 28,
+      "row_sha256": "6bdfe180e9836be41fd398eda91d7088f252bdbd38b00e0b07cbc500b3156154",
+      "subject": "econometrics"
+    },
+    {
+      "doc_id": 34,
+      "row_sha256": "1b93b5ecad272575fc09904d39888702a42b9a1b77149fac55113207e8c5d858",
+      "subject": "econometrics"
+    },
+    {
+      "doc_id": 40,
+      "row_sha256": "9c0f27ec2976aa23248c72b3319d5c6b90314580a2365fcaaa1eae146b76f3b8",
+      "subject": "econometrics"
+    },
+    {
+      "doc_id": 51,
+      "row_sha256": "806e5934600d50a72be9fa7340dd8a3ab7bad811110cef6ffcb1fab11261c3fe",
+      "subject": "econometrics"
+    },
+    {
+      "doc_id": 66,
+      "row_sha256": "775cf7adf1f12fedcc8faaa932f975af425b7cdcdf2b5c60b648f32c81150252",
+      "subject": "econometrics"
+    },
+    {
+      "doc_id": 70,
+      "row_sha256": "de5294d85bbf1b250d3962fe6a92bbaf6fdbe394852c1c72764c73833148d6db",
+      "subject": "econometrics"
+    },
+    {
+      "doc_id": 88,
+      "row_sha256": "edbbab8d22fdbf929e8301703b3e1868072c12329cbfb0605172e9a786c5ab54",
+      "subject": "econometrics"
+    },
+    {
+      "doc_id": 3,
+      "row_sha256": "43b563497700f97a8fe173c878e0ec442a63b89d23ec7de55b53afd3883e5573",
+      "subject": "electrical_engineering"
+    },
+    {
+      "doc_id": 4,
+      "row_sha256": "e3bc411eceb6274956687eda5c208a4970d89d887182ca065ab492c479bed78e",
+      "subject": "electrical_engineering"
+    },
+    {
+      "doc_id": 21,
+      "row_sha256": "7426e8c3114a512dd7d8a0a6e5e13b8822c749b00688820790307e0ca7fe5bed",
+      "subject": "electrical_engineering"
+    },
+    {
+      "doc_id": 60,
+      "row_sha256": "6cfa0c2c464b8fc6ca5f14814b4d34c69c2afa4c1e5382e926d3d83b1b2ff057",
+      "subject": "electrical_engineering"
+    },
+    {
+      "doc_id": 73,
+      "row_sha256": "d99317a785e64ef33005300f8f22795adfb5200ebd7415a7b5e35b257221171c",
+      "subject": "electrical_engineering"
+    },
+    {
+      "doc_id": 103,
+      "row_sha256": "96e941b544178cdbae7295663799aa4e5f22beb7d588972638d3ce4d6850483b",
+      "subject": "electrical_engineering"
+    },
+    {
+      "doc_id": 108,
+      "row_sha256": "92dbea40e4cf7382a6088e3200122ebc99d50210164d4f80b4c2ab1ceada601e",
+      "subject": "electrical_engineering"
+    },
+    {
+      "doc_id": 113,
+      "row_sha256": "b5b9d9fb590e4308b3546aa06861c65d952cc26d67d81f3addd30b4c989f9e7e",
+      "subject": "electrical_engineering"
+    },
+    {
+      "doc_id": 114,
+      "row_sha256": "2da3e0154ec3871256874b86c4d19fd039a3dc490353ba51e3adb149ef790b3b",
+      "subject": "electrical_engineering"
+    },
+    {
+      "doc_id": 85,
+      "row_sha256": "56fd65ca8368b37698bf41ae1d04992faa3379fa43ce2d978d553b878e6d5d8e",
+      "subject": "elementary_mathematics"
+    },
+    {
+      "doc_id": 133,
+      "row_sha256": "fdd70ff9dc2c15bf743239dc2896ff92af0f3804ec8abc904b85dd0eae846cdd",
+      "subject": "elementary_mathematics"
+    },
+    {
+      "doc_id": 138,
+      "row_sha256": "8a5dc96a68eb6343cbf22007ccc94313e2bd3e45edc826ccd74983f3dd42d6af",
+      "subject": "elementary_mathematics"
+    },
+    {
+      "doc_id": 171,
+      "row_sha256": "c6ac0ecef5b0bbe4326862ce7c23e4d3f5817215d7216bc60f99638ef2b90443",
+      "subject": "elementary_mathematics"
+    },
+    {
+      "doc_id": 283,
+      "row_sha256": "460a9a1ac82e4303a2db9135e7d91bfb00da8c4266fa426d80b3a632b144a98e",
+      "subject": "elementary_mathematics"
+    },
+    {
+      "doc_id": 304,
+      "row_sha256": "bd77be7bd66900a26f938d8efd79255a210a4e934e803915074f03f8768cbca1",
+      "subject": "elementary_mathematics"
+    },
+    {
+      "doc_id": 342,
+      "row_sha256": "b6a22e10d8c1cff1e2d3400ae7ca720d3d9d6222a7a57ac3de57ce056aeab10c",
+      "subject": "elementary_mathematics"
+    },
+    {
+      "doc_id": 364,
+      "row_sha256": "e8bda5c09763fcdd17ecf1dd1a8fa931a38a4abf4567eb248c6e6fdcce035bcc",
+      "subject": "elementary_mathematics"
+    },
+    {
+      "doc_id": 365,
+      "row_sha256": "2562705720faaccd2fd0c3e3797d461b111d55232a13021c1a5b45e49af61a20",
+      "subject": "elementary_mathematics"
+    },
+    {
+      "doc_id": 7,
+      "row_sha256": "41f70f4d16c29d6ad3d54682f184bc01a4533ff786afae6d2cccd204af8cadbc",
+      "subject": "formal_logic"
+    },
+    {
+      "doc_id": 16,
+      "row_sha256": "f918811c78c6cbda1fc8383884bb536851bca5dddf61615addd63fcf1beb40dc",
+      "subject": "formal_logic"
+    },
+    {
+      "doc_id": 17,
+      "row_sha256": "50a85109007acd95aafe4faa34db37e505f5f1a8b9e07adfc21778c8520a1fcd",
+      "subject": "formal_logic"
+    },
+    {
+      "doc_id": 18,
+      "row_sha256": "9557d51d075e6918e28927cd64292e5ae34fae72242e82dfad39172239e26a7c",
+      "subject": "formal_logic"
+    },
+    {
+      "doc_id": 38,
+      "row_sha256": "c2dfef63e77e6f558fb7a0b73d586eba50bb79d41f17d2d2b40e514a9b155249",
+      "subject": "formal_logic"
+    },
+    {
+      "doc_id": 64,
+      "row_sha256": "917b61a1c4f870d5e20e6836482c7960ad020381a4426b220923475bdf152049",
+      "subject": "formal_logic"
+    },
+    {
+      "doc_id": 65,
+      "row_sha256": "61a674aa6913a7875dfe57a12d043e1ecbaded482664e4a54e7314ae7ba3abf3",
+      "subject": "formal_logic"
+    },
+    {
+      "doc_id": 84,
+      "row_sha256": "9d3bf4ce8808240cefe35efc0bb1b972a1bfad647a6c474a188624bcff473384",
+      "subject": "formal_logic"
+    },
+    {
+      "doc_id": 11,
+      "row_sha256": "2cd5041d5d5421e5bc9e097623fea34a652538a3dc9d4ac325644373e3852b5f",
+      "subject": "global_facts"
+    },
+    {
+      "doc_id": 51,
+      "row_sha256": "10fe2fe801ddbf3e47b0c04e2141b35c630e53fafa6dd2aacb6f0bf554eb6f79",
+      "subject": "global_facts"
+    },
+    {
+      "doc_id": 56,
+      "row_sha256": "1e0f1905ff0ce7daa8d2069949cc1923edf5a0a354570e6420aec8258b38f785",
+      "subject": "global_facts"
+    },
+    {
+      "doc_id": 57,
+      "row_sha256": "607e93e99afd51ec0ed196138a418f84947ab0bcc2a19583b1d4c5f07856db39",
+      "subject": "global_facts"
+    },
+    {
+      "doc_id": 76,
+      "row_sha256": "313398db6df00e82c552a55258936f69a110ab531d95850cb4539a2b352fc105",
+      "subject": "global_facts"
+    },
+    {
+      "doc_id": 79,
+      "row_sha256": "af04dd9f6a7035b09e4fce53110ba51a6872198f2aed11915d8723ffbd0483b5",
+      "subject": "global_facts"
+    },
+    {
+      "doc_id": 84,
+      "row_sha256": "6a9735762a81695696f893d37343fdfaf31204cba87c5cc57679951679c94997",
+      "subject": "global_facts"
+    },
+    {
+      "doc_id": 85,
+      "row_sha256": "e372499f32786d4d25a4614204af7c737f5f492cbd5fb7ea5ce0b81a37b94c1d",
+      "subject": "global_facts"
+    },
+    {
+      "doc_id": 106,
+      "row_sha256": "5b689c8c9a661351e76b96de8a96f08d1948321285a91ca7241fb1b3139b51f2",
+      "subject": "high_school_biology"
+    },
+    {
+      "doc_id": 115,
+      "row_sha256": "431e5f712390a5a6e5f4587495dac11121906922ced40d0ca54a89d9436a0cc2",
+      "subject": "high_school_biology"
+    },
+    {
+      "doc_id": 119,
+      "row_sha256": "48ebd136807cb36d98245deb29604c7960c452286fb4153dfed7a87f0724832b",
+      "subject": "high_school_biology"
+    },
+    {
+      "doc_id": 157,
+      "row_sha256": "daa7cdf885239f2c689899736d1dd040fe40b089944a2c08cf3dc86cb478852e",
+      "subject": "high_school_biology"
+    },
+    {
+      "doc_id": 164,
+      "row_sha256": "c1b1954c9bbf046bfb9ae1a4d20724915f8c71f5fae2002b601be3d65e592fd5",
+      "subject": "high_school_biology"
+    },
+    {
+      "doc_id": 169,
+      "row_sha256": "a20ae772d589d995b425c2385901e1fa2ea5ed7f29258a9552001627a19a41cc",
+      "subject": "high_school_biology"
+    },
+    {
+      "doc_id": 203,
+      "row_sha256": "abded317b63e75999fa3f69179e5b95fb878d538088cbb1129634c9e64dd5b0b",
+      "subject": "high_school_biology"
+    },
+    {
+      "doc_id": 232,
+      "row_sha256": "87fece4c0eec38c3344e4ade086affc139fe36ad4bbac2abfa1beaed94cb1c52",
+      "subject": "high_school_biology"
+    },
+    {
+      "doc_id": 302,
+      "row_sha256": "49bd2de9789609be7a511bf5f7420f39088c28730a1f308563081e4378403740",
+      "subject": "high_school_biology"
+    },
+    {
+      "doc_id": 48,
+      "row_sha256": "d0c21f7624060f8de082937a604ebb96396a71a5f4eaee8c5c841cd4ead8457a",
+      "subject": "high_school_chemistry"
+    },
+    {
+      "doc_id": 56,
+      "row_sha256": "9001ec6054ae6b6118ad0c05b01c0efc9eabf1483bb89b9ddba933a296d08f6b",
+      "subject": "high_school_chemistry"
+    },
+    {
+      "doc_id": 84,
+      "row_sha256": "3bde30ca89ebbb17e9d4e17abbf212da8ce95b99fb5ca0fd0860b5814b487940",
+      "subject": "high_school_chemistry"
+    },
+    {
+      "doc_id": 91,
+      "row_sha256": "9cd0c58ea572c524e4227e0feafb88dc2756a75c23397e1fecb63b9b3cddd662",
+      "subject": "high_school_chemistry"
+    },
+    {
+      "doc_id": 109,
+      "row_sha256": "2dd37b82402caa55c21595ee05a0f0d28cf1c7dcb7b9997edcb734ed0ebade14",
+      "subject": "high_school_chemistry"
+    },
+    {
+      "doc_id": 146,
+      "row_sha256": "a145e2d848bdf6073249bddbca51acfaaf8ab10c3c732c2f5b34c4d24625cbef",
+      "subject": "high_school_chemistry"
+    },
+    {
+      "doc_id": 169,
+      "row_sha256": "9c73cc75fccf8d5821f11cd0738e7dec2eb2d89989999c1e7b9d7b08f2c76fd6",
+      "subject": "high_school_chemistry"
+    },
+    {
+      "doc_id": 187,
+      "row_sha256": "85634b9b1e0c68c1887e8b13aaa1b51ba231a17d530672c96b0c0c76ac07e3f3",
+      "subject": "high_school_chemistry"
+    },
+    {
+      "doc_id": 194,
+      "row_sha256": "7214819645cb09ac7c65bab85aac3a8afaba7ada229adaabeb3c825a8108a958",
+      "subject": "high_school_chemistry"
+    },
+    {
+      "doc_id": 6,
+      "row_sha256": "1a444dd791d65f905750b26a74f569b4fa199dc0f0d98ac71d61304e0e9de3f3",
+      "subject": "high_school_computer_science"
+    },
+    {
+      "doc_id": 34,
+      "row_sha256": "855bff5a9379446b5fd5447cfba87521ace47e920d4aa2bd7475ec226b15e652",
+      "subject": "high_school_computer_science"
+    },
+    {
+      "doc_id": 36,
+      "row_sha256": "170ba8a619dbf58bdb34f8cfafa02707f683ad87d06391f69ab63d7df953c9e0",
+      "subject": "high_school_computer_science"
+    },
+    {
+      "doc_id": 39,
+      "row_sha256": "495ead49dfb919fe847ac99b54ed02337d18b9373d6131304f6b6597f34d15bd",
+      "subject": "high_school_computer_science"
+    },
+    {
+      "doc_id": 43,
+      "row_sha256": "7e62d96d0073dc8296d0d0019ecc0aeab989d58759c69937caa706a522db25f2",
+      "subject": "high_school_computer_science"
+    },
+    {
+      "doc_id": 63,
+      "row_sha256": "d8a66a0266fc1799dae9d979575bc2de8467427a904a5eaf7c7ba80e9e381419",
+      "subject": "high_school_computer_science"
+    },
+    {
+      "doc_id": 67,
+      "row_sha256": "da498e65037f1556053615ddda984a9bf848554c268ae322fe593ef28ce9d604",
+      "subject": "high_school_computer_science"
+    },
+    {
+      "doc_id": 70,
+      "row_sha256": "10c504d4c2dba103ca0a04f67a142b43daac476f465a7d3ac4508ae051c771eb",
+      "subject": "high_school_computer_science"
+    },
+    {
+      "doc_id": 99,
+      "row_sha256": "e4e8efc0a7ef1f3de9fc9e15b0afd2f672dc788ac3c456a4f47d5fb271bb6d14",
+      "subject": "high_school_computer_science"
+    },
+    {
+      "doc_id": 8,
+      "row_sha256": "270ff8feb5b963ebb396847910cf7a9d8dce0c2c0905da15405d37838b522e24",
+      "subject": "high_school_european_history"
+    },
+    {
+      "doc_id": 25,
+      "row_sha256": "3ed484e4a96b6f4a0241857d1ec65588aae3d3caef3d304ae7e2a5260f78117e",
+      "subject": "high_school_european_history"
+    },
+    {
+      "doc_id": 52,
+      "row_sha256": "fed4f9fb5f996b5ff0cbb2fe2e4a35ce3d88eecdb5edfa6afe87b23493c10997",
+      "subject": "high_school_european_history"
+    },
+    {
+      "doc_id": 58,
+      "row_sha256": "34ce23470192b8e24321b7cfbbe44c4b437e513524b9c41776f42c9754ec184c",
+      "subject": "high_school_european_history"
+    },
+    {
+      "doc_id": 70,
+      "row_sha256": "be678e69baeecbceac640385a1483e1836fa630876fb7d9993e32d6db56b736a",
+      "subject": "high_school_european_history"
+    },
+    {
+      "doc_id": 113,
+      "row_sha256": "760ea2bf4a95869ff5cc09d3157bdcdfd99d18ea2b9093bb2173f831e063bdf5",
+      "subject": "high_school_european_history"
+    },
+    {
+      "doc_id": 121,
+      "row_sha256": "24a10988be52f7bff72eea526126603a0dd7787166940a3d638966074efdca34",
+      "subject": "high_school_european_history"
+    },
+    {
+      "doc_id": 142,
+      "row_sha256": "33833d9c538f15cdf6a5223d9081a07b3a9c842afc92e31f6b324e2860b9c1ce",
+      "subject": "high_school_european_history"
+    },
+    {
+      "doc_id": 152,
+      "row_sha256": "9264e6549c7b979293674e84b80167112b1deeba58330df1e8c93534e4f8fa69",
+      "subject": "high_school_european_history"
+    },
+    {
+      "doc_id": 8,
+      "row_sha256": "6e1e0509abc3ca08ba8348d832768198f0ecb9f4b35202b6adc59a28c4b88a9b",
+      "subject": "high_school_geography"
+    },
+    {
+      "doc_id": 20,
+      "row_sha256": "b38808dba44942a5784f13215dc95c9c2f351b4496867ae14c96fd6ac1e5c07c",
+      "subject": "high_school_geography"
+    },
+    {
+      "doc_id": 37,
+      "row_sha256": "b935e95bd0505555d528b17753760dd562e367a8d756bb05351499b1525fadb6",
+      "subject": "high_school_geography"
+    },
+    {
+      "doc_id": 79,
+      "row_sha256": "42b3f01a303a335cdf7bf914cbf4bc8a59a37448710d461f4b0987a87259b6b7",
+      "subject": "high_school_geography"
+    },
+    {
+      "doc_id": 118,
+      "row_sha256": "f30a1e7549d1b3b04b4ab17bb5c0b1cbaf804b3e02d9e53aa8f5c8eec1a00dbf",
+      "subject": "high_school_geography"
+    },
+    {
+      "doc_id": 120,
+      "row_sha256": "b646ed2f699cdc5b0656f80a0f03169403acb8c0cabcac6633e2e9e30ce34099",
+      "subject": "high_school_geography"
+    },
+    {
+      "doc_id": 141,
+      "row_sha256": "0db4f19b1efe0c9c1d6e7213d2d2c26789463bf15aa44e8426f1c5cb417c367b",
+      "subject": "high_school_geography"
+    },
+    {
+      "doc_id": 148,
+      "row_sha256": "f025f2203c6141267f18911d808e061b6e905f362a5fd5a1b52d934a9d111fa0",
+      "subject": "high_school_geography"
+    },
+    {
+      "doc_id": 181,
+      "row_sha256": "574d9489a2a224e7c1ee7ab309630567cde91807be41d970588776c7d620c934",
+      "subject": "high_school_geography"
+    },
+    {
+      "doc_id": 44,
+      "row_sha256": "50baae7629bd2a834123691c906a73f5905ac966734cdb2910b5d0e60ab8e301",
+      "subject": "high_school_government_and_politics"
+    },
+    {
+      "doc_id": 84,
+      "row_sha256": "cdff8bff9b9039ffa1d48911a5c285ed9eca7e5111f6fb2954a49e58784d0468",
+      "subject": "high_school_government_and_politics"
+    },
+    {
+      "doc_id": 89,
+      "row_sha256": "1f296773d1f19d27ff4b5a286cce75e43b3319dea847a0adf0699d9531d15a27",
+      "subject": "high_school_government_and_politics"
+    },
+    {
+      "doc_id": 95,
+      "row_sha256": "b6f58ffbbab04fa595960d5592ab89ef6c17d5b5ba0466f98866900c1db13932",
+      "subject": "high_school_government_and_politics"
+    },
+    {
+      "doc_id": 96,
+      "row_sha256": "2f96d94cc5537a8813fc6a1bc262b91ce4251424a3a9a8bd81af3ebbb9dac0d7",
+      "subject": "high_school_government_and_politics"
+    },
+    {
+      "doc_id": 127,
+      "row_sha256": "12e6229cdf6654ef29c1f77e14a8c0697a19bd758f56a41f15c176219452c769",
+      "subject": "high_school_government_and_politics"
+    },
+    {
+      "doc_id": 142,
+      "row_sha256": "2993c4d3949dd820f3678fdd6ac052e0a76e591fb86b389c0ebee0ba63531416",
+      "subject": "high_school_government_and_politics"
+    },
+    {
+      "doc_id": 155,
+      "row_sha256": "300c640e74ff04523207141dc6d4f482d069bf9269e631e91630e6e05a6bad04",
+      "subject": "high_school_government_and_politics"
+    },
+    {
+      "doc_id": 156,
+      "row_sha256": "95c63bcc7d25bd96a8e133655358fc5cb9c41af7079f475ac06a7d5c70388f26",
+      "subject": "high_school_government_and_politics"
+    },
+    {
+      "doc_id": 41,
+      "row_sha256": "0921aa8203182266c4936ec6e7f1adb9837d2989ee8210c95474a743a8cb7141",
+      "subject": "high_school_macroeconomics"
+    },
+    {
+      "doc_id": 62,
+      "row_sha256": "80b88474becd59d3f7bd2faac56c49a0961e4ea568bd0ba8d98eaef69a97fbd1",
+      "subject": "high_school_macroeconomics"
+    },
+    {
+      "doc_id": 118,
+      "row_sha256": "0ec86323cffe1d35c895860cdc353f9328f2d0a04b39f761273d967bba960227",
+      "subject": "high_school_macroeconomics"
+    },
+    {
+      "doc_id": 225,
+      "row_sha256": "543c166dc4c47a8d591be703b4a41b1b828520d641a6edf99e9df1ba0624e31e",
+      "subject": "high_school_macroeconomics"
+    },
+    {
+      "doc_id": 239,
+      "row_sha256": "429d39e96828939b64aee08cfe1bd0eeb9b078595f064df9e26344c24e218d72",
+      "subject": "high_school_macroeconomics"
+    },
+    {
+      "doc_id": 308,
+      "row_sha256": "54f1ba993aee0800db41b3a65780cf311470264e649a06617505986d365e4e25",
+      "subject": "high_school_macroeconomics"
+    },
+    {
+      "doc_id": 316,
+      "row_sha256": "ab4173efa2940097cb42809244b6b53c3bef2cefbbf23dc5e1c4c173df894ced",
+      "subject": "high_school_macroeconomics"
+    },
+    {
+      "doc_id": 337,
+      "row_sha256": "5a8fab30fca7ed34ff4c8f22116d933362303e5501d5fe2293452b03df70e429",
+      "subject": "high_school_macroeconomics"
+    },
+    {
+      "doc_id": 385,
+      "row_sha256": "710b01be1f623e2cda88ef668e1dc0dc9fd81921b915e265a5a341ac9cff12da",
+      "subject": "high_school_macroeconomics"
+    },
+    {
+      "doc_id": 35,
+      "row_sha256": "676cde1bbca4829d0b81f8213d2d065680112e8ea080cc5549fef13333c5d0e1",
+      "subject": "high_school_mathematics"
+    },
+    {
+      "doc_id": 82,
+      "row_sha256": "d6a7d904d2f87510115cd3ffa3995f20bd28863e925923636630fa904f52b79e",
+      "subject": "high_school_mathematics"
+    },
+    {
+      "doc_id": 104,
+      "row_sha256": "050573a0a4de22fdcab71f5812db8eb00093720f3ec8e7b6251417a5b1b793f3",
+      "subject": "high_school_mathematics"
+    },
+    {
+      "doc_id": 131,
+      "row_sha256": "8404e5fb7e2f192aa8da675ce3532451363a7c761ad8617071b898e63208ca8d",
+      "subject": "high_school_mathematics"
+    },
+    {
+      "doc_id": 135,
+      "row_sha256": "a341ade656f1256f9fce8bf6f1956337ae5fb1a676f4bb7df3ef63e27efef112",
+      "subject": "high_school_mathematics"
+    },
+    {
+      "doc_id": 162,
+      "row_sha256": "7bb5f1548b90130ed848590a24dd1488aa82e079dd5c8ee04e1aae9a871262e8",
+      "subject": "high_school_mathematics"
+    },
+    {
+      "doc_id": 190,
+      "row_sha256": "5bbe558c52194d6e300411ac099daddf9e11b0d9185c4e5ac3700db2e7e26377",
+      "subject": "high_school_mathematics"
+    },
+    {
+      "doc_id": 231,
+      "row_sha256": "8d82e8b640ee97d61000a13cc6273b0812e380f8feb405d243bb263f3251f91e",
+      "subject": "high_school_mathematics"
+    },
+    {
+      "doc_id": 241,
+      "row_sha256": "43e17aca71f2a807882918c71d28bee8d8b08913004d5df67322e6ef6805d0c6",
+      "subject": "high_school_mathematics"
+    },
+    {
+      "doc_id": 36,
+      "row_sha256": "b8618dd0e2e6ec624586e4881c9e0f480b8a5757603f44992ef8e005a7681f84",
+      "subject": "high_school_microeconomics"
+    },
+    {
+      "doc_id": 78,
+      "row_sha256": "c8c78014bfa0b2f9b35824ad6174cf2a025ba2ae3ec64af6e35494515577e570",
+      "subject": "high_school_microeconomics"
+    },
+    {
+      "doc_id": 95,
+      "row_sha256": "0a2b2155608013686fe17dc49a4e23638fee059419780397c9347fe47a73557d",
+      "subject": "high_school_microeconomics"
+    },
+    {
+      "doc_id": 102,
+      "row_sha256": "8c1f85d649b3dd587b6fe99bbf2339dbdd7f918ce50be427dab1bc36c293a14a",
+      "subject": "high_school_microeconomics"
+    },
+    {
+      "doc_id": 123,
+      "row_sha256": "8d62811c1fc81a28db92aac17abd9558881fe8a9ff90bba7cedc2288e49ba301",
+      "subject": "high_school_microeconomics"
+    },
+    {
+      "doc_id": 174,
+      "row_sha256": "5b4ff1e32f9ac3c214075bb5b4eb8bd3fa3d846bd28501ca7d133afcc3415d41",
+      "subject": "high_school_microeconomics"
+    },
+    {
+      "doc_id": 178,
+      "row_sha256": "cbab626280569a637e4ad3f6fab0a9bdbb5845079b53e3954245f0b4983b2c9b",
+      "subject": "high_school_microeconomics"
+    },
+    {
+      "doc_id": 182,
+      "row_sha256": "259b11289bb8b9cc992bcce09c7f80ae7b1afa88f5759690b4d89a373f8e360b",
+      "subject": "high_school_microeconomics"
+    },
+    {
+      "doc_id": 189,
+      "row_sha256": "faa4dc873172319facbb0f447654251639b9cad30fd6aef2cdb9ed6c86f1f7a3",
+      "subject": "high_school_microeconomics"
+    },
+    {
+      "doc_id": 0,
+      "row_sha256": "bc094810e63d925effdffb6422aff893f1c76a6efa43c00e69f90bdf7c92c965",
+      "subject": "high_school_physics"
+    },
+    {
+      "doc_id": 17,
+      "row_sha256": "c60893a4d63485fc6a87df19937ddcf4ab0634ae9bf805413710ae3cc1380573",
+      "subject": "high_school_physics"
+    },
+    {
+      "doc_id": 72,
+      "row_sha256": "4bea65bb2318319546d78e944406d0dca26065831773d371a442615b1548b784",
+      "subject": "high_school_physics"
+    },
+    {
+      "doc_id": 88,
+      "row_sha256": "cc77d168a86f1725a2fc7fa33ea92bfeebcaa71a952cc999a04e55fc486fb3a8",
+      "subject": "high_school_physics"
+    },
+    {
+      "doc_id": 99,
+      "row_sha256": "ffb81147a6e3bf9dc0617602f73e9be2f56a784aead95f16ae19d34483bba5da",
+      "subject": "high_school_physics"
+    },
+    {
+      "doc_id": 106,
+      "row_sha256": "d5ed5ed4a6c451a89e5ecfd16e7bbcd4b7fd95cf8ab2ef272fd1899bdf7c8ead",
+      "subject": "high_school_physics"
+    },
+    {
+      "doc_id": 111,
+      "row_sha256": "1b6021750e5a293da83c8f5d2ed3a484d625de08251c234e4f03c4b3fd62ba51",
+      "subject": "high_school_physics"
+    },
+    {
+      "doc_id": 131,
+      "row_sha256": "764ce0c70a96589845169ecdf1375ee0860ad37a440ec08dd965636995827547",
+      "subject": "high_school_physics"
+    },
+    {
+      "doc_id": 7,
+      "row_sha256": "77c98bf78f7b79e1fde51170f2a662b9fa1d576f42ad06928e2c1e9f24a309b0",
+      "subject": "high_school_psychology"
+    },
+    {
+      "doc_id": 10,
+      "row_sha256": "8ab55d4405ae3ca9de079da59d84da2f9c9e356399a5fbf010f4a7bb916d54e4",
+      "subject": "high_school_psychology"
+    },
+    {
+      "doc_id": 32,
+      "row_sha256": "31739825aa5212f54f37a45285c4bd8c0a6af9a9970d014e95c077271f2763dc",
+      "subject": "high_school_psychology"
+    },
+    {
+      "doc_id": 33,
+      "row_sha256": "737db31d9f55182dce84020ca933b50f061b0b2067475ff6586e89b9a66f2ebb",
+      "subject": "high_school_psychology"
+    },
+    {
+      "doc_id": 137,
+      "row_sha256": "55ad2b1de5449f122f5d51478821747234ac0c785270fcd4cbb506ba7c57a5ed",
+      "subject": "high_school_psychology"
+    },
+    {
+      "doc_id": 199,
+      "row_sha256": "44ad2e89e98a7e0b27585b9e7510bc7453eee90293a6d85ddb4b728c2a02a86e",
+      "subject": "high_school_psychology"
+    },
+    {
+      "doc_id": 242,
+      "row_sha256": "7636886ee2781f8fb3114d09ffaa59eaf582dad32be18a2c1992b5777036b8c4",
+      "subject": "high_school_psychology"
+    },
+    {
+      "doc_id": 315,
+      "row_sha256": "811b90653724bfb70d2604de8890e67fa60e60a3aeed9f36d4789ed6852f11a7",
+      "subject": "high_school_psychology"
+    },
+    {
+      "doc_id": 457,
+      "row_sha256": "337a4066dfaa84278fa88bcec9b66719dc50d9443680ace2019b0308a622e36a",
+      "subject": "high_school_psychology"
+    },
+    {
+      "doc_id": 3,
+      "row_sha256": "ad7a199b64f66f2b7fab44ad7cd88583b4019a195c52944147dfb7fd6414f075",
+      "subject": "high_school_statistics"
+    },
+    {
+      "doc_id": 28,
+      "row_sha256": "b927cec18d18d04d8e2c6d5623699ae47a48591464e3b1e9e0b049ccf36f5121",
+      "subject": "high_school_statistics"
+    },
+    {
+      "doc_id": 43,
+      "row_sha256": "09b14e4a1f9a3d8e62963b189cf2dd70d751023580a6d015c485eadc7173561e",
+      "subject": "high_school_statistics"
+    },
+    {
+      "doc_id": 79,
+      "row_sha256": "ff5ab104b98aec73aa954a1f34a29206d3398f11b3323985394a3d2ac2e7de74",
+      "subject": "high_school_statistics"
+    },
+    {
+      "doc_id": 107,
+      "row_sha256": "a1729ce54ff39fe8f53ef4e7a9ef2d6b3c6d27c60a4137ed20e03fa70f000185",
+      "subject": "high_school_statistics"
+    },
+    {
+      "doc_id": 133,
+      "row_sha256": "7449b46789f9d5ea772da08c8a5a63553fea3196b1f60f19eba01e96991500ff",
+      "subject": "high_school_statistics"
+    },
+    {
+      "doc_id": 137,
+      "row_sha256": "7b918f13d33eb78fbc630b88347edf6ff1dedf7c636fefc3648309fd5272d7f3",
+      "subject": "high_school_statistics"
+    },
+    {
+      "doc_id": 144,
+      "row_sha256": "104d9a09388543fceef46c27002a5e711fc4f1a401a941c4cd1eeedd89ccdbf2",
+      "subject": "high_school_statistics"
+    },
+    {
+      "doc_id": 0,
+      "row_sha256": "437f87394e2027c9e462f3c2444e394cb988e95b4864add8eadd5f79ef9e6619",
+      "subject": "high_school_us_history"
+    },
+    {
+      "doc_id": 24,
+      "row_sha256": "edc63016e089094e30b361e55ddae0455eb33ee2d9e50306b5f50394cb24670f",
+      "subject": "high_school_us_history"
+    },
+    {
+      "doc_id": 39,
+      "row_sha256": "91e84e96623e93ee400676bcdf286b4179d4461681f306bfa51ac7556498c3ff",
+      "subject": "high_school_us_history"
+    },
+    {
+      "doc_id": 45,
+      "row_sha256": "1727be63122ffd15be388e0d51dfc6f6920e48885d98799262e302dd86029b6a",
+      "subject": "high_school_us_history"
+    },
+    {
+      "doc_id": 95,
+      "row_sha256": "6e42c428c2d498f8a72ad11321c89c821acc4f8cb3abd5a9bb23534d85f1f56e",
+      "subject": "high_school_us_history"
+    },
+    {
+      "doc_id": 119,
+      "row_sha256": "c985738944d5c39fa8ea49a52f3f788eab3651c0e83f681f9c3d4967c64daa97",
+      "subject": "high_school_us_history"
+    },
+    {
+      "doc_id": 135,
+      "row_sha256": "b42dd4c61ab1150c9c5da80eb6208567c99d9efcfe9e66e6ade65bce1ad9e5cd",
+      "subject": "high_school_us_history"
+    },
+    {
+      "doc_id": 157,
+      "row_sha256": "6e5c970b878d1293c1013d699cf7ba1b5da1725b8e45cfbe1ef3067f0e9607de",
+      "subject": "high_school_us_history"
+    },
+    {
+      "doc_id": 186,
+      "row_sha256": "b2c81eeb056b774d33dd64c71d4c91eca0eab1b4291f2521b76646e7a14bfa9b",
+      "subject": "high_school_us_history"
+    },
+    {
+      "doc_id": 26,
+      "row_sha256": "f62d02acccb0a127acdbddf42a69234280ee51af6c948e8fefadad594420ff00",
+      "subject": "high_school_world_history"
+    },
+    {
+      "doc_id": 31,
+      "row_sha256": "ec14e0f2e6dcb63ffc0bfba93945c931aac3deeb9c3503307b974b3c27a7d24e",
+      "subject": "high_school_world_history"
+    },
+    {
+      "doc_id": 34,
+      "row_sha256": "adcfe8a6053ab3597c9756481ee6b3f76b5003768650d67f7021db2981a056e8",
+      "subject": "high_school_world_history"
+    },
+    {
+      "doc_id": 119,
+      "row_sha256": "02f59ae7446126e227d49f7e3cd0beaca31fbcfbda7a3336748604a072ba4b20",
+      "subject": "high_school_world_history"
+    },
+    {
+      "doc_id": 170,
+      "row_sha256": "c328d5613b2bae3ea17e5935486fa8101b4b996fc64819f267fe3d2345033d30",
+      "subject": "high_school_world_history"
+    },
+    {
+      "doc_id": 174,
+      "row_sha256": "85479035e823f4aa5bd5427b00da4339202468d074462f9e4356791435fc126c",
+      "subject": "high_school_world_history"
+    },
+    {
+      "doc_id": 210,
+      "row_sha256": "51593144e0a5afb0dd1f0f618748924f7feecfad57a0e4aed778b7815793780e",
+      "subject": "high_school_world_history"
+    },
+    {
+      "doc_id": 231,
+      "row_sha256": "d3b61a3952f6b4c1e9ef6752abb4a8faae68ace4d2a7439a1a57e5b47805e9b2",
+      "subject": "high_school_world_history"
+    },
+    {
+      "doc_id": 22,
+      "row_sha256": "eee11ad0b142acb1581a9c4ccd040119b44f789773c7c87deffa81aeda1f0798",
+      "subject": "human_aging"
+    },
+    {
+      "doc_id": 27,
+      "row_sha256": "8b72e87aecc0c3e56fddac7ae7791cc72bd93aa1da12f9615245bf2a9dc10439",
+      "subject": "human_aging"
+    },
+    {
+      "doc_id": 56,
+      "row_sha256": "0fce06826e8b28fa0618090c85b1b72e6b08dc6bcedb2e3a84aeb6b1c50daccf",
+      "subject": "human_aging"
+    },
+    {
+      "doc_id": 58,
+      "row_sha256": "3abfc3d7120ae2ae6b7bd37e9228417528e9f143991893e3a523ae5f302bb092",
+      "subject": "human_aging"
+    },
+    {
+      "doc_id": 124,
+      "row_sha256": "ef1ef906d76dc791c6019cfc3af26720c6e7dd6dc23d27740dbb87d0f3117527",
+      "subject": "human_aging"
+    },
+    {
+      "doc_id": 138,
+      "row_sha256": "d1b2411eb0205e84e79c3a7959082b07663ecdc3a181e6022771bcf1adc2a7df",
+      "subject": "human_aging"
+    },
+    {
+      "doc_id": 154,
+      "row_sha256": "c261388cf5c4a82a88a98b0aac3ed62b504f5bc76258591dcbdc1e89eb2a42bc",
+      "subject": "human_aging"
+    },
+    {
+      "doc_id": 184,
+      "row_sha256": "1d45ac6af9f407c70086404a71b58607d6e88a95cb391edf7e8b52f4fe3a0745",
+      "subject": "human_aging"
+    },
+    {
+      "doc_id": 206,
+      "row_sha256": "f5cd8f99e552687d8da1140820fb09c2037d8d1d14b12d0bb9578880ed6e8160",
+      "subject": "human_aging"
+    },
+    {
+      "doc_id": 34,
+      "row_sha256": "f564e131288063b5a64f46f583119992847bc86ed31c6ff182ef8e7e7bef3fb5",
+      "subject": "human_sexuality"
+    },
+    {
+      "doc_id": 38,
+      "row_sha256": "ba41c8b82b568e697653ede7d23fd58133b0404ac93b322a3e8c93486244ba5d",
+      "subject": "human_sexuality"
+    },
+    {
+      "doc_id": 42,
+      "row_sha256": "aff2f524374d249c92c407cbc73d1eab9fc32e7eda918358dd8651166165b014",
+      "subject": "human_sexuality"
+    },
+    {
+      "doc_id": 92,
+      "row_sha256": "90020edc3834af740238600a48037121c95618913a610d65630150d70d70dcb6",
+      "subject": "human_sexuality"
+    },
+    {
+      "doc_id": 94,
+      "row_sha256": "a728af77fafa28de6b6d7dd8173dea5bdf4f7a01d0792e4304efbfe888d58f16",
+      "subject": "human_sexuality"
+    },
+    {
+      "doc_id": 104,
+      "row_sha256": "8db05dd0ee685661e4ceea8eb9e62d69f4ee6cea915e3e0e78b63398ee4ac2f7",
+      "subject": "human_sexuality"
+    },
+    {
+      "doc_id": 107,
+      "row_sha256": "7e0ab9a240f3555a6b6ea19e6f209f4c890f281af1127506620c61a627fc2669",
+      "subject": "human_sexuality"
+    },
+    {
+      "doc_id": 117,
+      "row_sha256": "1a6d5cde7faa54746e774ddc49dfdb9a173594cfcb61269a23a65fb4499a7bff",
+      "subject": "human_sexuality"
+    },
+    {
+      "doc_id": 130,
+      "row_sha256": "312ccc315fc4073127aaa2e39ced534c1faa27e124d9b19f7dcac7a9835d3b36",
+      "subject": "human_sexuality"
+    },
+    {
+      "doc_id": 0,
+      "row_sha256": "b067038ec569c6bbfb98bcdeb5859df1dbdbbacbf954a8b56e7f3dd39388c91a",
+      "subject": "international_law"
+    },
+    {
+      "doc_id": 10,
+      "row_sha256": "728a0593b0f6587c5b5a74c3e08521c4aa7c97e5e99a89745266e06c957b3dd5",
+      "subject": "international_law"
+    },
+    {
+      "doc_id": 12,
+      "row_sha256": "0b7b5b5b3047b23ae60a7bf7d737df318c5249d289d69564be0576975ca02ca1",
+      "subject": "international_law"
+    },
+    {
+      "doc_id": 34,
+      "row_sha256": "8a7e275c4cfd22d72261f6993cc1e025579ef3c799037bebc08a7de56aac8a27",
+      "subject": "international_law"
+    },
+    {
+      "doc_id": 36,
+      "row_sha256": "f2c9c570420af23389805be9d3060ee0ef456c286cdf492ec29e1b0706d2c1fc",
+      "subject": "international_law"
+    },
+    {
+      "doc_id": 46,
+      "row_sha256": "5d852616b1ae606e9bb76fab17108358e707f7ed2c98bd2a7863c7238b66d6c4",
+      "subject": "international_law"
+    },
+    {
+      "doc_id": 48,
+      "row_sha256": "f7dec2c1a114d14d4ce6f3e80a6f8abc2b10c1c7a9fb59b7c36599858d266eae",
+      "subject": "international_law"
+    },
+    {
+      "doc_id": 65,
+      "row_sha256": "5065b5c82e8649da046512542ce2cdec7a7fb3cdbdd634950824c87be880d3fd",
+      "subject": "international_law"
+    },
+    {
+      "doc_id": 109,
+      "row_sha256": "8f0cffed89d0da0d3c58cd6484120a00dccd16ff052a9bdffff2defa5965ea21",
+      "subject": "international_law"
+    },
+    {
+      "doc_id": 12,
+      "row_sha256": "9f2f7fd5b5f9fd586263749e26a07ecf29aabbb04505a53ff4e99aec863f9261",
+      "subject": "jurisprudence"
+    },
+    {
+      "doc_id": 13,
+      "row_sha256": "4b13cd5aece06fc2328efadda5b26e92b8916143191ce83ed803f2c23a926d7a",
+      "subject": "jurisprudence"
+    },
+    {
+      "doc_id": 15,
+      "row_sha256": "97a58cbdc1542ed21038283d1ddd5597eb7dbcbbcf9146ae7a6cc49bd57c6789",
+      "subject": "jurisprudence"
+    },
+    {
+      "doc_id": 51,
+      "row_sha256": "fce1dba0004714478d5fe4bcf9269ea9f68839e270dd8faaa6c8cbc47a22eac9",
+      "subject": "jurisprudence"
+    },
+    {
+      "doc_id": 69,
+      "row_sha256": "99162c88fc1278572c45b856fe372f7fedb374c29451cb04fce55ab08d298ff2",
+      "subject": "jurisprudence"
+    },
+    {
+      "doc_id": 70,
+      "row_sha256": "18dcf701ae7b98b17962e5bd95c7cba4fd4f62749e7cff25935365b96e1a5fc0",
+      "subject": "jurisprudence"
+    },
+    {
+      "doc_id": 77,
+      "row_sha256": "fdb223255679eaa498bf5047603d74058f80f3467d0decbc9c10fb32773f5842",
+      "subject": "jurisprudence"
+    },
+    {
+      "doc_id": 90,
+      "row_sha256": "2d4cfdb6ebf273705e380be27ffa15c2dc144eef7c89ccd4bdfb6245ba67440e",
+      "subject": "jurisprudence"
+    },
+    {
+      "doc_id": 35,
+      "row_sha256": "0a060e0058490061d180eff0168010b817827e2ffd31fead632f1bcff3db8c68",
+      "subject": "logical_fallacies"
+    },
+    {
+      "doc_id": 40,
+      "row_sha256": "644efdfdfde0e272ee6f7b3f62ee89e23c22e16c1421914c5ec714e60c3eb23f",
+      "subject": "logical_fallacies"
+    },
+    {
+      "doc_id": 99,
+      "row_sha256": "cd5e2757a71990d62adbe35f937fa96ebabdfc8c943168fde04a16219f70700d",
+      "subject": "logical_fallacies"
+    },
+    {
+      "doc_id": 109,
+      "row_sha256": "4c96c09a290893e3cf763486fc522189a4428666042fcff35c674d6210c856a9",
+      "subject": "logical_fallacies"
+    },
+    {
+      "doc_id": 121,
+      "row_sha256": "dd3e19e56040ecd302f02d64a66f1865cc5a995c80b6b3029e71d6d1e89bf363",
+      "subject": "logical_fallacies"
+    },
+    {
+      "doc_id": 126,
+      "row_sha256": "61481bab4634b935229136620ec4c507475fae43ebe9187f271027f3a1593aa0",
+      "subject": "logical_fallacies"
+    },
+    {
+      "doc_id": 134,
+      "row_sha256": "0d6a3f1d4e77c58ce933b28a7aa9bceb1b74aeea915f2c8f4f5d457ab8ac02ae",
+      "subject": "logical_fallacies"
+    },
+    {
+      "doc_id": 146,
+      "row_sha256": "a7a7756b6b64a80278aee0de268715e827faab2796b0a9143df1da56d388f0df",
+      "subject": "logical_fallacies"
+    },
+    {
+      "doc_id": 149,
+      "row_sha256": "f512b571fc5bb9ebcf8644a26a949943786bdf807d0b82478a77c994d55f96d7",
+      "subject": "logical_fallacies"
+    },
+    {
+      "doc_id": 4,
+      "row_sha256": "b5444cc8a0d08c3d710357f83b1149b9dc4415395e6ccf54ea355f2ebd9597f1",
+      "subject": "machine_learning"
+    },
+    {
+      "doc_id": 5,
+      "row_sha256": "772fd7b3839ab35a72bd1d77299c82ff181035159abef919f2bd894627d95cd4",
+      "subject": "machine_learning"
+    },
+    {
+      "doc_id": 59,
+      "row_sha256": "e9955a94236e3a1d2b344e3d5958290048e822ea811a3beffe0d7a3d35f4a76f",
+      "subject": "machine_learning"
+    },
+    {
+      "doc_id": 62,
+      "row_sha256": "9ad9b5312bc715afa5f7cacd3f56fafb18764a54e1525ee993343a6e6a336159",
+      "subject": "machine_learning"
+    },
+    {
+      "doc_id": 65,
+      "row_sha256": "7ccdec1563f54286765664f60103caa67375a39c6ae83dae8462d7d752bc7996",
+      "subject": "machine_learning"
+    },
+    {
+      "doc_id": 74,
+      "row_sha256": "318c2333c8dc30359aed8edc70debdbcd1039b57c044749135aac55cb4cad3b9",
+      "subject": "machine_learning"
+    },
+    {
+      "doc_id": 95,
+      "row_sha256": "c371e9f14795425524703ee6c0e662d17b8c241dcd30a5517dbd2246ac915e77",
+      "subject": "machine_learning"
+    },
+    {
+      "doc_id": 100,
+      "row_sha256": "fe18c8d69517693ee3672033bb3348bd6e65781529210a907a985631df8419be",
+      "subject": "machine_learning"
+    },
+    {
+      "doc_id": 105,
+      "row_sha256": "b1720309cdf19b942366d3cefa7518c077eedfda89f87d676eeb8babbef5b836",
+      "subject": "machine_learning"
+    },
+    {
+      "doc_id": 27,
+      "row_sha256": "7dd924b99629c8882fca6add47a51eb0cd7f0a800d559fbf01c7c65b734683fc",
+      "subject": "management"
+    },
+    {
+      "doc_id": 28,
+      "row_sha256": "8c61ba156847b695b63d9ef0096fcac2547c75d905dd15d54730d87986157c73",
+      "subject": "management"
+    },
+    {
+      "doc_id": 35,
+      "row_sha256": "4009f3366b379c431a27d2969be3e08e64af1cb7f1813eb8a01acf32320dfd13",
+      "subject": "management"
+    },
+    {
+      "doc_id": 43,
+      "row_sha256": "69f1cc2f26721f3cbd1dd7534f83a3a790595f35be083b4e66edca30037c658c",
+      "subject": "management"
+    },
+    {
+      "doc_id": 45,
+      "row_sha256": "55b49fdab6e2b01dfc2aa3c248288358963bf754aee3bbb44c53668aca4d649b",
+      "subject": "management"
+    },
+    {
+      "doc_id": 49,
+      "row_sha256": "b8f22bfbe862b6785d36e4b6599a4cee668bf91e8d18c8fd77a7d43cf2c39067",
+      "subject": "management"
+    },
+    {
+      "doc_id": 73,
+      "row_sha256": "1dc8a7130be13b6fe3d28cf15f2f6fd42fba9a66bee416ce60c90663a6c9e6f5",
+      "subject": "management"
+    },
+    {
+      "doc_id": 90,
+      "row_sha256": "c0b794338acc164c708cb52cbf175b1e9cac0f60cf3e605b3146f85859da2f17",
+      "subject": "management"
+    },
+    {
+      "doc_id": 97,
+      "row_sha256": "b6fdb5150dd424c94ccb984d97ef6d2f94780af54b1144719c9bb97286a201af",
+      "subject": "management"
+    },
+    {
+      "doc_id": 6,
+      "row_sha256": "47fbe4d0b7c1e393f65dfc5254a6b17c3b9ccbb06f5d1d01d5cb090aaae82e97",
+      "subject": "marketing"
+    },
+    {
+      "doc_id": 16,
+      "row_sha256": "672ac404b36f81789359e567c665e3b5238617e7e3cecee51c363d8f09e5e218",
+      "subject": "marketing"
+    },
+    {
+      "doc_id": 30,
+      "row_sha256": "ff41bb2fb6deb0fa5ddadb0495b3e340042c331017ed6adaa69f893cb3909eea",
+      "subject": "marketing"
+    },
+    {
+      "doc_id": 31,
+      "row_sha256": "920376f7f08a5ded8eea908f07af4160c2a86d01e7fba104a39370658c031cb8",
+      "subject": "marketing"
+    },
+    {
+      "doc_id": 151,
+      "row_sha256": "89e889d03bd836327e596ec8b386fce6b6607ae2d8f995a9a0dbe8a39a282f67",
+      "subject": "marketing"
+    },
+    {
+      "doc_id": 180,
+      "row_sha256": "ecfc5e2ccc65d69e96be573b3b99afeeac0fd29ce840307d2bb30370c5e265bf",
+      "subject": "marketing"
+    },
+    {
+      "doc_id": 188,
+      "row_sha256": "1865f71b92927d44ac0deac72ccbb3693fa5bc81909bd562dd827a29926a8083",
+      "subject": "marketing"
+    },
+    {
+      "doc_id": 193,
+      "row_sha256": "76112cd4ff16932612fc98003e1a416643be21b7781f0c4b33b519738c84105d",
+      "subject": "marketing"
+    },
+    {
+      "doc_id": 205,
+      "row_sha256": "be6a4b6200b1def101965fc9650ee131bbd7df775e38c16807f0d7c3e375cb6c",
+      "subject": "marketing"
+    },
+    {
+      "doc_id": 11,
+      "row_sha256": "ceabfbcf517bbf24d0d8191a1ae78f42a759259f493eeffe9d9f7700a0a017e2",
+      "subject": "medical_genetics"
+    },
+    {
+      "doc_id": 31,
+      "row_sha256": "ff86179d14b933161eeec6f0c25a00935ca0f5e8c68e5513072c11c903838766",
+      "subject": "medical_genetics"
+    },
+    {
+      "doc_id": 33,
+      "row_sha256": "1629b222a8be8b1205da7b0c7b423062e9eedfdca47cc58a46e6a1e49fcb3513",
+      "subject": "medical_genetics"
+    },
+    {
+      "doc_id": 51,
+      "row_sha256": "a321ab55f9a7a439d36eff1f0486f4aa1eef54176cb30316dbe5fdec6d19f606",
+      "subject": "medical_genetics"
+    },
+    {
+      "doc_id": 63,
+      "row_sha256": "72f0fd455bcc918f5a9c7c8079590d0b79283f3bb784303c157ae67662282666",
+      "subject": "medical_genetics"
+    },
+    {
+      "doc_id": 86,
+      "row_sha256": "87b9f40e80c1a33aa7da76fd0a61849c92c2fc2ec748a2fc0251fb803b52a867",
+      "subject": "medical_genetics"
+    },
+    {
+      "doc_id": 88,
+      "row_sha256": "e942235d8c366b4f1db6cc349460d10894a6de11c084a7a9cc8ff677ba89233c",
+      "subject": "medical_genetics"
+    },
+    {
+      "doc_id": 94,
+      "row_sha256": "97ecc925e231d40204adebd9e88ff97fce786e22adb1dd2ec8b8fae327937b46",
+      "subject": "medical_genetics"
+    },
+    {
+      "doc_id": 98,
+      "row_sha256": "f4da9bde1b316759b10ffb6ffaff215d89904aa07197b360924c24975db1d59b",
+      "subject": "medical_genetics"
+    },
+    {
+      "doc_id": 277,
+      "row_sha256": "50b0efa8fc013bc73ecdd5ab4766d72dabc70ba885c10af45925a21cc02f9c38",
+      "subject": "miscellaneous"
+    },
+    {
+      "doc_id": 347,
+      "row_sha256": "c9a2006a6d6230a7e0e13236e0f019ff5fe868403e18ee9bb11670e6707dc38f",
+      "subject": "miscellaneous"
+    },
+    {
+      "doc_id": 386,
+      "row_sha256": "a361a2ee6374f1c35d557491c7f2ff381f7db229dc9813e2d201afa0720c2ce6",
+      "subject": "miscellaneous"
+    },
+    {
+      "doc_id": 438,
+      "row_sha256": "443816af5873e046c7fa8e3995ca41203e0378bf559728cd1c3a7baa000c3516",
+      "subject": "miscellaneous"
+    },
+    {
+      "doc_id": 482,
+      "row_sha256": "7b347da0f369ef2640e122f745119665e417a06b3ed3b3c59bb5de963fc0d5f6",
+      "subject": "miscellaneous"
+    },
+    {
+      "doc_id": 539,
+      "row_sha256": "d233347448b50aa01789be78ff5cd513739c3189c81981940d7a9edc138c1362",
+      "subject": "miscellaneous"
+    },
+    {
+      "doc_id": 580,
+      "row_sha256": "86290b52046423067be2ec7d5626bfc8df9e66acdd162eb26a0239745a376d8f",
+      "subject": "miscellaneous"
+    },
+    {
+      "doc_id": 594,
+      "row_sha256": "2b9edb9d6b6e707ce43b728aea75e68b210047dc2414fa079c06a891840e7237",
+      "subject": "miscellaneous"
+    },
+    {
+      "doc_id": 614,
+      "row_sha256": "9884261285345859ea77b1a21f7985bff042a271d11f1fcf1fbdd32457161822",
+      "subject": "miscellaneous"
+    },
+    {
+      "doc_id": 43,
+      "row_sha256": "95e8f8d3f5644c1f66bc2ca6f2ba57dd2192a8158213e9d638b18c892f17c2ff",
+      "subject": "moral_disputes"
+    },
+    {
+      "doc_id": 44,
+      "row_sha256": "fa1cf54cd68911d0e81dd9d7068064aebfffd121d2993f104c37029e637a20de",
+      "subject": "moral_disputes"
+    },
+    {
+      "doc_id": 72,
+      "row_sha256": "58899f6523a66efce08cf72c65058123806308ba31b01106005c139306fad928",
+      "subject": "moral_disputes"
+    },
+    {
+      "doc_id": 104,
+      "row_sha256": "d6ac0aa3bbc9d19b07c8a302269d3188e7792e38cdd0446f8955b381b1da75b0",
+      "subject": "moral_disputes"
+    },
+    {
+      "doc_id": 148,
+      "row_sha256": "feb04d49f4093dd2cdead37419d047c721e547916276fb7f9cbbbb18d7387ff7",
+      "subject": "moral_disputes"
+    },
+    {
+      "doc_id": 178,
+      "row_sha256": "a4adae0e9554e1ce9084a547ecf656a1166a3faa27991b1078b4cbe4b1d9674a",
+      "subject": "moral_disputes"
+    },
+    {
+      "doc_id": 254,
+      "row_sha256": "25c4b488095a070c4a2b59378c3581fe8fcbe6c85b9d176889e572d7790f3fd1",
+      "subject": "moral_disputes"
+    },
+    {
+      "doc_id": 264,
+      "row_sha256": "086f7a20780cf0109bdd2c559fce5fbbacee093343069c817b71ef9d41e82cb6",
+      "subject": "moral_disputes"
+    },
+    {
+      "doc_id": 282,
+      "row_sha256": "3556906670b60a925cd051592f1d62f8f615c6ceea8ff2aadfecfe0f3a716e36",
+      "subject": "moral_disputes"
+    },
+    {
+      "doc_id": 144,
+      "row_sha256": "142aeec4bd0f631f0d52268b45c8e25fd80926ad1db39ab957460c2935962952",
+      "subject": "moral_scenarios"
+    },
+    {
+      "doc_id": 189,
+      "row_sha256": "074cceb1797642cf4c454a255009a2328c9fc482a981009d759546353581a997",
+      "subject": "moral_scenarios"
+    },
+    {
+      "doc_id": 272,
+      "row_sha256": "b2dfe1d5cad1722a1455338ebe742eae05e5a9dbccf949b19f3d8412052bab9c",
+      "subject": "moral_scenarios"
+    },
+    {
+      "doc_id": 337,
+      "row_sha256": "dc99f97aee27adc2b9f6597fe572cdffd6bdabd56cdf33c28f6b92af4848f2e4",
+      "subject": "moral_scenarios"
+    },
+    {
+      "doc_id": 514,
+      "row_sha256": "ab543bfbcde28bd5ecf3c523e3aa193cb3ee330efbdfd6c63063a86bb821974a",
+      "subject": "moral_scenarios"
+    },
+    {
+      "doc_id": 531,
+      "row_sha256": "a7f7ba87a39fe6b3d6e9ee0646d70ab406d0fdd74efa41f39b49563a684f88c9",
+      "subject": "moral_scenarios"
+    },
+    {
+      "doc_id": 751,
+      "row_sha256": "289bda5b1a8eb4c68404f5677cd7da9006eda811d24576f9e088077bf4748b9e",
+      "subject": "moral_scenarios"
+    },
+    {
+      "doc_id": 790,
+      "row_sha256": "4e8386586893f6e58d571bf4e37d36995c6175d079d902edbe517ec527dd88a8",
+      "subject": "moral_scenarios"
+    },
+    {
+      "doc_id": 792,
+      "row_sha256": "0b61aff0a8482d1edcf57526bb25d0689984f17fd7605aa02174421117f0e96a",
+      "subject": "moral_scenarios"
+    },
+    {
+      "doc_id": 61,
+      "row_sha256": "8f8d7c1579b70144c28de03947e50dafb6f2393b7d6e53fc63c8a62a37668f1a",
+      "subject": "nutrition"
+    },
+    {
+      "doc_id": 153,
+      "row_sha256": "921e0d5d056a40ff6c8f8f7c443fab8abe69c13d21c71440e8e7fcb2ffd8df47",
+      "subject": "nutrition"
+    },
+    {
+      "doc_id": 201,
+      "row_sha256": "8d5caf32ff2904d61ae0bbffd6b25497227b98b5729eb79b2cc55f7d6e0a1643",
+      "subject": "nutrition"
+    },
+    {
+      "doc_id": 251,
+      "row_sha256": "0ac810c181b59ca56ad9cec1b19fb8ee5da83dfa1998c3daff2652b3fc7f78ff",
+      "subject": "nutrition"
+    },
+    {
+      "doc_id": 254,
+      "row_sha256": "ca97ec276b138422b509610723a9452d8748fc5bcb6629b6ba63676cf7259e27",
+      "subject": "nutrition"
+    },
+    {
+      "doc_id": 271,
+      "row_sha256": "454afd8da91037751ad21aa8c6cdc11591d092e38c28ee1e65f93c6b8c09bba5",
+      "subject": "nutrition"
+    },
+    {
+      "doc_id": 278,
+      "row_sha256": "3a021ee340a3feec536188ed0178aba09323fbdd3a3ceb1b58c9afa83368819e",
+      "subject": "nutrition"
+    },
+    {
+      "doc_id": 290,
+      "row_sha256": "506b949ec7b29c1f6119ef7b27736554a0271944d38dad0c9b6ad4887c44f0bf",
+      "subject": "nutrition"
+    },
+    {
+      "doc_id": 12,
+      "row_sha256": "03e7f2609dcf595446b3277760b3cb6d038eda0a34893803efbf0ac0bcd93911",
+      "subject": "philosophy"
+    },
+    {
+      "doc_id": 57,
+      "row_sha256": "a99ba634d714b19f43b322643419b356adef9d848911c8fa39d908311cc92dc3",
+      "subject": "philosophy"
+    },
+    {
+      "doc_id": 60,
+      "row_sha256": "57c3f8bc4469e4ffd8a664d35d6759fd1ae6fbf8a4f0f4f10e5e9faccf201954",
+      "subject": "philosophy"
+    },
+    {
+      "doc_id": 71,
+      "row_sha256": "19ccfd5219689a6b17ebb45b71f051441176da1bf62e30dc063e82e35939a9a4",
+      "subject": "philosophy"
+    },
+    {
+      "doc_id": 94,
+      "row_sha256": "cff90f29357f8e9fde11fc2a1e60b9bdac7f569f78eecca3a05e617d46fc0caf",
+      "subject": "philosophy"
+    },
+    {
+      "doc_id": 127,
+      "row_sha256": "d31aeb55f225eeed5c5172fe4cc66ee97d922ae5a11be417f686b99b992e5868",
+      "subject": "philosophy"
+    },
+    {
+      "doc_id": 177,
+      "row_sha256": "f7851546820f02bb27d12b2603b13a90234d37888fd1489066020657da484110",
+      "subject": "philosophy"
+    },
+    {
+      "doc_id": 282,
+      "row_sha256": "c8854063ab29c2f550461340630604503058f81eedf43c815f69c4ca411d80c8",
+      "subject": "philosophy"
+    },
+    {
+      "doc_id": 297,
+      "row_sha256": "8da257271df1db4529f9bacc29deff743bd7440280dfb5342cc042cc75c533ca",
+      "subject": "philosophy"
+    },
+    {
+      "doc_id": 47,
+      "row_sha256": "532acef5cab351eb9390ff81f40e7995d6a4f55fe5b67631c339c03be324c3ce",
+      "subject": "prehistory"
+    },
+    {
+      "doc_id": 77,
+      "row_sha256": "45c3c27dcb7a2f0a958805b34cfa87eeaa5d874a1ded0cd5994c71607f2154e6",
+      "subject": "prehistory"
+    },
+    {
+      "doc_id": 94,
+      "row_sha256": "886af3e8a5fd0ca8613abe716e65ef3657d6db12a83eb774a2eaca9f44981d3f",
+      "subject": "prehistory"
+    },
+    {
+      "doc_id": 157,
+      "row_sha256": "88e9b1630bb8dbfc7dd0aea87003cf0759e4a2d0c54612caf1bc47b96e599be5",
+      "subject": "prehistory"
+    },
+    {
+      "doc_id": 168,
+      "row_sha256": "fd1110fc0ca391e9cfba22b49e904913d2d97710e495f42ffba2146a4d3a346c",
+      "subject": "prehistory"
+    },
+    {
+      "doc_id": 196,
+      "row_sha256": "cfaed8b40db944f4e622d3a467783ee3a7a33ec059eef5bf7e5c210c3448af7a",
+      "subject": "prehistory"
+    },
+    {
+      "doc_id": 206,
+      "row_sha256": "ff61eba9ade8bbabdd6e2b793404eb82bd3428973162bcd8ff4eeb9c9aa4c946",
+      "subject": "prehistory"
+    },
+    {
+      "doc_id": 231,
+      "row_sha256": "d95203f6a337d27071ee8bdab959705241e7c327ea84b66edc65abce4b4cf587",
+      "subject": "prehistory"
+    },
+    {
+      "doc_id": 320,
+      "row_sha256": "3bb7621b48b06c57b19456b4c4813226ae4d9243a57ab0591b2c76edeb4fefb6",
+      "subject": "prehistory"
+    },
+    {
+      "doc_id": 15,
+      "row_sha256": "82acde25040045635ce9e0a5da52c5e3ae5414a6160668743c1a5148fe0da5c3",
+      "subject": "professional_accounting"
+    },
+    {
+      "doc_id": 19,
+      "row_sha256": "bcad950fe5c1a1b87d26d7986a62a266b232ea79d632dd18a400988259915fc5",
+      "subject": "professional_accounting"
+    },
+    {
+      "doc_id": 26,
+      "row_sha256": "7249b370d826523c3a8dd893abee565d76e65a333da7ea9890bcf55c1b16ff80",
+      "subject": "professional_accounting"
+    },
+    {
+      "doc_id": 58,
+      "row_sha256": "4a299412492fbabd17a929979cfc7f7c8188689a775bf55234b23cc8d90f7050",
+      "subject": "professional_accounting"
+    },
+    {
+      "doc_id": 101,
+      "row_sha256": "0738f8ef82504678d167b63a949704aee7e0b2210ab5e64a83f2f0cc0443c309",
+      "subject": "professional_accounting"
+    },
+    {
+      "doc_id": 141,
+      "row_sha256": "5b0d00f425493be4d80efae02d1b74a36996b57b8800a9859d6cbdca77332eba",
+      "subject": "professional_accounting"
+    },
+    {
+      "doc_id": 158,
+      "row_sha256": "9f73a4f6c198fa8fc08a0e27f426529a2d37dd2848655687b6bae653cbf9df00",
+      "subject": "professional_accounting"
+    },
+    {
+      "doc_id": 223,
+      "row_sha256": "72390d6e7be094e4de22a1a9eb56bdf1c471439b33904c5c245b6540c205b00c",
+      "subject": "professional_accounting"
+    },
+    {
+      "doc_id": 262,
+      "row_sha256": "17d4995b6e8ab8ba5a1fbf8ee630fb882e3fab5c8be77357b0f88400cf6b4621",
+      "subject": "professional_accounting"
+    },
+    {
+      "doc_id": 37,
+      "row_sha256": "05411063029a0e30fff058b0a9c5abb8992f27166bcb27b7b7da5ea59260eca0",
+      "subject": "professional_law"
+    },
+    {
+      "doc_id": 180,
+      "row_sha256": "f0a69fc099a333cddee00b4141aa2d0a551f733aaf2783a0a4241662d8fbd09e",
+      "subject": "professional_law"
+    },
+    {
+      "doc_id": 249,
+      "row_sha256": "81c7b7795108201833fea047615f519723d10f2aefc40e0b39c558c7753a5a9c",
+      "subject": "professional_law"
+    },
+    {
+      "doc_id": 355,
+      "row_sha256": "905553fe0b230d1129bbe6a46ae2d2fffc91a59fe6d47c2fc878ca419a18032d",
+      "subject": "professional_law"
+    },
+    {
+      "doc_id": 438,
+      "row_sha256": "ae9e03e9f1c63ab6b502bd3e26f52ccb9f9ca5338361323d6eedb0399d40b501",
+      "subject": "professional_law"
+    },
+    {
+      "doc_id": 966,
+      "row_sha256": "4ffa98ef6a3fc3c2e5d6d2c0a957cca000c82958a94793aa7d86af3582212979",
+      "subject": "professional_law"
+    },
+    {
+      "doc_id": 1155,
+      "row_sha256": "cd01e59fda2352c027db1e39b0088e3623dd709b9150cdb798c129d3c86dbe55",
+      "subject": "professional_law"
+    },
+    {
+      "doc_id": 1352,
+      "row_sha256": "4cba40dd3442f0fa189ae58673b8057e514f2a06293ec79a875f98b1a37c4f5f",
+      "subject": "professional_law"
+    },
+    {
+      "doc_id": 1377,
+      "row_sha256": "0ccf7b6d75d2edca06609c94aa90aa7c17bd41bfa9b101fa5e9a74d20486319a",
+      "subject": "professional_law"
+    },
+    {
+      "doc_id": 36,
+      "row_sha256": "d301529ae879fb49d48750e7cf33ce54de4a0500614329cf58f6ed33c6595997",
+      "subject": "professional_medicine"
+    },
+    {
+      "doc_id": 40,
+      "row_sha256": "9c61e9a65c1cbef304b7123adb07eecb5dd04f3ab1ada62d5c9c5c5a3c311fd5",
+      "subject": "professional_medicine"
+    },
+    {
+      "doc_id": 75,
+      "row_sha256": "7d549ca2bcc0717a8a0492645db4e3d8401c6a286a04f4c756150516042a711d",
+      "subject": "professional_medicine"
+    },
+    {
+      "doc_id": 101,
+      "row_sha256": "0257d8dd39b0c1ff8f3748a75a87c3b76f1e40925a467928990b9786e4fbbfdf",
+      "subject": "professional_medicine"
+    },
+    {
+      "doc_id": 175,
+      "row_sha256": "19b164b9569b6c6e3178ac797e9d1034447aafb0b1b74a0178021d1915005274",
+      "subject": "professional_medicine"
+    },
+    {
+      "doc_id": 235,
+      "row_sha256": "07c4af35df9bc26ee2e6784f8a7e71e63a135bf14d39277c3af12b51c8fb022c",
+      "subject": "professional_medicine"
+    },
+    {
+      "doc_id": 237,
+      "row_sha256": "1350b2f7766c77078e0ca231faede90d55425f1ceac34a24af64a9b01d20bdf2",
+      "subject": "professional_medicine"
+    },
+    {
+      "doc_id": 258,
+      "row_sha256": "fd5ff92b1e2679b7b8fd332d060cddf7f00503f39ca3a8fdf2fb0899fb8e075d",
+      "subject": "professional_medicine"
+    },
+    {
+      "doc_id": 264,
+      "row_sha256": "9159130b5350daf1c930e524dd0f082a189b397bcc20f32622323fd5f9d7f045",
+      "subject": "professional_medicine"
+    },
+    {
+      "doc_id": 21,
+      "row_sha256": "a04e73a9e5548d19497a005bb2b8d3afd52ca46930db058fec64c44b4a537770",
+      "subject": "professional_psychology"
+    },
+    {
+      "doc_id": 62,
+      "row_sha256": "b50976a7f37ecc872c9b0a9aca33c1bb335889b15e6db604f51071ed87228e75",
+      "subject": "professional_psychology"
+    },
+    {
+      "doc_id": 63,
+      "row_sha256": "bfd5b83cdd7e48b37fce9209bfcb09b181fd24f69da30bccdc4a46a5adabf05b",
+      "subject": "professional_psychology"
+    },
+    {
+      "doc_id": 169,
+      "row_sha256": "2b90e95a0b52104a700f4e704d1ce264376f1e9fa81356572a5738b9ebdff808",
+      "subject": "professional_psychology"
+    },
+    {
+      "doc_id": 346,
+      "row_sha256": "94df973d1067b35f2d9967ae04b9ae3b2001f3380784057b5f16ba612da77465",
+      "subject": "professional_psychology"
+    },
+    {
+      "doc_id": 449,
+      "row_sha256": "e09dbe5f5ca29939d0129376a77d79c802d1551298a95511b28bbf4afd79dc92",
+      "subject": "professional_psychology"
+    },
+    {
+      "doc_id": 537,
+      "row_sha256": "c9482be72f57d8fc6eaae78f73315800f9e6e77bdc274c811d56f0909bf6a557",
+      "subject": "professional_psychology"
+    },
+    {
+      "doc_id": 548,
+      "row_sha256": "421e33a3a39b18b40761f443a8f03e83adf4236047a6763de095605ebd83d155",
+      "subject": "professional_psychology"
+    },
+    {
+      "doc_id": 15,
+      "row_sha256": "8b342175b85ec40d69edba906103856cd943ccd1f4a99fa0dd9109c15832c1bd",
+      "subject": "public_relations"
+    },
+    {
+      "doc_id": 23,
+      "row_sha256": "bb3242260ddca5c16f4ea872e0064c515f049898668e212515fcbee9c09418e4",
+      "subject": "public_relations"
+    },
+    {
+      "doc_id": 36,
+      "row_sha256": "3437d7d66f4f04a994b3f8928001961b43cce1bf3feac5f9612775e08080da32",
+      "subject": "public_relations"
+    },
+    {
+      "doc_id": 43,
+      "row_sha256": "d67fe3ebfaeaa689fbc75f18cf2afdd183d7f6e7db782a81e4b525013ab7645c",
+      "subject": "public_relations"
+    },
+    {
+      "doc_id": 46,
+      "row_sha256": "dc1a6e134bfcb8c6934eaf27c3a3139bb3a9859498b23afdaa1a31a6a89469d0",
+      "subject": "public_relations"
+    },
+    {
+      "doc_id": 64,
+      "row_sha256": "2e736cb918229987b5a012e4093905a183f7b4320e9122a6e50639c3ce4cdae3",
+      "subject": "public_relations"
+    },
+    {
+      "doc_id": 89,
+      "row_sha256": "1d0675fa0b44c6a6807737a2a89953ed1837e436f8890534bde17a4f3d6e5df7",
+      "subject": "public_relations"
+    },
+    {
+      "doc_id": 90,
+      "row_sha256": "3f4c5f8ebd038bbb9eb3fbdfc0727ad055d593f6942d10e21bf8ee54a08ba95e",
+      "subject": "public_relations"
+    },
+    {
+      "doc_id": 67,
+      "row_sha256": "a12d0896a43343bc536cb9403d1451009eb8c00bf6d4aaa9fc05db9553b661d0",
+      "subject": "security_studies"
+    },
+    {
+      "doc_id": 93,
+      "row_sha256": "360be4b1cf5f324a3ea7104abe91cee4322d08bafac202101cc7d01d5e77c73d",
+      "subject": "security_studies"
+    },
+    {
+      "doc_id": 103,
+      "row_sha256": "2b17d4fe566b6f9e2704fd6dc418d72b975336fdc868f26c845178d0391edc85",
+      "subject": "security_studies"
+    },
+    {
+      "doc_id": 104,
+      "row_sha256": "e650e30517b4a6281455acbf0e87d71dbb1f447cced73928aeccf429f78900f3",
+      "subject": "security_studies"
+    },
+    {
+      "doc_id": 112,
+      "row_sha256": "c6facd103988ff09c658e0f3228c0d311da1ce3dc736e4a9839dc25941f54153",
+      "subject": "security_studies"
+    },
+    {
+      "doc_id": 145,
+      "row_sha256": "981651305141f4766072a2ebe1419f230405cdc18d6c0819f570037199b6b497",
+      "subject": "security_studies"
+    },
+    {
+      "doc_id": 177,
+      "row_sha256": "6f632433bd2e7f622d610dd7e7b8de06a0316f604e146090ee76b7a03501f5c8",
+      "subject": "security_studies"
+    },
+    {
+      "doc_id": 184,
+      "row_sha256": "bd8b6553627ee3b9c6ac117f39c12bc428d44fa00d0cb8b26753db03c0412d36",
+      "subject": "security_studies"
+    },
+    {
+      "doc_id": 185,
+      "row_sha256": "84a42aa02a01f1e2a58c7542968284b9d16ba852d3c45e33369252177aba3667",
+      "subject": "security_studies"
+    },
+    {
+      "doc_id": 13,
+      "row_sha256": "5092673396334c9497e7c9010900641dd0570b701bfad5916aab366cb6754d26",
+      "subject": "sociology"
+    },
+    {
+      "doc_id": 25,
+      "row_sha256": "aa200e4f764c6aac9deaf561d19be76af9b1289eaa7244909279d51efc5a141b",
+      "subject": "sociology"
+    },
+    {
+      "doc_id": 89,
+      "row_sha256": "81095523c1b221e4bb8fc23aa503acc41ff555e54db7a51b05df279cf491baf9",
+      "subject": "sociology"
+    },
+    {
+      "doc_id": 107,
+      "row_sha256": "7094883e2bf757291fb8019d9db43ce8e856d35096e528f8e5422811b6bd1d44",
+      "subject": "sociology"
+    },
+    {
+      "doc_id": 110,
+      "row_sha256": "14fa585517586283cc37db0fcec6cf30fe9bb25f14070308e288fde527825ea9",
+      "subject": "sociology"
+    },
+    {
+      "doc_id": 119,
+      "row_sha256": "d8af104eb2967ba0600fcc867d6e746c6dbe88928bfcc53c4713b620fa39660f",
+      "subject": "sociology"
+    },
+    {
+      "doc_id": 178,
+      "row_sha256": "1121028f6934b98b0daf77d0d68fc386bc43cb730b8affc537c37be43e40d3f2",
+      "subject": "sociology"
+    },
+    {
+      "doc_id": 185,
+      "row_sha256": "40ba89162d5e7abef7abeaf5035e6ab4341ffa62aee2cc68394b1f99bdf6b010",
+      "subject": "sociology"
+    },
+    {
+      "doc_id": 187,
+      "row_sha256": "e4977081115899489a0d188764be885322074078d167ebb818be7767c9cf098d",
+      "subject": "sociology"
+    },
+    {
+      "doc_id": 2,
+      "row_sha256": "49f948573ec1af51781586c277fa55af3b2b5fcc9ada7ea917f768efb5f6e140",
+      "subject": "us_foreign_policy"
+    },
+    {
+      "doc_id": 10,
+      "row_sha256": "c2e7157991dc71bc4ba0984154d9c0148efc0cfb3a9a466fe8cc9f3390e53040",
+      "subject": "us_foreign_policy"
+    },
+    {
+      "doc_id": 16,
+      "row_sha256": "6f350bb7c15c9b01c32e0243fb189c89c897b438dbc72a45048b948c0b035e51",
+      "subject": "us_foreign_policy"
+    },
+    {
+      "doc_id": 27,
+      "row_sha256": "19a922414949126bf0848c2ea958985c5013efc5ad3c6b53ed4af5a9c05d19d1",
+      "subject": "us_foreign_policy"
+    },
+    {
+      "doc_id": 31,
+      "row_sha256": "27ef4377d9fa424f079712cdf6378194bde711233a544df61eaaf00fff10a2ca",
+      "subject": "us_foreign_policy"
+    },
+    {
+      "doc_id": 42,
+      "row_sha256": "2855e3e331c89f143f4a86039750d154a215b323b2bc58249631e0444f2b53e5",
+      "subject": "us_foreign_policy"
+    },
+    {
+      "doc_id": 53,
+      "row_sha256": "2e2fb2f4a02e0e6fb0870ddbcba6faf4ffdfa219ad0a57ae9eb800b3c5d7e464",
+      "subject": "us_foreign_policy"
+    },
+    {
+      "doc_id": 75,
+      "row_sha256": "80bb2c879a2f1a884647acb62c1e07581fbffb6c940c07f27dbd78c5f31bc4ff",
+      "subject": "us_foreign_policy"
+    },
+    {
+      "doc_id": 88,
+      "row_sha256": "9661ca0f7733772942c17f522cea407714c61469742295d4446b20bb38ddecf1",
+      "subject": "us_foreign_policy"
+    },
+    {
+      "doc_id": 13,
+      "row_sha256": "617f798b0b3134e793820991f1efe7b51d56941dd6e2826688de07bba8fe13dd",
+      "subject": "virology"
+    },
+    {
+      "doc_id": 14,
+      "row_sha256": "e6d8f2c88a8245eb1edfe4949cb4056a11b4c31b81be9445e4177bbd190971fb",
+      "subject": "virology"
+    },
+    {
+      "doc_id": 36,
+      "row_sha256": "c6d384a7d88ecb85030d1c70dfdeee129170b4a20469c3f49772281fd5d246e0",
+      "subject": "virology"
+    },
+    {
+      "doc_id": 48,
+      "row_sha256": "3f70e43c3e23f1127bb66350c678612408fad4e80f2e837f71b97a8e2ac54d9f",
+      "subject": "virology"
+    },
+    {
+      "doc_id": 59,
+      "row_sha256": "1c6500f5db38615af8a4c6686563e219aa517d03aed40505c70889432c427659",
+      "subject": "virology"
+    },
+    {
+      "doc_id": 102,
+      "row_sha256": "7a67afa000bba5bfea7e365f29c7ffc7c55c755e972068f3aa88afc4b1dbb545",
+      "subject": "virology"
+    },
+    {
+      "doc_id": 108,
+      "row_sha256": "1f79ceb2ae19114a1088e3e0b81b5fe3c409d955fac66001ec8dccc485e8a1c4",
+      "subject": "virology"
+    },
+    {
+      "doc_id": 114,
+      "row_sha256": "d603ed88d2a617b83f6771bf1ec43b94658f51c7a007cc1c600d2783b49d7c3e",
+      "subject": "virology"
+    },
+    {
+      "doc_id": 138,
+      "row_sha256": "8a781e2505b706147f0d2cbdba3e2ad815e47e17625c55c088d701f5b66e6299",
+      "subject": "virology"
+    },
+    {
+      "doc_id": 1,
+      "row_sha256": "d50f423bc14a68285e47ccc97e01be12398700150389889b10896621f992169d",
+      "subject": "world_religions"
+    },
+    {
+      "doc_id": 10,
+      "row_sha256": "862bc91119dcfb56d8cfd279aba69367bd875a8bbdaec38d358a9067ad71d220",
+      "subject": "world_religions"
+    },
+    {
+      "doc_id": 22,
+      "row_sha256": "4ebe106c0a30eead21d9af8ec87f55ad38481333b03c7b38658a7cda9621396f",
+      "subject": "world_religions"
+    },
+    {
+      "doc_id": 56,
+      "row_sha256": "275be601bf2d4217236e35765b7e6d156060f2638bb62e17a7764f6420515eb9",
+      "subject": "world_religions"
+    },
+    {
+      "doc_id": 103,
+      "row_sha256": "1ee285fc419b50fb2d55dc78d1e771930012792ea8bbae6098860b10c1d07330",
+      "subject": "world_religions"
+    },
+    {
+      "doc_id": 110,
+      "row_sha256": "2e4293e15e13a5f32aa05d33574398155f19103a4ff9b2d3991ccb094a0bd793",
+      "subject": "world_religions"
+    },
+    {
+      "doc_id": 121,
+      "row_sha256": "7fb2ba7bf5b584c566c79e167678c73972968090216546a582aa900e2a5fb180",
+      "subject": "world_religions"
+    },
+    {
+      "doc_id": 155,
+      "row_sha256": "cf7623562ec4f8b37c24c3eb3a740014425c784c743f7aac834eb76a96228a9a",
+      "subject": "world_religions"
+    },
+    {
+      "doc_id": 156,
+      "row_sha256": "d875d21bbd85b4da990885364ee13b3e0455782a55696c0a63b351ddd6a52377",
+      "subject": "world_religions"
+    }
+  ],
+  "selection": {
+    "excluded_preexposed_smoke_doc_ids": {
+      "college_mathematics": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ]
+    },
+    "method": "seeded_stratified_by_subject",
+    "per_subject": "8 plus one extra row for 44 seed-selected subjects",
+    "samples": 500,
+    "seed": 20260804,
+    "subjects": 57
+  },
+  "source_files": {
+    "abstract_algebra": {
+      "dev": {
+        "path": "data/eval/mmlu/cais_mmlu/abstract_algebra/dev-00000-of-00001.parquet",
+        "rows": 5,
+        "sha256": "e778f60903669e953c49f0d3c8deffa1738a81fe344e0bf1791e450a5e8b9d6c"
+      },
+      "test": {
+        "path": "data/eval/mmlu/cais_mmlu/abstract_algebra/test-00000-of-00001.parquet",
+        "rows": 100,
+        "sha256": "92338cdcdb43d2871691ef9a0e125e633ca57335ed635a635fe6dead94f224c2"
+      }
+    },
+    "anatomy": {
+      "dev": {
+        "path": "data/eval/mmlu/cais_mmlu/anatomy/dev-00000-of-00001.parquet",
+        "rows": 5,
+        "sha256": "1774b4af192a38e8ed6419fa0c5173aabd3f6ebaea10cd65e8cae26b9baed658"
+      },
+      "test": {
+        "path": "data/eval/mmlu/cais_mmlu/anatomy/test-00000-of-00001.parquet",
+        "rows": 135,
+        "sha256": "cb88f5920b67ab290dd23a825f8e3826d01d8f48d99ad4931a8b0003a952a211"
+      }
+    },
+    "astronomy": {
+      "dev": {
+        "path": "data/eval/mmlu/cais_mmlu/astronomy/dev-00000-of-00001.parquet",
+        "rows": 5,
+        "sha256": "73b897f92f1f5982c689cbcf7220d3454b18a589deda6596e738e1a21ad469a4"
+      },
+      "test": {
+        "path": "data/eval/mmlu/cais_mmlu/astronomy/test-00000-of-00001.parquet",
+        "rows": 152,
+        "sha256": "bcdfe1afcb9421747b4edd8d426ac87d47fd4d03e7c3455bcb149d1ba14db228"
+      }
+    },
+    "business_ethics": {
+      "dev": {
+        "path": "data/eval/mmlu/cais_mmlu/business_ethics/dev-00000-of-00001.parquet",
+        "rows": 5,
+        "sha256": "494ea1d948ca9a7519fda526bbe18812ad5fdd9834b3cb01f6b0d2c3821d189c"
+      },
+      "test": {
+        "path": "data/eval/mmlu/cais_mmlu/business_ethics/test-00000-of-00001.parquet",
+        "rows": 100,
+        "sha256": "7910a4b8236c64ef339410a41d5806637087c84635278dda0ff674b8f894dfbb"
+      }
+    },
+    "clinical_knowledge": {
+      "dev": {
+        "path": "data/eval/mmlu/cais_mmlu/clinical_knowledge/dev-00000-of-00001.parquet",
+        "rows": 5,
+        "sha256": "105b492234b3de901223567bf9c72e4f87fe7f701f16b3ef903f1e8a4bb00913"
+      },
+      "test": {
+        "path": "data/eval/mmlu/cais_mmlu/clinical_knowledge/test-00000-of-00001.parquet",
+        "rows": 265,
+        "sha256": "7bd3de302db35c6e9adb311ef40b2fb15ffe02ada17667119d9fb30fe393a44e"
+      }
+    },
+    "college_biology": {
+      "dev": {
+        "path": "data/eval/mmlu/cais_mmlu/college_biology/dev-00000-of-00001.parquet",
+        "rows": 5,
+        "sha256": "0cf3cbb4fde72b09ed0659e81fb1e01fc66f92aecdf87ba5967ee6548d05d555"
+      },
+      "test": {
+        "path": "data/eval/mmlu/cais_mmlu/college_biology/test-00000-of-00001.parquet",
+        "rows": 144,
+        "sha256": "5b6920ddbbb40ee6efd1e6c8814be9fd03d24c9e1e1dbd4b02325e2d454a6a82"
+      }
+    },
+    "college_chemistry": {
+      "dev": {
+        "path": "data/eval/mmlu/cais_mmlu/college_chemistry/dev-00000-of-00001.parquet",
+        "rows": 5,
+        "sha256": "4c689a238a2795d02174ce3b7f621fd0cd721d8a19a6ac3e90e739deb7d1b8c9"
+      },
+      "test": {
+        "path": "data/eval/mmlu/cais_mmlu/college_chemistry/test-00000-of-00001.parquet",
+        "rows": 100,
+        "sha256": "f012f90fc3aec5ead6963fe7bdeee58783010265538dda3be984a9d1dbbd7051"
+      }
+    },
+    "college_computer_science": {
+      "dev": {
+        "path": "data/eval/mmlu/cais_mmlu/college_computer_science/dev-00000-of-00001.parquet",
+        "rows": 5,
+        "sha256": "6b35dffa1635615b201047dc10ae20ae2daa97cfa403128ebe2285f704a744a7"
+      },
+      "test": {
+        "path": "data/eval/mmlu/cais_mmlu/college_computer_science/test-00000-of-00001.parquet",
+        "rows": 100,
+        "sha256": "08b79916057e75938a2a0d5ceb10c517cf923580e6058af48b1b7b3f7a52c5b8"
+      }
+    },
+    "college_mathematics": {
+      "dev": {
+        "path": "data/eval/mmlu/cais_mmlu/college_mathematics/dev-00000-of-00001.parquet",
+        "rows": 5,
+        "sha256": "46ee5c84b379e1959b020786752c96c2a34a9d0cb52a9b247798dbc794bc324d"
+      },
+      "test": {
+        "path": "data/eval/mmlu/cais_mmlu/college_mathematics/test-00000-of-00001.parquet",
+        "rows": 100,
+        "sha256": "f57b57e992d03d07a05c6f8f328a14a49870f61d91e8e525a062644e234bf4f0"
+      }
+    },
+    "college_medicine": {
+      "dev": {
+        "path": "data/eval/mmlu/cais_mmlu/college_medicine/dev-00000-of-00001.parquet",
+        "rows": 5,
+        "sha256": "85bf7f27b795f63a87bb149b73f30acd182f1b04ee4573e36ba80c41ee81ff58"
+      },
+      "test": {
+        "path": "data/eval/mmlu/cais_mmlu/college_medicine/test-00000-of-00001.parquet",
+        "rows": 173,
+        "sha256": "f21b3166975dbc14dff5940df41479bc28853008303c50a070d430fc59468f9c"
+      }
+    },
+    "college_physics": {
+      "dev": {
+        "path": "data/eval/mmlu/cais_mmlu/college_physics/dev-00000-of-00001.parquet",
+        "rows": 5,
+        "sha256": "eec8b9851f44831e3e8c82317c498c81ea3bc3a255d1f9004c26ea7e57728184"
+      },
+      "test": {
+        "path": "data/eval/mmlu/cais_mmlu/college_physics/test-00000-of-00001.parquet",
+        "rows": 102,
+        "sha256": "81b8eafc776b3109fd0ba9f527a7f759b07b92fe953743d3711086e5208aadca"
+      }
+    },
+    "computer_security": {
+      "dev": {
+        "path": "data/eval/mmlu/cais_mmlu/computer_security/dev-00000-of-00001.parquet",
+        "rows": 5,
+        "sha256": "b491f6df6ed1fc6c6a345567bee8240d9e937801a39e626ac62f69619c13eaaa"
+      },
+      "test": {
+        "path": "data/eval/mmlu/cais_mmlu/computer_security/test-00000-of-00001.parquet",
+        "rows": 100,
+        "sha256": "a6ad5774acf5133ac88cf1bb066c60db8668abee2d6a724cf2f9dfa7cb4f103d"
+      }
+    },
+    "conceptual_physics": {
+      "dev": {
+        "path": "data/eval/mmlu/cais_mmlu/conceptual_physics/dev-00000-of-00001.parquet",
+        "rows": 5,
+        "sha256": "1503db27184855758b61b52619317f483fe425293c1801853d3e409d1f5a668d"
+      },
+      "test": {
+        "path": "data/eval/mmlu/cais_mmlu/conceptual_physics/test-00000-of-00001.parquet",
+        "rows": 235,
+        "sha256": "c66a861048a25f96baa59517b613c3ed1a26abf4d7717ae5aab2da29bac7fa70"
+      }
+    },
+    "econometrics": {
+      "dev": {
+        "path": "data/eval/mmlu/cais_mmlu/econometrics/dev-00000-of-00001.parquet",
+        "rows": 5,
+        "sha256": "5edd31ddb8ce550de5b7e51b1f622cc7d83f82714509f81e86cc80f224e91179"
+      },
+      "test": {
+        "path": "data/eval/mmlu/cais_mmlu/econometrics/test-00000-of-00001.parquet",
+        "rows": 114,
+        "sha256": "63501e9de9f822b4d0f60919024c660b40a78791b9cfcf1e69e759f16eef9123"
+      }
+    },
+    "electrical_engineering": {
+      "dev": {
+        "path": "data/eval/mmlu/cais_mmlu/electrical_engineering/dev-00000-of-00001.parquet",
+        "rows": 5,
+        "sha256": "92416acbafa70242a6158f72a3e38f5c1d2feeed84de07d3431f9815b0b08dca"
+      },
+      "test": {
+        "path": "data/eval/mmlu/cais_mmlu/electrical_engineering/test-00000-of-00001.parquet",
+        "rows": 145,
+        "sha256": "3df176cabbd13a1315d7312f37ffec139f1cf51fc4ea3407b5293a00ac325570"
+      }
+    },
+    "elementary_mathematics": {
+      "dev": {
+        "path": "data/eval/mmlu/cais_mmlu/elementary_mathematics/dev-00000-of-00001.parquet",
+        "rows": 5,
+        "sha256": "03b0ff28b6515f1e6ae2c57c3eb1d14df2ea6b36c71aea99ac9e9e7aee17345a"
+      },
+      "test": {
+        "path": "data/eval/mmlu/cais_mmlu/elementary_mathematics/test-00000-of-00001.parquet",
+        "rows": 378,
+        "sha256": "9cb645300084d3b7ff8af98efef034068f8c8780f06017e2ebf21d33beb2fc61"
+      }
+    },
+    "formal_logic": {
+      "dev": {
+        "path": "data/eval/mmlu/cais_mmlu/formal_logic/dev-00000-of-00001.parquet",
+        "rows": 5,
+        "sha256": "6928410ade5a828d9c16b17864857be58843a5ccf44b4135079a10862847965e"
+      },
+      "test": {
+        "path": "data/eval/mmlu/cais_mmlu/formal_logic/test-00000-of-00001.parquet",
+        "rows": 126,
+        "sha256": "a9f917e01461be6ef71bf32248bf10c3a0580d2fef641255b265131bf29d876c"
+      }
+    },
+    "global_facts": {
+      "dev": {
+        "path": "data/eval/mmlu/cais_mmlu/global_facts/dev-00000-of-00001.parquet",
+        "rows": 5,
+        "sha256": "ee23f3bd9dcce85f3d6b8c2387f2f52baa9801d51bb681297149ceb2380a8642"
+      },
+      "test": {
+        "path": "data/eval/mmlu/cais_mmlu/global_facts/test-00000-of-00001.parquet",
+        "rows": 100,
+        "sha256": "9e4b5a22ad1cbe5c58c21f6a96fe65bd0dbb05c8295e1db6fc57c9ee7676b6ef"
+      }
+    },
+    "high_school_biology": {
+      "dev": {
+        "path": "data/eval/mmlu/cais_mmlu/high_school_biology/dev-00000-of-00001.parquet",
+        "rows": 5,
+        "sha256": "4ae1c2d737b60977c22645093846ee6b9642c84480fde8ea39d8654630682aa4"
+      },
+      "test": {
+        "path": "data/eval/mmlu/cais_mmlu/high_school_biology/test-00000-of-00001.parquet",
+        "rows": 310,
+        "sha256": "73600cc5c8032ffd20115887ec4f2c868d75c403c70ac1d115295e72cb8d80e3"
+      }
+    },
+    "high_school_chemistry": {
+      "dev": {
+        "path": "data/eval/mmlu/cais_mmlu/high_school_chemistry/dev-00000-of-00001.parquet",
+        "rows": 5,
+        "sha256": "9ff0a32009626a305c800e347bd5b943898b112b7bd5575f90a5137890c02768"
+      },
+      "test": {
+        "path": "data/eval/mmlu/cais_mmlu/high_school_chemistry/test-00000-of-00001.parquet",
+        "rows": 203,
+        "sha256": "fde2345147be31d8df06ad66200521d7e47588490ab59c09fd78861c8a373ccb"
+      }
+    },
+    "high_school_computer_science": {
+      "dev": {
+        "path": "data/eval/mmlu/cais_mmlu/high_school_computer_science/dev-00000-of-00001.parquet",
+        "rows": 5,
+        "sha256": "431ad5ab203837d9bf82be92f391fa17584c8e3a936d023fca9d320d471cbb4f"
+      },
+      "test": {
+        "path": "data/eval/mmlu/cais_mmlu/high_school_computer_science/test-00000-of-00001.parquet",
+        "rows": 100,
+        "sha256": "6e1b210896afc60f2ea3a1b011733b86dedd74690adce6ff0893346089f83252"
+      }
+    },
+    "high_school_european_history": {
+      "dev": {
+        "path": "data/eval/mmlu/cais_mmlu/high_school_european_history/dev-00000-of-00001.parquet",
+        "rows": 5,
+        "sha256": "61cc946b008250ece8910275c171dcaf466e00b131a7bc6840dfab7600debb9c"
+      },
+      "test": {
+        "path": "data/eval/mmlu/cais_mmlu/high_school_european_history/test-00000-of-00001.parquet",
+        "rows": 165,
+        "sha256": "2bcf46d76656082263b22d871c6ba16f29f4abed600d07381018b843769620c1"
+      }
+    },
+    "high_school_geography": {
+      "dev": {
+        "path": "data/eval/mmlu/cais_mmlu/high_school_geography/dev-00000-of-00001.parquet",
+        "rows": 5,
+        "sha256": "d3a732b15dc6177cf2f3f432b2378baf5f48f36961ceace5faa3f62fc5ee0997"
+      },
+      "test": {
+        "path": "data/eval/mmlu/cais_mmlu/high_school_geography/test-00000-of-00001.parquet",
+        "rows": 198,
+        "sha256": "d083f0a37e9802ff70af8c0ccee95dc6836d80db74f45327519756327076a2c1"
+      }
+    },
+    "high_school_government_and_politics": {
+      "dev": {
+        "path": "data/eval/mmlu/cais_mmlu/high_school_government_and_politics/dev-00000-of-00001.parquet",
+        "rows": 5,
+        "sha256": "3877a26ca2e8607f7b4eccbf29b2cd50b6c5b74373d8c64b6db8f5ebc5000b2d"
+      },
+      "test": {
+        "path": "data/eval/mmlu/cais_mmlu/high_school_government_and_politics/test-00000-of-00001.parquet",
+        "rows": 193,
+        "sha256": "54bb3fcc3987afc3ce0e605343752de94ca227bd4ae13c84b7b1ec9bc3998292"
+      }
+    },
+    "high_school_macroeconomics": {
+      "dev": {
+        "path": "data/eval/mmlu/cais_mmlu/high_school_macroeconomics/dev-00000-of-00001.parquet",
+        "rows": 5,
+        "sha256": "6aa2bf96a9cfa2069866fc89b1dccf1dfbb6f163afbd5e63547dc301e9bc47b0"
+      },
+      "test": {
+        "path": "data/eval/mmlu/cais_mmlu/high_school_macroeconomics/test-00000-of-00001.parquet",
+        "rows": 390,
+        "sha256": "a0f2d6a33352452442a13ffb947ab04dcf16513e87bee7c52e8957c2bc761a4c"
+      }
+    },
+    "high_school_mathematics": {
+      "dev": {
+        "path": "data/eval/mmlu/cais_mmlu/high_school_mathematics/dev-00000-of-00001.parquet",
+        "rows": 5,
+        "sha256": "73034b3a7694d27103ee880a1e13382c0e0a8c07991420d537e926513c125566"
+      },
+      "test": {
+        "path": "data/eval/mmlu/cais_mmlu/high_school_mathematics/test-00000-of-00001.parquet",
+        "rows": 270,
+        "sha256": "310628511fac990528ecac65634fa1ab924ce2d4aad7a7d9cded06db17f6cf7d"
+      }
+    },
+    "high_school_microeconomics": {
+      "dev": {
+        "path": "data/eval/mmlu/cais_mmlu/high_school_microeconomics/dev-00000-of-00001.parquet",
+        "rows": 5,
+        "sha256": "a8ae561bb6bfbbb00059c9c2b8fd3ea5ba01596a27126bd81c7c5841e7c24bd2"
+      },
+      "test": {
+        "path": "data/eval/mmlu/cais_mmlu/high_school_microeconomics/test-00000-of-00001.parquet",
+        "rows": 238,
+        "sha256": "8a55dc2fa10fa86cc4cf5565bb49416bdcf45b545ebb83f6ce8e4360cc65b453"
+      }
+    },
+    "high_school_physics": {
+      "dev": {
+        "path": "data/eval/mmlu/cais_mmlu/high_school_physics/dev-00000-of-00001.parquet",
+        "rows": 5,
+        "sha256": "3b6fb5f8d1f1cc8b220012f1556ce095b00cd141ec5e228fb8e7aac3373e0be0"
+      },
+      "test": {
+        "path": "data/eval/mmlu/cais_mmlu/high_school_physics/test-00000-of-00001.parquet",
+        "rows": 151,
+        "sha256": "48fc84060e4cd032a407da09164e99dfdf81f3ce345bf6c1871bb539ba4ead6c"
+      }
+    },
+    "high_school_psychology": {
+      "dev": {
+        "path": "data/eval/mmlu/cais_mmlu/high_school_psychology/dev-00000-of-00001.parquet",
+        "rows": 5,
+        "sha256": "ada3aebdb9802d09e0181ce8e219c1b68dd0cad09a253299c4027512b2f26fa8"
+      },
+      "test": {
+        "path": "data/eval/mmlu/cais_mmlu/high_school_psychology/test-00000-of-00001.parquet",
+        "rows": 545,
+        "sha256": "9df4a744eb6faa12bb359df1f808c0461c055f240b998a9ec9d97b1c4e49a958"
+      }
+    },
+    "high_school_statistics": {
+      "dev": {
+        "path": "data/eval/mmlu/cais_mmlu/high_school_statistics/dev-00000-of-00001.parquet",
+        "rows": 5,
+        "sha256": "3b7c5d8b0c6c682e922ed199113f1ceef5bc4906ad75eb283d2eba5a4205d8e3"
+      },
+      "test": {
+        "path": "data/eval/mmlu/cais_mmlu/high_school_statistics/test-00000-of-00001.parquet",
+        "rows": 216,
+        "sha256": "4922828bda3ae4c4470e95d8fa809e3abe18f6239047b21d675267ebefb1c691"
+      }
+    },
+    "high_school_us_history": {
+      "dev": {
+        "path": "data/eval/mmlu/cais_mmlu/high_school_us_history/dev-00000-of-00001.parquet",
+        "rows": 5,
+        "sha256": "dcc43231bf782c3ed7a1718e5d8b755cb1812944cdd7428a17369fb68905c66f"
+      },
+      "test": {
+        "path": "data/eval/mmlu/cais_mmlu/high_school_us_history/test-00000-of-00001.parquet",
+        "rows": 204,
+        "sha256": "7e3c242fa3b087b918d30a5202948ed462363ca9de9e65a76970e2c58d5659b7"
+      }
+    },
+    "high_school_world_history": {
+      "dev": {
+        "path": "data/eval/mmlu/cais_mmlu/high_school_world_history/dev-00000-of-00001.parquet",
+        "rows": 5,
+        "sha256": "5c37e72b49e3c509af1fcf83fcd75e12cfad9f31034344bcf6f3a2db64a7c0f7"
+      },
+      "test": {
+        "path": "data/eval/mmlu/cais_mmlu/high_school_world_history/test-00000-of-00001.parquet",
+        "rows": 237,
+        "sha256": "abc9b0182e7cdd19ef7b70ec9734f62436f99e76c740c67f41155611eccbcd7d"
+      }
+    },
+    "human_aging": {
+      "dev": {
+        "path": "data/eval/mmlu/cais_mmlu/human_aging/dev-00000-of-00001.parquet",
+        "rows": 5,
+        "sha256": "7d5ef3e4af1f2cf3a490ab8707f14ed36210159a51648979365756ef46239908"
+      },
+      "test": {
+        "path": "data/eval/mmlu/cais_mmlu/human_aging/test-00000-of-00001.parquet",
+        "rows": 223,
+        "sha256": "69b143d394fd115c893afd98ed8fddaf32039bdece6a60c7f0e6caa3e2a97847"
+      }
+    },
+    "human_sexuality": {
+      "dev": {
+        "path": "data/eval/mmlu/cais_mmlu/human_sexuality/dev-00000-of-00001.parquet",
+        "rows": 5,
+        "sha256": "e2f15b5006b8bdde4072a870525d5c2810ab5b24fafddf6fc25f42db8feff46e"
+      },
+      "test": {
+        "path": "data/eval/mmlu/cais_mmlu/human_sexuality/test-00000-of-00001.parquet",
+        "rows": 131,
+        "sha256": "49efe58e13116a40ac9ee640da8b9c41b29a2915c86eb5bb33fb2959d0c724f9"
+      }
+    },
+    "international_law": {
+      "dev": {
+        "path": "data/eval/mmlu/cais_mmlu/international_law/dev-00000-of-00001.parquet",
+        "rows": 5,
+        "sha256": "a74c7a33d187444a794a8576ec9c8e123d71e03ba4d58f0855f452e8ca085529"
+      },
+      "test": {
+        "path": "data/eval/mmlu/cais_mmlu/international_law/test-00000-of-00001.parquet",
+        "rows": 121,
+        "sha256": "05da704a004fcc5c7d3d47a894af201ca26d8e071aadf05e3a34155fad968ccf"
+      }
+    },
+    "jurisprudence": {
+      "dev": {
+        "path": "data/eval/mmlu/cais_mmlu/jurisprudence/dev-00000-of-00001.parquet",
+        "rows": 5,
+        "sha256": "1291e1cbdaaa3e2d036b73013df3421348abf52cdd99e84b10a1dc55e735c592"
+      },
+      "test": {
+        "path": "data/eval/mmlu/cais_mmlu/jurisprudence/test-00000-of-00001.parquet",
+        "rows": 108,
+        "sha256": "0f302db5178cb629b3b1514cc5f9b2a94e6bbbf0925e3d18b09ed4394099e059"
+      }
+    },
+    "logical_fallacies": {
+      "dev": {
+        "path": "data/eval/mmlu/cais_mmlu/logical_fallacies/dev-00000-of-00001.parquet",
+        "rows": 5,
+        "sha256": "cba7736ad6b6395e081affdbb27f89150b5a1207c98a903a2b092c11b1197632"
+      },
+      "test": {
+        "path": "data/eval/mmlu/cais_mmlu/logical_fallacies/test-00000-of-00001.parquet",
+        "rows": 163,
+        "sha256": "87eefcf75ec88f69379d848bddab3f8936e4d340ef1e51498c334c5a76031fe7"
+      }
+    },
+    "machine_learning": {
+      "dev": {
+        "path": "data/eval/mmlu/cais_mmlu/machine_learning/dev-00000-of-00001.parquet",
+        "rows": 5,
+        "sha256": "b8882136a1a6f4dbf9d764a2de8232347d02f818f3a8d369d93a6fcca5e14488"
+      },
+      "test": {
+        "path": "data/eval/mmlu/cais_mmlu/machine_learning/test-00000-of-00001.parquet",
+        "rows": 112,
+        "sha256": "cd3d1ac01f117433bfed153f81425ede65b1d57abd7bebd2a3471b7b22334424"
+      }
+    },
+    "management": {
+      "dev": {
+        "path": "data/eval/mmlu/cais_mmlu/management/dev-00000-of-00001.parquet",
+        "rows": 5,
+        "sha256": "772b281c0322acf770e8401df72dffe56424c6776b6dd1027467780735b9c430"
+      },
+      "test": {
+        "path": "data/eval/mmlu/cais_mmlu/management/test-00000-of-00001.parquet",
+        "rows": 103,
+        "sha256": "b5579485f3b83ceabcf2269720c7ce087b76ad473f020336c5ec7e724900767f"
+      }
+    },
+    "marketing": {
+      "dev": {
+        "path": "data/eval/mmlu/cais_mmlu/marketing/dev-00000-of-00001.parquet",
+        "rows": 5,
+        "sha256": "a00bdec21ca5a867aab6a73e018df31470173e71f2d816a0d27512a77253e7f0"
+      },
+      "test": {
+        "path": "data/eval/mmlu/cais_mmlu/marketing/test-00000-of-00001.parquet",
+        "rows": 234,
+        "sha256": "3c975f1b0dc699b113fe9ac9a438cda04995b5fab8613e949693cd85e360240a"
+      }
+    },
+    "medical_genetics": {
+      "dev": {
+        "path": "data/eval/mmlu/cais_mmlu/medical_genetics/dev-00000-of-00001.parquet",
+        "rows": 5,
+        "sha256": "a3e66d3e161967c0c331d24b055ac88e87d6d9a459335512b27d74308b39c57e"
+      },
+      "test": {
+        "path": "data/eval/mmlu/cais_mmlu/medical_genetics/test-00000-of-00001.parquet",
+        "rows": 100,
+        "sha256": "f5535475f3afc3479697355679f2b615603fe90a58e8e5b6a98e50ccf07171b9"
+      }
+    },
+    "miscellaneous": {
+      "dev": {
+        "path": "data/eval/mmlu/cais_mmlu/miscellaneous/dev-00000-of-00001.parquet",
+        "rows": 5,
+        "sha256": "b3a42ee2192256ed52d005db54a03e0029572aaeb098fceee36a1378432a2d3e"
+      },
+      "test": {
+        "path": "data/eval/mmlu/cais_mmlu/miscellaneous/test-00000-of-00001.parquet",
+        "rows": 783,
+        "sha256": "5665dde94d34f04a0310bb2af2f8a27fc09a8a2629fe1e6e9248b11592dbd060"
+      }
+    },
+    "moral_disputes": {
+      "dev": {
+        "path": "data/eval/mmlu/cais_mmlu/moral_disputes/dev-00000-of-00001.parquet",
+        "rows": 5,
+        "sha256": "7efc2d7512a7e9e9ac8229fade7739f8c8baba7037441551cf6bb12cc6561290"
+      },
+      "test": {
+        "path": "data/eval/mmlu/cais_mmlu/moral_disputes/test-00000-of-00001.parquet",
+        "rows": 346,
+        "sha256": "fc2a4270481cf732dcbce6816231b430bec14e327e28db930b396e7e53c6c775"
+      }
+    },
+    "moral_scenarios": {
+      "dev": {
+        "path": "data/eval/mmlu/cais_mmlu/moral_scenarios/dev-00000-of-00001.parquet",
+        "rows": 5,
+        "sha256": "c31c54bb7f8c48a935b6955ec1f4e219d148766e7e9b3b5a1dc7b411804bce02"
+      },
+      "test": {
+        "path": "data/eval/mmlu/cais_mmlu/moral_scenarios/test-00000-of-00001.parquet",
+        "rows": 895,
+        "sha256": "e21cc9d8f5a1898bd4bb080fa5dad2474f67f27ca98d3c7bb8c7f529ea32a9f4"
+      }
+    },
+    "nutrition": {
+      "dev": {
+        "path": "data/eval/mmlu/cais_mmlu/nutrition/dev-00000-of-00001.parquet",
+        "rows": 5,
+        "sha256": "4727ff1fb9351c82fba7b004b87368dc5fc4385415beced0b551311996753b64"
+      },
+      "test": {
+        "path": "data/eval/mmlu/cais_mmlu/nutrition/test-00000-of-00001.parquet",
+        "rows": 306,
+        "sha256": "7ba291c21774407b1b27349172c3f85211af81df5047fe92b83b961d7bb7f03f"
+      }
+    },
+    "philosophy": {
+      "dev": {
+        "path": "data/eval/mmlu/cais_mmlu/philosophy/dev-00000-of-00001.parquet",
+        "rows": 5,
+        "sha256": "40bd9dee29bb8049f9d9f149e5a949737f551f4fce8b8936bbd54e27a00237d9"
+      },
+      "test": {
+        "path": "data/eval/mmlu/cais_mmlu/philosophy/test-00000-of-00001.parquet",
+        "rows": 311,
+        "sha256": "51a6715bca767d89652f782825610b7acd22dd5feb9331dce53cb52a772e4d22"
+      }
+    },
+    "prehistory": {
+      "dev": {
+        "path": "data/eval/mmlu/cais_mmlu/prehistory/dev-00000-of-00001.parquet",
+        "rows": 5,
+        "sha256": "9f5ee161a94bd833e3d45683af80276e10ce24cf53f341d39ce730325a4bb151"
+      },
+      "test": {
+        "path": "data/eval/mmlu/cais_mmlu/prehistory/test-00000-of-00001.parquet",
+        "rows": 324,
+        "sha256": "f4cf1e103e6494dd2f77bd1d732b58d8386cc3182346609b7c04353207122a25"
+      }
+    },
+    "professional_accounting": {
+      "dev": {
+        "path": "data/eval/mmlu/cais_mmlu/professional_accounting/dev-00000-of-00001.parquet",
+        "rows": 5,
+        "sha256": "03ab250530422076d3dbbda82a33059f19159e3ecb5e280eb9cd8568dacc3e4d"
+      },
+      "test": {
+        "path": "data/eval/mmlu/cais_mmlu/professional_accounting/test-00000-of-00001.parquet",
+        "rows": 282,
+        "sha256": "1fe6da7a3a8647ee70c23543a15ef9b3ad5bf9ec22e68d0583c98dfdf7585e0f"
+      }
+    },
+    "professional_law": {
+      "dev": {
+        "path": "data/eval/mmlu/cais_mmlu/professional_law/dev-00000-of-00001.parquet",
+        "rows": 5,
+        "sha256": "cb7bf53b1bcf59d2c2c5fab9865da88e1522d0fa96b396af221b05a52d6c89e3"
+      },
+      "test": {
+        "path": "data/eval/mmlu/cais_mmlu/professional_law/test-00000-of-00001.parquet",
+        "rows": 1534,
+        "sha256": "81cfdb63639fe7839da36aa1156e3f772a4521d532027d2c56f1db8fb30c6c7c"
+      }
+    },
+    "professional_medicine": {
+      "dev": {
+        "path": "data/eval/mmlu/cais_mmlu/professional_medicine/dev-00000-of-00001.parquet",
+        "rows": 5,
+        "sha256": "899036c8f5d8c035ee3f4dd17b4e2a761a8e507543cbadf40ac8106963725e1e"
+      },
+      "test": {
+        "path": "data/eval/mmlu/cais_mmlu/professional_medicine/test-00000-of-00001.parquet",
+        "rows": 272,
+        "sha256": "8c1c18b16c9865bf52b7cd997c4d05346f914441645459fac8c5b2f78d9ebac9"
+      }
+    },
+    "professional_psychology": {
+      "dev": {
+        "path": "data/eval/mmlu/cais_mmlu/professional_psychology/dev-00000-of-00001.parquet",
+        "rows": 5,
+        "sha256": "c61d4fb24acc54ebce352f601b404f06b3e1c61df1f3bc136482746b9008d03a"
+      },
+      "test": {
+        "path": "data/eval/mmlu/cais_mmlu/professional_psychology/test-00000-of-00001.parquet",
+        "rows": 612,
+        "sha256": "91529edc6760dbe5bfa41e9190021041499a15f332f5af8d9bffc9fb252116b9"
+      }
+    },
+    "public_relations": {
+      "dev": {
+        "path": "data/eval/mmlu/cais_mmlu/public_relations/dev-00000-of-00001.parquet",
+        "rows": 5,
+        "sha256": "7dd78ceeccd2f8aabdc9301d70bfe94cfd941a4ac4c425189b6d143824110426"
+      },
+      "test": {
+        "path": "data/eval/mmlu/cais_mmlu/public_relations/test-00000-of-00001.parquet",
+        "rows": 110,
+        "sha256": "9ce4ff437b2b6192505d2b5dbe745a5012711ce911ada34f8574fb18411d07cd"
+      }
+    },
+    "security_studies": {
+      "dev": {
+        "path": "data/eval/mmlu/cais_mmlu/security_studies/dev-00000-of-00001.parquet",
+        "rows": 5,
+        "sha256": "c7ab02234d038834c0d4d79af15f0bea9c46fc21ca3295f603708aff878212f7"
+      },
+      "test": {
+        "path": "data/eval/mmlu/cais_mmlu/security_studies/test-00000-of-00001.parquet",
+        "rows": 245,
+        "sha256": "38477f527d22bc9f55e92fb7c247f73e301508d547841b591bd0f9f0fc9529d5"
+      }
+    },
+    "sociology": {
+      "dev": {
+        "path": "data/eval/mmlu/cais_mmlu/sociology/dev-00000-of-00001.parquet",
+        "rows": 5,
+        "sha256": "4abb7ebab6f1cd68a4c599961c02ce4f86045b5909cf77845e1b045e7c101702"
+      },
+      "test": {
+        "path": "data/eval/mmlu/cais_mmlu/sociology/test-00000-of-00001.parquet",
+        "rows": 201,
+        "sha256": "0cdb1dab92e7d5a8c1b617b1c868ae72dade770eb64d6539b26e256594a5d67a"
+      }
+    },
+    "us_foreign_policy": {
+      "dev": {
+        "path": "data/eval/mmlu/cais_mmlu/us_foreign_policy/dev-00000-of-00001.parquet",
+        "rows": 5,
+        "sha256": "da27347e8868bd2b5558f4cf3629772cbe764e828c0c231ac89f7b1a6cff34aa"
+      },
+      "test": {
+        "path": "data/eval/mmlu/cais_mmlu/us_foreign_policy/test-00000-of-00001.parquet",
+        "rows": 100,
+        "sha256": "8051dfc5f49bc73c4882049cbfe476fea2f57ec1879eb23319ed4bdd8f6b0cd3"
+      }
+    },
+    "virology": {
+      "dev": {
+        "path": "data/eval/mmlu/cais_mmlu/virology/dev-00000-of-00001.parquet",
+        "rows": 5,
+        "sha256": "2790f42d02f08f6dafb5aa45f28343eb6c79e1ffa184d7737f202f06e96a91d8"
+      },
+      "test": {
+        "path": "data/eval/mmlu/cais_mmlu/virology/test-00000-of-00001.parquet",
+        "rows": 166,
+        "sha256": "c59ea23f72b405b180a3135c3a5240f8594af6f3c03e5c7784345914253a4928"
+      }
+    },
+    "world_religions": {
+      "dev": {
+        "path": "data/eval/mmlu/cais_mmlu/world_religions/dev-00000-of-00001.parquet",
+        "rows": 5,
+        "sha256": "5676e31ed09b7f63c16975a30b88620a02bb415ec2e55bbdcd7cf677bf922082"
+      },
+      "test": {
+        "path": "data/eval/mmlu/cais_mmlu/world_religions/test-00000-of-00001.parquet",
+        "rows": 171,
+        "sha256": "b59bdb0cb4b16fd8a0a81362d8bd8241c0013940b877c5c6e76d66f536613aff"
+      }
+    }
+  },
+  "split": "test"
+}

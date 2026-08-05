@@ -1,0 +1,53 @@
+2026-08-04:20:38:16 WARNING  [__main__:369]  --limit SHOULD ONLY BE USED FOR TESTING.REAL METRICS SHOULD NOT BE COMPUTED USING LIMIT.
+2026-08-04:20:38:16 INFO     [__main__:446] Selected Tasks: ['mmlu_college_mathematics']
+2026-08-04:20:38:16 INFO     [evaluator:202] Setting random seed to 0 | Setting numpy seed to 1234 | Setting torch manual seed to 1234 | Setting fewshot manual seed to 1234
+2026-08-04:20:38:16 INFO     [evaluator:240] Initializing local-completions model, with arguments: {'model': 'gemma4-e4b', 'base_url': 'http://127.0.0.1:8080/v1/completions',
+        'tokenizer': '/home/qbz415/piloop-edge-inference-profiler/models/gemma-4-E4B-it', 'tokenizer_backend': 'huggingface', 'max_length':
+        32768, 'num_concurrent': 1, 'tokenized_requests': False}
+2026-08-04:20:38:16 INFO     [models.api_models:170] Using max length 32768 - 1
+2026-08-04:20:38:16 INFO     [models.api_models:173] Concurrent requests are disabled. To enable concurrent requests, set `num_concurrent` > 1.
+2026-08-04:20:38:16 INFO     [models.api_models:189] Using tokenizer huggingface
+2026-08-04:20:38:19 INFO     [httpx:1025] HTTP Request: HEAD https://huggingface.co/datasets/cais/mmlu/resolve/main/README.md "HTTP/1.1 307 Temporary Redirect"
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-08-04:20:38:19 WARNING  [huggingface_hub.utils._http:951] Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-08-04:20:38:19 INFO     [httpx:1025] HTTP Request: HEAD https://huggingface.co/api/resolve-cache/datasets/cais/mmlu/c30699e8356da336a370243923dbaf21066bb9fe/README.md "HTTP/1.1 200 OK"
+2026-08-04:20:38:19 INFO     [httpx:1025] HTTP Request: HEAD https://huggingface.co/datasets/cais/mmlu/resolve/c30699e8356da336a370243923dbaf21066bb9fe/mmlu.py "HTTP/1.1 404 Not Found"
+2026-08-04:20:38:20 INFO     [httpx:1025] HTTP Request: HEAD https://s3.amazonaws.com/datasets.huggingface.co/datasets/datasets/cais/mmlu/cais/mmlu.py "HTTP/1.1 404 Not Found"
+2026-08-04:20:38:21 INFO     [httpx:1025] HTTP Request: GET https://huggingface.co/api/datasets/cais/mmlu/revision/c30699e8356da336a370243923dbaf21066bb9fe "HTTP/1.1 200 OK"
+2026-08-04:20:38:21 INFO     [httpx:1025] HTTP Request: HEAD https://huggingface.co/datasets/cais/mmlu/resolve/c30699e8356da336a370243923dbaf21066bb9fe/.huggingface.yaml "HTTP/1.1 404 Not Found"
+2026-08-04:20:38:22 INFO     [httpx:1025] HTTP Request: GET https://datasets-server.huggingface.co/info?dataset=cais/mmlu "HTTP/1.1 200 OK"
+2026-08-04:20:38:23 INFO     [httpx:1025] HTTP Request: GET https://huggingface.co/api/datasets/cais/mmlu/tree/c30699e8356da336a370243923dbaf21066bb9fe/abstract_algebra?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-08-04:20:38:23 INFO     [httpx:1025] HTTP Request: GET https://huggingface.co/api/datasets/cais/mmlu/tree/c30699e8356da336a370243923dbaf21066bb9fe?recursive=false&expand=false "HTTP/1.1 200 OK"
+2026-08-04:20:38:24 INFO     [httpx:1025] HTTP Request: GET https://huggingface.co/api/datasets/cais/mmlu/tree/c30699e8356da336a370243923dbaf21066bb9fe/college_mathematics?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-08-04:20:38:24 INFO     [api.task:434] Building contexts for mmlu_college_mathematics on rank 0...
+  0%|          | 0/5 [00:00<?, ?it/s]100%|██████████| 5/5 [00:00<00:00, 811.37it/s]
+2026-08-04:20:38:24 INFO     [evaluator:574] Running loglikelihood requests
+Requesting API:   0%|          | 0/20 [00:00<?, ?it/s]Traceback (most recent call last):
+  File "/home/qbz415/piloop-edge-inference-profiler/scripts/run_lm_eval.py", line 21, in <module>
+    raise SystemExit(cli_evaluate())
+                     ^^^^^^^^^^^^^^
+  File "/home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/lm_eval/__main__.py", line 455, in cli_evaluate
+    results = evaluator.simple_evaluate(
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/lm_eval/utils.py", line 456, in _wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/lm_eval/evaluator.py", line 357, in simple_evaluate
+    results = evaluate(
+              ^^^^^^^^^
+  File "/home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/lm_eval/utils.py", line 456, in _wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/lm_eval/evaluator.py", line 585, in evaluate
+    resps = getattr(lm, reqtype)(cloned_reqs)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/lm_eval/api/model.py", line 391, in loglikelihood
+    return self._loglikelihood_tokens(new_reqs, disable_tqdm=disable_tqdm)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/lm_eval/models/api_models.py", line 616, in _loglikelihood_tokens
+    self.parse_logprobs(
+  File "/home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/lm_eval/models/openai_completions.py", line 79, in parse_logprobs
+    logprobs = sum(choice["logprobs"]["token_logprobs"][ctxlen:-1])
+                   ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+KeyError: 'token_logprobs'
+Requesting API:   0%|          | 0/20 [00:00<?, ?it/s]

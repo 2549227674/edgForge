@@ -134,11 +134,30 @@ OpenAI tools-API 不是本线过门条件：terminus-2 从纯文本解析 JSON/X
 
 **关键排障事实更正**：`-lv 4` 中的 `logit bias = -inf` 候选 token 行会在未启用 `--ignore-eos` 时同样出现，不能据此推断 EOG 被抑制。实际重起端点的 `/props` 显示 `ignore_eos=false`，启动命令也未带该旗标；以后只以 `/props` 与实际命令行判定该状态，旧 Pi log 仅保留作 KV/显存历史证据。
 
-**归档与后续**：`results/` 已整体忽略，仅强制提交本 probe 的 lock.json；结论已写入 `docs/m0_eval_base.md`，相关配置、日志与快照已在提交 `8d0e903` 入库。§3 的锁题和基线尚未开始。32768 现为配置目标，需在独立重起和复检后才可成为评测证据；在此之前，parser、超时、轮数等仍以 4096 实测结论为准。
+**归档与后续**：`results/` 已整体忽略，仅强制提交本 probe 的 lock.json；结论已写入 `docs/m0_eval_base.md`，相关配置、日志与快照已在提交 `8d0e903` 入库。本段是 §2 当时的阶段性结论；后续 32768 重起、锁题与基线的实际完成状态以下方 §3 的 2026-08-05 回填为准。
 
 ---
 
 ## 3. 线 A · 锁题 + 镜像预拉 + 官方基线（1–2 天，主要是等）〔建议+事实〕
+
+**实际执行回填（2026-08-05，本块优先于下方保留的原计划）**：详细命令、排障过程和哈希见 `docs/EdgeForge_M0_§3_锁题与官方基线_R1.4_实际执行版.md`；本节只保留可供后续里程碑直接引用的冻结结论。
+
+| 环节 | 实际结果 | 冻结件 / 说明 |
+|---|---|---|
+| 端点与协议 | B0 `gemma4-e4b` 已按 `-c 131072`、单 slot、q8_0 K/V、`-n 32768`、`--jinja`、`--reasoning-format auto` 实际启动；`finish_reason=length` **0** | `eval_config.yaml`；`logs/m0/llama_server_baseline_c131072_q8_n32768.log` |
+| 镜像与外网纪律 | 20 题候选镜像 digest 已预拉并登记；2 题预热映射已留证；WSL 的 nftables 限制改在原生 Ubuntu VM 执行 allowlist 检查 | `logs/m0/m0_sanity_candidate_base_image_digests.tsv`、`m0_prewarm_two_task_image_map.tsv`、`m0_allowlist_check_vm_r3.tsv` |
+| 锁题 | 最终 20 题、`k=5`、串行；sanity 最终 **0/5**，仅换题 **1 轮**后按预声明上限锁定，不再追分换题 | `m0_baseline_job.yaml`；`results/baseline_e4b_q4km/lock.json` |
+| TB 2.1 慢档 | **0/100**；F1 verifier-zero=92、F2 30-turn 耗尽=7、F3 agent timeout=1、F4 基础设施重跑=0 | 子集未达 15–30% 目标，但按防选择偏差纪律如实冻结；不得与官方 TB2 全集 2.2% 横向比较 |
+| 上下文与 parser | 单 trial 峰值上下文 p50/p95 = **6292.5 / 22340.55 tokens**；硬解析错误 **149/836 = 17.823%**；软格式警告 **498/836 = 59.569%** | `metrics.py`；`results/baseline_e4b_q4km/parser_metrics.json` |
+| B0 快档 | BFCL `simple_python` **363/400 = 90.75%**；MMLU 固定 500 题 **0.598±0.0200**；GSM8K 固定 200 题 strict **0.840±0.0260** / flexible **0.845±0.0257**；HumanEval 官方执行器只完成 **5 题 smoke，0/5** | HumanEval 不得写成正式全量基线；MMLU 因端点缺 prompt `token_logprobs`，改用同 GGUF/同 llama.cpp 的 continuation-loglikelihood 兼容层，仍是 MCQ loglikelihood，不是生成式判题 |
+| B0 系统列 | 完整重放 **22/22** 成功，warm 第二遍 **11/11**；TTFT p50/p95 **349.459/1762.491 ms**，TPOT p50 **19.220 ms/token**，吞吐 p50 **52.029 tok/s** | 5 盘、11 请求/遍，每盘连续两遍，仅统计第二遍 cache-warm；一次中断的 17/22 记录未混入正式值 |
+| 官方 QAT-Q4_0 锚快档 | endpoint/tools smoke 通过；BFCL **364/400 = 91.00%**；GSM8K strict **0.850** / flexible **0.865**；warm TTFT p50/p95 **377.423/848.977 ms**，TPOT p50 **19.161 ms/token**，吞吐 p50 **52.188 tok/s** | 只进锚区，不冒充 B0 before 行；TB 20×5 慢档按原决策延后到 M6 三点同测 |
+| 磁带与交接 | 从 B0 冻结 **5 盘 / 11 请求/遍**；100 条原始 ATIF trajectory 本地保留，全量 SHA-256 manifest 入库 | `traces/tapes/`、`traces/trajectories_sha256.txt`；原始 trajectory 仍在被 Git 忽略的 `results/baseline_e4b_q4km/`，不再复制进 `traces/` |
+| 入库边界 | 源码、配置、task/manifest、磁带、静态日志和小型结果快照入 Git；大型 samples、数据缓存、GGUF 和原始 trajectory 不入库 | 小型 `/results/` 冻结件需 `git add -f`；实际清单见 R1.4 实际执行版 §10 |
+
+**统计口径提醒**：TB 成功率已贴地板，后续主要看 parser、轮数/token 和系统列；BFCL `simple_python` 与官方 overall 66.6% 不是同一 scope；HumanEval 0/5 虽是有效 smoke 分数，但样本量不足以作正式基线。
+
+**以下 3.1–3.4 保留为原计划和决策来源；若与上述实际回填冲突，以回填和 R1.4 实际执行版为准。**
 
 **3.1 选题〔建议〕**：列 TB 2.1 全部 89 任务，手筛 20 个（`[未复核]` 20 这个数）——判据：不需要 GPU、单容器不过大、本地几分钟级可完成、**（R1/D17）运行期不依赖外网下载，或其 pip/apt 依赖可并入预拉**（"镜像预拉"只覆盖容器镜像，task 内下载是网络纪律的另一个漏点）。参考 TB 官方 empirical difficulty 优先 Easy/Medium；**（E1）选题显式目标 = 让官方 E4B 基线落在可测区间（子集成功率 15–30% 一带）**——官方发布图 E4B 在 TB2 全集仅 ≈2.2%（前代 0.0%），随机取题会让成功率贴地板、before/after 在该列失效。因此锁定动作分两步：手筛 20 题后，**仅由 B0-PTQ-Q4KM（基线本尊）**对其中 3–5 题各跑 1 次做量级 sanity（半小时级），基线明显 <10% 则回换更容易的题；**sanity 通过后清单锁定、从此不改，且不因官方 QAT 锚或任何其他模型的分数回头换题**（防选择偏差污染，R1.2）。选完：① `docker pull` 全部镜像预拉；② **20 个 task 写进 `m0_baseline_job.yaml`**（见 3.2，取代"手抄 ID 进 eval_config"）；③ 挑 2 个最快的标为烟测对。
 
@@ -160,7 +179,7 @@ n_attempts: 5
 ```bash
 harbor run -c m0_baseline_job.yaml          # 20 题 × k=5 × 串行
 # 中断后续跑：
-harbor jobs resume -p results/baseline_e4b_q4km-<ts>/
+harbor jobs resume -p results/baseline_e4b_q4km/
 ```
 
 **待办（基线完成后）**：从 trajectory 记录每题峰值上下文占用（零额外成本）。该分布同时决定 M2 板端 `max_context_len` 与 §3.4 的磁带上下文档位。

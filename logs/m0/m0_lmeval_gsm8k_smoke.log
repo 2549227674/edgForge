@@ -1,0 +1,332 @@
+2026-08-04:20:39:52 WARNING  [__main__:369]  --limit SHOULD ONLY BE USED FOR TESTING.REAL METRICS SHOULD NOT BE COMPUTED USING LIMIT.
+2026-08-04:20:39:52 INFO     [__main__:446] Selected Tasks: ['gsm8k']
+2026-08-04:20:39:52 INFO     [evaluator:202] Setting random seed to 0 | Setting numpy seed to 1234 | Setting torch manual seed to 1234 | Setting fewshot manual seed to 1234
+2026-08-04:20:39:52 WARNING  [evaluator:214] generation_kwargs: {'max_gen_toks': 4096} specified through cli, these settings will update set parameters in yaml tasks. Ensure 'do_sample=True' for non-greedy decoding!
+2026-08-04:20:39:52 INFO     [evaluator:240] Initializing local-chat-completions model, with arguments: {'model': 'gemma4-e4b', 'base_url': 'http://127.0.0.1:8080/v1/chat/completions',
+        'max_length': 32768, 'num_concurrent': 1, 'tokenized_requests': False}
+2026-08-04:20:39:52 WARNING  [models.openai_completions:116] chat-completions endpoint requires the `--apply_chat_template` flag.
+2026-08-04:20:39:52 INFO     [models.api_models:170] Using max length 32768 - 1
+2026-08-04:20:39:52 INFO     [models.api_models:173] Concurrent requests are disabled. To enable concurrent requests, set `num_concurrent` > 1.
+2026-08-04:20:39:52 INFO     [models.api_models:189] Using tokenizer None
+2026-08-04:20:39:53 INFO     [httpx:1025] HTTP Request: HEAD https://huggingface.co/datasets/gsm8k/resolve/main/README.md "HTTP/1.1 307 Temporary Redirect"
+2026-08-04:20:39:53 INFO     [httpx:1025] HTTP Request: HEAD https://huggingface.co/datasets/openai/gsm8k/resolve/main/README.md "HTTP/1.1 307 Temporary Redirect"
+2026-08-04:20:39:53 INFO     [httpx:1025] HTTP Request: HEAD https://huggingface.co/api/resolve-cache/datasets/openai/gsm8k/740312add88f781978c0658806c59bc2815b9866/README.md "HTTP/1.1 200 OK"
+2026-08-04:20:39:53 INFO     [httpx:1025] HTTP Request: GET https://huggingface.co/api/resolve-cache/datasets/openai/gsm8k/740312add88f781978c0658806c59bc2815b9866/README.md "HTTP/1.1 200 OK"
+2026-08-04:20:39:54 INFO     [httpx:1025] HTTP Request: HEAD https://huggingface.co/datasets/gsm8k/resolve/740312add88f781978c0658806c59bc2815b9866/gsm8k.py "HTTP/1.1 307 Temporary Redirect"
+2026-08-04:20:39:54 INFO     [httpx:1025] HTTP Request: HEAD https://huggingface.co/datasets/openai/gsm8k/resolve/740312add88f781978c0658806c59bc2815b9866/gsm8k.py "HTTP/1.1 404 Not Found"
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-08-04:20:39:54 WARNING  [huggingface_hub.utils._http:951] Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-08-04:20:39:55 INFO     [httpx:1025] HTTP Request: HEAD https://s3.amazonaws.com/datasets.huggingface.co/datasets/datasets/gsm8k/gsm8k.py "HTTP/1.1 404 Not Found"
+Traceback (most recent call last):
+  File "/home/qbz415/piloop-edge-inference-profiler/scripts/run_lm_eval.py", line 21, in <module>
+    raise SystemExit(cli_evaluate())
+                     ^^^^^^^^^^^^^^
+  File "/home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/lm_eval/__main__.py", line 455, in cli_evaluate
+    results = evaluator.simple_evaluate(
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/lm_eval/utils.py", line 456, in _wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/lm_eval/evaluator.py", line 283, in simple_evaluate
+    task_dict = get_task_dict(
+                ^^^^^^^^^^^^^^
+  File "/home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/lm_eval/tasks/__init__.py", line 635, in get_task_dict
+    task_name_from_string_dict = task_manager.load_task_or_group(
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/lm_eval/tasks/__init__.py", line 426, in load_task_or_group
+    collections.ChainMap(
+  File "/home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/lm_eval/tasks/__init__.py", line 428, in <lambda>
+    lambda task: self._load_individual_task_or_group(task),
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/lm_eval/tasks/__init__.py", line 326, in _load_individual_task_or_group
+    return _load_task(task_config, task=name_or_config)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/lm_eval/tasks/__init__.py", line 286, in _load_task
+    task_object = ConfigurableTask(config=config)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/lm_eval/api/task.py", line 865, in __init__
+    self.download(self.config.dataset_kwargs)
+  File "/home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/lm_eval/api/task.py", line 997, in download
+    self.dataset = datasets.load_dataset(
+                   ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/datasets/load.py", line 2062, in load_dataset
+    builder_instance = load_dataset_builder(
+                       ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/datasets/load.py", line 1782, in load_dataset_builder
+    dataset_module = dataset_module_factory(
+                     ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/datasets/load.py", line 1664, in dataset_module_factory
+    raise e1 from None
+  File "/home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/datasets/load.py", line 1629, in dataset_module_factory
+    ).get_module()
+      ^^^^^^^^^^^^
+  File "/home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/datasets/load.py", line 978, in get_module
+    standalone_yaml_path = cached_path(
+                           ^^^^^^^^^^^^
+  File "/home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/datasets/utils/file_utils.py", line 189, in cached_path
+    ).resolve_path(url_or_filename)
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/huggingface_hub/hf_file_system.py", line 305, in resolve_path
+    parsed = parse_hf_uri(f"{constants.HF_PROTOCOL}{path}")
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/huggingface_hub/utils/_hf_uris.py", line 319, in parse_hf_uri
+    return _parse_repo_body(location, type_, raw=raw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/huggingface_hub/utils/_hf_uris.py", line 617, in _parse_repo_body
+    raise HfUriError(uri=raw, msg=f"Repository id must be 'namespace/name', got '{repo_id}'.")
+huggingface_hub.errors.HfUriError: Invalid HF URI 'hf://datasets/gsm8k@740312add88f781978c0658806c59bc2815b9866/.huggingface.yaml'. Repository id must be 'namespace/name', got 'gsm8k'.
+2026-08-04:20:40:19 WARNING  [__main__:369]  --limit SHOULD ONLY BE USED FOR TESTING.REAL METRICS SHOULD NOT BE COMPUTED USING LIMIT.
+2026-08-04:20:40:19 INFO     [__main__:446] Selected Tasks: ['gsm8k']
+2026-08-04:20:40:19 INFO     [evaluator:202] Setting random seed to 0 | Setting numpy seed to 1234 | Setting torch manual seed to 1234 | Setting fewshot manual seed to 1234
+2026-08-04:20:40:19 WARNING  [evaluator:214] generation_kwargs: {'max_gen_toks': 4096} specified through cli, these settings will update set parameters in yaml tasks. Ensure 'do_sample=True' for non-greedy decoding!
+2026-08-04:20:40:19 INFO     [evaluator:240] Initializing local-chat-completions model, with arguments: {'model': 'gemma4-e4b', 'base_url': 'http://127.0.0.1:8080/v1/chat/completions',
+        'max_length': 32768, 'num_concurrent': 1, 'tokenized_requests': False}
+2026-08-04:20:40:19 WARNING  [models.openai_completions:116] chat-completions endpoint requires the `--apply_chat_template` flag.
+2026-08-04:20:40:19 INFO     [models.api_models:170] Using max length 32768 - 1
+2026-08-04:20:40:19 INFO     [models.api_models:173] Concurrent requests are disabled. To enable concurrent requests, set `num_concurrent` > 1.
+2026-08-04:20:40:19 INFO     [models.api_models:189] Using tokenizer None
+2026-08-04:20:40:20 INFO     [httpx:1025] HTTP Request: HEAD https://huggingface.co/datasets/gsm8k/resolve/main/README.md "HTTP/1.1 307 Temporary Redirect"
+2026-08-04:20:40:20 INFO     [httpx:1025] HTTP Request: HEAD https://huggingface.co/datasets/openai/gsm8k/resolve/main/README.md "HTTP/1.1 307 Temporary Redirect"
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-08-04:20:40:20 WARNING  [huggingface_hub.utils._http:951] Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-08-04:20:40:21 INFO     [httpx:1025] HTTP Request: HEAD https://huggingface.co/api/resolve-cache/datasets/openai/gsm8k/740312add88f781978c0658806c59bc2815b9866/README.md "HTTP/1.1 200 OK"
+2026-08-04:20:40:21 INFO     [httpx:1025] HTTP Request: HEAD https://huggingface.co/datasets/gsm8k/resolve/740312add88f781978c0658806c59bc2815b9866/gsm8k.py "HTTP/1.1 307 Temporary Redirect"
+2026-08-04:20:40:21 INFO     [httpx:1025] HTTP Request: HEAD https://huggingface.co/datasets/openai/gsm8k/resolve/740312add88f781978c0658806c59bc2815b9866/gsm8k.py "HTTP/1.1 404 Not Found"
+2026-08-04:20:40:22 INFO     [httpx:1025] HTTP Request: HEAD https://s3.amazonaws.com/datasets.huggingface.co/datasets/datasets/gsm8k/gsm8k.py "HTTP/1.1 404 Not Found"
+Traceback (most recent call last):
+  File "/home/qbz415/piloop-edge-inference-profiler/scripts/run_lm_eval.py", line 21, in <module>
+    raise SystemExit(cli_evaluate())
+                     ^^^^^^^^^^^^^^
+  File "/home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/lm_eval/__main__.py", line 455, in cli_evaluate
+    results = evaluator.simple_evaluate(
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/lm_eval/utils.py", line 456, in _wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/lm_eval/evaluator.py", line 283, in simple_evaluate
+    task_dict = get_task_dict(
+                ^^^^^^^^^^^^^^
+  File "/home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/lm_eval/tasks/__init__.py", line 635, in get_task_dict
+    task_name_from_string_dict = task_manager.load_task_or_group(
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/lm_eval/tasks/__init__.py", line 426, in load_task_or_group
+    collections.ChainMap(
+  File "/home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/lm_eval/tasks/__init__.py", line 428, in <lambda>
+    lambda task: self._load_individual_task_or_group(task),
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/lm_eval/tasks/__init__.py", line 326, in _load_individual_task_or_group
+    return _load_task(task_config, task=name_or_config)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/lm_eval/tasks/__init__.py", line 286, in _load_task
+    task_object = ConfigurableTask(config=config)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/lm_eval/api/task.py", line 865, in __init__
+    self.download(self.config.dataset_kwargs)
+  File "/home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/lm_eval/api/task.py", line 997, in download
+    self.dataset = datasets.load_dataset(
+                   ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/datasets/load.py", line 1696, in load_dataset
+    builder_instance = load_dataset_builder(
+                       ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/datasets/load.py", line 1323, in load_dataset_builder
+    dataset_module = dataset_module_factory(
+                     ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/datasets/load.py", line 1215, in dataset_module_factory
+    raise e1 from None
+  File "/home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/datasets/load.py", line 1190, in dataset_module_factory
+    ).get_module()
+      ^^^^^^^^^^^^
+  File "/home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/datasets/load.py", line 608, in get_module
+    standalone_yaml_path = cached_path(
+                           ^^^^^^^^^^^^
+  File "/home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/datasets/utils/file_utils.py", line 180, in cached_path
+    ).resolve_path(url_or_filename)
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/huggingface_hub/hf_file_system.py", line 305, in resolve_path
+    parsed = parse_hf_uri(f"{constants.HF_PROTOCOL}{path}")
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/huggingface_hub/utils/_hf_uris.py", line 319, in parse_hf_uri
+    return _parse_repo_body(location, type_, raw=raw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/huggingface_hub/utils/_hf_uris.py", line 617, in _parse_repo_body
+    raise HfUriError(uri=raw, msg=f"Repository id must be 'namespace/name', got '{repo_id}'.")
+huggingface_hub.errors.HfUriError: Invalid HF URI 'hf://datasets/gsm8k@740312add88f781978c0658806c59bc2815b9866/.huggingface.yaml'. Repository id must be 'namespace/name', got 'gsm8k'.
+2026-08-04:20:41:10 INFO     [__main__:348] Including path: tasks
+2026-08-04:20:41:12 WARNING  [__main__:369]  --limit SHOULD ONLY BE USED FOR TESTING.REAL METRICS SHOULD NOT BE COMPUTED USING LIMIT.
+2026-08-04:20:41:12 INFO     [__main__:446] Selected Tasks: ['edgeforge_gsm8k']
+2026-08-04:20:41:12 INFO     [evaluator:202] Setting random seed to 0 | Setting numpy seed to 1234 | Setting torch manual seed to 1234 | Setting fewshot manual seed to 1234
+2026-08-04:20:41:12 WARNING  [evaluator:214] generation_kwargs: {'max_gen_toks': 4096} specified through cli, these settings will update set parameters in yaml tasks. Ensure 'do_sample=True' for non-greedy decoding!
+2026-08-04:20:41:12 INFO     [evaluator:240] Initializing local-chat-completions model, with arguments: {'model': 'gemma4-e4b', 'base_url': 'http://127.0.0.1:8080/v1/chat/completions',
+        'max_length': 32768, 'num_concurrent': 1, 'tokenized_requests': False}
+2026-08-04:20:41:12 WARNING  [models.openai_completions:116] chat-completions endpoint requires the `--apply_chat_template` flag.
+2026-08-04:20:41:12 INFO     [models.api_models:170] Using max length 32768 - 1
+2026-08-04:20:41:12 INFO     [models.api_models:173] Concurrent requests are disabled. To enable concurrent requests, set `num_concurrent` > 1.
+2026-08-04:20:41:12 INFO     [models.api_models:189] Using tokenizer None
+2026-08-04:20:41:13 INFO     [httpx:1025] HTTP Request: HEAD https://huggingface.co/datasets/openai/gsm8k/resolve/main/README.md "HTTP/1.1 307 Temporary Redirect"
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-08-04:20:41:13 WARNING  [huggingface_hub.utils._http:951] Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-08-04:20:41:13 INFO     [httpx:1025] HTTP Request: HEAD https://huggingface.co/api/resolve-cache/datasets/openai/gsm8k/740312add88f781978c0658806c59bc2815b9866/README.md "HTTP/1.1 200 OK"
+2026-08-04:20:41:13 INFO     [httpx:1025] HTTP Request: GET https://huggingface.co/api/resolve-cache/datasets/openai/gsm8k/740312add88f781978c0658806c59bc2815b9866/README.md "HTTP/1.1 200 OK"
+2026-08-04:20:41:13 INFO     [httpx:1025] HTTP Request: HEAD https://huggingface.co/datasets/openai/gsm8k/resolve/740312add88f781978c0658806c59bc2815b9866/gsm8k.py "HTTP/1.1 404 Not Found"
+2026-08-04:20:41:15 INFO     [httpx:1025] HTTP Request: HEAD https://s3.amazonaws.com/datasets.huggingface.co/datasets/datasets/openai/gsm8k/openai/gsm8k.py "HTTP/1.1 404 Not Found"
+2026-08-04:20:41:15 INFO     [httpx:1025] HTTP Request: GET https://huggingface.co/api/datasets/openai/gsm8k/revision/740312add88f781978c0658806c59bc2815b9866 "HTTP/1.1 200 OK"
+Traceback (most recent call last):
+  File "/home/qbz415/piloop-edge-inference-profiler/scripts/run_lm_eval.py", line 21, in <module>
+    raise SystemExit(cli_evaluate())
+                     ^^^^^^^^^^^^^^
+  File "/home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/lm_eval/__main__.py", line 455, in cli_evaluate
+    results = evaluator.simple_evaluate(
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/lm_eval/utils.py", line 456, in _wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/lm_eval/evaluator.py", line 283, in simple_evaluate
+    task_dict = get_task_dict(
+                ^^^^^^^^^^^^^^
+  File "/home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/lm_eval/tasks/__init__.py", line 635, in get_task_dict
+    task_name_from_string_dict = task_manager.load_task_or_group(
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/lm_eval/tasks/__init__.py", line 426, in load_task_or_group
+    collections.ChainMap(
+  File "/home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/lm_eval/tasks/__init__.py", line 428, in <lambda>
+    lambda task: self._load_individual_task_or_group(task),
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/lm_eval/tasks/__init__.py", line 326, in _load_individual_task_or_group
+    return _load_task(task_config, task=name_or_config)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/lm_eval/tasks/__init__.py", line 286, in _load_task
+    task_object = ConfigurableTask(config=config)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/lm_eval/api/task.py", line 865, in __init__
+    self.download(self.config.dataset_kwargs)
+  File "/home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/lm_eval/api/task.py", line 997, in download
+    self.dataset = datasets.load_dataset(
+                   ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/datasets/load.py", line 1696, in load_dataset
+    builder_instance = load_dataset_builder(
+                       ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/datasets/load.py", line 1323, in load_dataset_builder
+    dataset_module = dataset_module_factory(
+                     ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/datasets/load.py", line 1215, in dataset_module_factory
+    raise e1 from None
+  File "/home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/datasets/load.py", line 1190, in dataset_module_factory
+    ).get_module()
+      ^^^^^^^^^^^^
+  File "/home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/datasets/load.py", line 608, in get_module
+    standalone_yaml_path = cached_path(
+                           ^^^^^^^^^^^^
+  File "/home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/datasets/utils/file_utils.py", line 188, in cached_path
+    ).hf_hub_download(
+      ^^^^^^^^^^^^^^^^
+  File "/home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/huggingface_hub/utils/_validators.py", line 88, in _inner_fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/huggingface_hub/hf_api.py", line 6640, in hf_hub_download
+    return hf_hub_download(
+           ^^^^^^^^^^^^^^^^
+  File "/home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/huggingface_hub/utils/_validators.py", line 88, in _inner_fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/huggingface_hub/file_download.py", line 1019, in hf_hub_download
+    return _hf_hub_download_to_cache_dir(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/huggingface_hub/file_download.py", line 1089, in _hf_hub_download_to_cache_dir
+    (url_to_download, etag, commit_hash, expected_size, xet_file_data, head_call_error) = _get_metadata_or_catch_error(
+                                                                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/huggingface_hub/file_download.py", line 1713, in _get_metadata_or_catch_error
+    metadata = get_hf_file_metadata(
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/huggingface_hub/utils/_validators.py", line 88, in _inner_fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/huggingface_hub/file_download.py", line 1621, in get_hf_file_metadata
+    response = _httpx_follow_relative_redirects_with_backoff(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/huggingface_hub/utils/_http.py", line 719, in _httpx_follow_relative_redirects_with_backoff
+    response = http_backoff(
+               ^^^^^^^^^^^^^
+  File "/home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/huggingface_hub/utils/_http.py", line 596, in http_backoff
+    return next(
+           ^^^^^
+  File "/home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/huggingface_hub/utils/_http.py", line 504, in _http_backoff_base
+    response = client.request(method=method, url=url, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/httpx/_client.py", line 825, in request
+    return self.send(request, auth=auth, follow_redirects=follow_redirects)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/httpx/_client.py", line 914, in send
+    response = self._send_handling_auth(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/httpx/_client.py", line 942, in _send_handling_auth
+    response = self._send_handling_redirects(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/httpx/_client.py", line 979, in _send_handling_redirects
+    response = self._send_single_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/httpx/_client.py", line 1014, in _send_single_request
+    response = transport.handle_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/httpx/_transports/default.py", line 249, in handle_request
+    with map_httpcore_exceptions():
+  File "/usr/lib/python3.12/contextlib.py", line 158, in __exit__
+    self.gen.throw(value)
+  File "/home/qbz415/piloop-edge-inference-profiler/.venv-lmeval/lib/python3.12/site-packages/httpx/_transports/default.py", line 118, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.RemoteProtocolError: Server disconnected without sending a response.
+2026-08-04:20:42:37 INFO     [__main__:348] Including path: tasks
+2026-08-04:20:42:38 WARNING  [__main__:369]  --limit SHOULD ONLY BE USED FOR TESTING.REAL METRICS SHOULD NOT BE COMPUTED USING LIMIT.
+2026-08-04:20:42:38 INFO     [__main__:446] Selected Tasks: ['edgeforge_gsm8k']
+2026-08-04:20:42:38 INFO     [evaluator:202] Setting random seed to 0 | Setting numpy seed to 1234 | Setting torch manual seed to 1234 | Setting fewshot manual seed to 1234
+2026-08-04:20:42:38 WARNING  [evaluator:214] generation_kwargs: {'max_gen_toks': 4096} specified through cli, these settings will update set parameters in yaml tasks. Ensure 'do_sample=True' for non-greedy decoding!
+2026-08-04:20:42:38 INFO     [evaluator:240] Initializing local-chat-completions model, with arguments: {'model': 'gemma4-e4b', 'base_url': 'http://127.0.0.1:8080/v1/chat/completions',
+        'max_length': 32768, 'num_concurrent': 1, 'tokenized_requests': False}
+2026-08-04:20:42:38 WARNING  [models.openai_completions:116] chat-completions endpoint requires the `--apply_chat_template` flag.
+2026-08-04:20:42:38 INFO     [models.api_models:170] Using max length 32768 - 1
+2026-08-04:20:42:38 INFO     [models.api_models:173] Concurrent requests are disabled. To enable concurrent requests, set `num_concurrent` > 1.
+2026-08-04:20:42:38 INFO     [models.api_models:189] Using tokenizer None
+2026-08-04:20:42:40 INFO     [httpx:1025] HTTP Request: HEAD https://s3.amazonaws.com/datasets.huggingface.co/datasets/datasets/parquet/parquet.py "HTTP/1.1 404 Not Found"
+2026-08-04:20:42:40 INFO     [evaluator:305] edgeforge_gsm8k: Using gen_kwargs: {'until': ['Question:', '</s>', '<|im_end|>'], 'do_sample': False, 'temperature': 0.0, 'max_gen_toks': 4096}
+2026-08-04:20:42:40 WARNING  [evaluator:480] Chat template formatting change affects loglikelihood and multiple-choice tasks. See docs/chat-template-readme.md for details.
+2026-08-04:20:42:40 INFO     [api.task:434] Building contexts for edgeforge_gsm8k on rank 0...
+  0%|          | 0/5 [00:00<?, ?it/s]100%|██████████| 5/5 [00:00<00:00, 373.98it/s]
+2026-08-04:20:42:40 INFO     [evaluator:574] Running generate_until requests
+2026-08-04:20:42:40 INFO     [models.api_models:692] Tokenized requests are disabled. Context + generation length is not checked.
+Requesting API:   0%|          | 0/5 [00:00<?, ?it/s]2026-08-04:20:42:40 WARNING  [models.api_models:351] Cannot determine EOS string to pass to stop sequence. Manually set by passing `eos_string` to model_args.
+Requesting API:  20%|██        | 1/5 [00:10<00:41, 10.34s/it]Requesting API:  40%|████      | 2/5 [00:19<00:28,  9.46s/it]Requesting API:  60%|██████    | 3/5 [00:35<00:25, 12.61s/it]Requesting API:  80%|████████  | 4/5 [00:46<00:11, 11.95s/it]Requesting API: 100%|██████████| 5/5 [00:58<00:00, 12.10s/it]Requesting API: 100%|██████████| 5/5 [00:58<00:00, 11.77s/it]
+2026-08-04:20:43:39 INFO     [loggers.evaluation_tracker:209] Saving results aggregated
+2026-08-04:20:43:39 INFO     [loggers.evaluation_tracker:298] Saving per-sample results for: edgeforge_gsm8k
+local-chat-completions (model=gemma4-e4b,base_url=http://127.0.0.1:8080/v1/chat/completions,max_length=32768,num_concurrent=1,tokenized_requests=false), gen_kwargs: (max_gen_toks=4096), limit: 5.0, num_fewshot: None, batch_size: 1
+|     Tasks     |    Version    |     Filter     |n-shot|  Metric   |   |Value|   |Stderr|
+|---------------|---------------|----------------|-----:|-----------|---|----:|---|-----:|
+|edgeforge_gsm8k|3.0-edgeforge.1|flexible-extract|     5|exact_match|↑  |    1|±  |     0|
+|               |               |strict-match    |     5|exact_match|↑  |    0|±  |     0|
+
+2026-08-04:20:45:09 INFO     [__main__:348] Including path: tasks
+2026-08-04:20:45:11 WARNING  [__main__:369]  --limit SHOULD ONLY BE USED FOR TESTING.REAL METRICS SHOULD NOT BE COMPUTED USING LIMIT.
+2026-08-04:20:45:11 INFO     [__main__:446] Selected Tasks: ['edgeforge_gsm8k']
+2026-08-04:20:45:11 INFO     [evaluator:202] Setting random seed to 0 | Setting numpy seed to 1234 | Setting torch manual seed to 1234 | Setting fewshot manual seed to 1234
+2026-08-04:20:45:11 WARNING  [evaluator:214] generation_kwargs: {'max_gen_toks': 4096} specified through cli, these settings will update set parameters in yaml tasks. Ensure 'do_sample=True' for non-greedy decoding!
+2026-08-04:20:45:11 INFO     [evaluator:240] Initializing local-chat-completions model, with arguments: {'model': 'gemma4-e4b', 'base_url': 'http://127.0.0.1:8080/v1/chat/completions',
+        'max_length': 32768, 'num_concurrent': 1, 'tokenized_requests': False}
+2026-08-04:20:45:11 WARNING  [models.openai_completions:116] chat-completions endpoint requires the `--apply_chat_template` flag.
+2026-08-04:20:45:11 INFO     [models.api_models:170] Using max length 32768 - 1
+2026-08-04:20:45:11 INFO     [models.api_models:173] Concurrent requests are disabled. To enable concurrent requests, set `num_concurrent` > 1.
+2026-08-04:20:45:11 INFO     [models.api_models:189] Using tokenizer None
+2026-08-04:20:45:12 INFO     [httpx:1025] HTTP Request: HEAD https://s3.amazonaws.com/datasets.huggingface.co/datasets/datasets/parquet/parquet.py "HTTP/1.1 404 Not Found"
+2026-08-04:20:45:12 INFO     [evaluator:305] edgeforge_gsm8k: Using gen_kwargs: {'until': ['Question:', '</s>', '<|im_end|>'], 'do_sample': False, 'temperature': 0.0, 'max_gen_toks': 4096}
+2026-08-04:20:45:12 WARNING  [evaluator:480] Chat template formatting change affects loglikelihood and multiple-choice tasks. See docs/chat-template-readme.md for details.
+2026-08-04:20:45:12 INFO     [api.task:434] Building contexts for edgeforge_gsm8k on rank 0...
+  0%|          | 0/5 [00:00<?, ?it/s]100%|██████████| 5/5 [00:00<00:00, 383.82it/s]
+2026-08-04:20:45:12 INFO     [evaluator:574] Running generate_until requests
+2026-08-04:20:45:12 INFO     [models.api_models:692] Tokenized requests are disabled. Context + generation length is not checked.
+Requesting API:   0%|          | 0/5 [00:00<?, ?it/s]2026-08-04:20:45:12 WARNING  [models.api_models:351] Cannot determine EOS string to pass to stop sequence. Manually set by passing `eos_string` to model_args.
+Requesting API:  20%|██        | 1/5 [00:09<00:38,  9.55s/it]Requesting API:  40%|████      | 2/5 [00:17<00:26,  8.68s/it]Requesting API:  60%|██████    | 3/5 [00:36<00:26, 13.16s/it]Requesting API:  80%|████████  | 4/5 [00:46<00:11, 11.89s/it]Requesting API: 100%|██████████| 5/5 [00:57<00:00, 11.84s/it]Requesting API: 100%|██████████| 5/5 [00:57<00:00, 11.56s/it]
+2026-08-04:20:46:10 INFO     [loggers.evaluation_tracker:209] Saving results aggregated
+2026-08-04:20:46:10 INFO     [loggers.evaluation_tracker:298] Saving per-sample results for: edgeforge_gsm8k
+local-chat-completions (model=gemma4-e4b,base_url=http://127.0.0.1:8080/v1/chat/completions,max_length=32768,num_concurrent=1,tokenized_requests=false), gen_kwargs: (max_gen_toks=4096), limit: 5.0, num_fewshot: None, batch_size: 1
+|     Tasks     |    Version    |     Filter     |n-shot|  Metric   |   |Value|   |Stderr|
+|---------------|---------------|----------------|-----:|-----------|---|----:|---|-----:|
+|edgeforge_gsm8k|3.0-edgeforge.2|flexible-extract|     5|exact_match|↑  |  0.8|±  |   0.2|
+|               |               |strict-match    |     5|exact_match|↑  |  0.8|±  |   0.2|
+
