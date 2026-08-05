@@ -1,6 +1,6 @@
 # EdgeForge M0 §4：线 A · Agent 指标脚本（R1.7 执行终稿）
 
-> 状态：**可执行终稿，无分支**。所有 schema 分歧已用真实数据消解（远端评审在沙盒内对 100 条 trajectory 实跑，分支判定 = B，见版本记录）。
+> 状态：**已执行并冻结，可复现重跑，无分支**。所有 schema 分歧已用真实数据消解（远端评审在沙盒内对 100 条 trajectory 实跑，分支判定 = B；本地执行与验收见 §4.3、§8.2、§10）。
 > 前置：§1/§2/§3 完成；100 条 B0 trajectory 本地留存并已按 `traces/trajectories_sha256.txt` 逐位校验通过。
 > 本节目标：**把 100 条 trajectory 变成主表的 agent 列，口径写死进脚本，M1 之后换输入目录重跑一条命令即可。**
 > **本卡随附两个脚本与一份参考输出**：`metrics.py`（v2）、`count_response_tokens.py`、`agent_metrics_reference.json`。**验收判据是本地重跑逐位复现参考值**——比任何文字规格都硬。
@@ -11,9 +11,23 @@
 |---|---|
 | R1.5 | 首版，基于远程可见件起草 |
 | R1.6 | 补本地资源清单 + 三分支列集（A/B/C），因起草侧未见过 trajectory |
-| **R1.7** | **远端拿到 100 条真实 trajectory（哈希全对），分支 B 确认，所有口径用实测定死，脚本已写并在真数据上跑通、参考值随附。以下三处相对 R1.6 的实质更正见「实测带来的更正」** |
+| **R1.7** | **远端拿到 100 条真实 trajectory（哈希全对），分支 B 确认，所有口径用实测定死；本地于 2026-08-05 完成两阶段执行、参考复现、三处回改与提交 `9fafc90`。以下三处相对 R1.6 的实质更正见「实测带来的更正」** |
 
 ---
+
+## 0. 执行结果速览
+
+本节已经完成；下面的命令保留为下一次基线或 M1 的重跑配方，不是待办。
+
+| 问题 | 已验证结果 | 应如何解读 |
+|---|---:|---|
+| 输入是否可信？ | 100/100 trajectory 哈希通过 | 脚本每次重跑仍强制校验 manifest。 |
+| 基线是否成功？ | 0/100；95% 任务级上界 15% | 不用 Wald SE=0，也不以「掉分 ≤3pp」作 M1 判据。 |
+| parser 格式问题？ | 硬 149/836；软 498/836 | 两列独立，不相加；硬错误的 cluster SE 是 5.93pp。 |
+| trial 跑了多少轮？ | 中位数 6；7 个撞 30 轮上限；1 个请求超时 | 30 不是自然结束：真实需要轮数只知道“至少 30”。详见 §3.3。 |
+| thinking 缺失是日志问题吗？ | 否：125/836；其中 111 个为 parser 接受的短回复 | 这是模型行为列；thinking token 仅在有该字段的 711 条上统计。 |
+| token 拆分可用吗？ | 残差最小 1、median 54，`stable=true` | `message` 与 command 是 Harbor 规范化视图，不是原始响应 JSON。 |
+| 哪些产物是正式证据？ | `agent_metrics.json`、`token_counts.json`、配置和日志 | 已提交于 `9fafc90`；原始 trajectory 不入库。 |
 
 ## 0.0 实测带来的更正〔R1.7 必读，含两处对我方前几版的纠正〕
 
@@ -45,9 +59,9 @@
 
 ---
 
-## 0.1 待你拍板项〔本卡已用实测填了建议值〕
+## 0.1 已冻结口径〔实测支撑〕
 
-| 项 | 建议值（实测支撑） | 备注 |
+| 项 | 已执行口径 | 备注 |
 |---|---|---|
 | `premature_complete_rate` | **不出**（字段不存在） | 见 0.0 更正一 |
 | thinking 缺失 | **`no_reasoning_rate` 一等列 + thinking 条件在 711** | 见 0.0 更正二，6 倍 completion 差为证 |
@@ -61,7 +75,7 @@
 
 ---
 
-## 1. 开跑前确认〔勘察已完成，此处只是形式确认〕
+## 1. 重跑前确认〔勘察已完成，此处只校验输入〕
 
 §4.0 勘察卡已跑完，分支 B 已定，红灯已在本卡 0.0 消解（两处回改已备好 diff）。本地重跑前只需确认输入在位：
 
@@ -83,7 +97,7 @@ sha256sum -c <(awk '{print $1"  "$2}' traces/trajectories_sha256.txt) | grep -c 
 | `parser_soft_warning_rate` | 836 | trajectory | 498 |
 | `parser_hard_error_rate_per_trial_median` | 100 | trajectory | **0**（双峰的证据，必与 pooled 并列） |
 | `trials_with_zero_hard_errors` | 100 | trajectory | 64 |
-| `turns_per_trial` | 100 | trajectory | median 6，右删失 7 例 |
+| `turns_per_trial` | 100 | trajectory | 中位数 6；7 个 trial 达到 30 轮上限（真实所需轮数只知 ≥30） |
 | `parser_recovery_turns` | 每次硬错误事件 | trajectory | 42 事件 median 1 |
 | `unrecovered_lockin_trials` | 100 | trajectory | 3 |
 | `no_reasoning_rate` | 836 | trajectory | **14.95%**，模型行为（0.0 更正二） |
@@ -113,9 +127,11 @@ sha256sum -c <(awk '{print $1"  "$2}' traces/trajectories_sha256.txt) | grep -c 
 
 Wald SE 在 p̂=0 时为 0，「<7pp 未分辨」失效。按 20 题 rule of three，95% 上界 **15%**（按 100 试验算是 3%，过于乐观，标 `do_not_cite`）。主表脚注：**成功率 0/100；真实值 95% 上界 ≈15%；M1 判据是「是否出现非零成功」，非「掉分 ≤3pp」。**
 
-### 3.3 右删失
+### 3.3 轮数受上限截断（统计学上称“右删失”）
 
-均值 8.36 是截断均值（7 例撞 30 轮、1 例超时）；headline 用**中位数 6**，同出限制均值。
+“右删失”不是指数据丢失，而是**停止规则遮住了后半段**：7 个 trial 达到 `max_turns=30` 后被 harness 强制停止。对这些 trial，我们观察到的只是“跑了 30 轮仍未完成”，因此真实需要的轮数只能写成 **≥30**，不能把 30 当成模型自然选择的结束轮数。另有 1 个 `AgentTimeoutError` 在第 6 次请求途中中断，只落下 5 条 agent step；它同样不能被解释为“模型在 5 轮自然结束”。
+
+因此，8.36 是**受 30 轮上限和超时影响的已观察平均轮数**（字段名 `restricted_mean_at_30`），不是放开限制后模型“平均会跑几轮”的估计。主表把不受极端值支配的**中位数 6**作为 headline，同时必须并列报告“7 个达上限、1 个超时”；M1 比较时也比较这两个计数，不能只比较均值。
 
 ### 3.4 no_reasoning 是模型行为（方向已按实测反转）
 
@@ -127,7 +143,7 @@ terminus 文本解析 → `metrics.py` → `agent_metrics.json`；BFCL tools 字
 
 ---
 
-## 4. 脚本〔随本卡交付，已在真数据跑通〕
+## 4. 重跑脚本〔已在真数据验证〕
 
 ### 4.1 冻结件处理
 
@@ -163,6 +179,12 @@ python3 metrics.py \
 ```
 
 约定沿用仓库现状：`from __future__ import annotations`、argparse、`json.dumps(..., indent=2, ensure_ascii=False, sort_keys=True)`、失败返回码 2、无第三方依赖（token 脚本用 `subprocess`/`urllib`，与 `replay_tapes.py` 一致）。
+
+### 4.3 本地实际执行记录（2026-08-05）
+
+当前用户会话中原有 `edgeforge-b0.service` transient unit 不在；按已冻结的 B0 模型、131072 context、Q8 K/V、单并发、模板、采样、32768 上限与 8080 端口恢复后，`/v1/models` 返回 `gemma4-e4b`，`/tokenize` 的 `hello world` 探针返回 2 token。随后按 §4.2 的端点模式完成两阶段：sidecar 写入 **836** 条仅含计数的响应记录，SHA-256 为 `53142c20…`；v2 指标输出为 `results/baseline_e4b_q4km/agent_metrics.json`，SHA-256 为 `9b2fefd2…`。
+
+100 条 trajectory manifest 复核全部通过；`--verify-v1` 逐位复现 149/498/836/125，且把临时副本中的 hard count 改为 148 后，断言按预期以退出码 2 失败。参考 JSON 的所有计算值及逐 trial 内容均匹配；唯一差异是远端记录的 manifest 路径为 `/tmp/man.txt`，本地记录为 `traces/trajectories_sha256.txt`。token 残差 `stable=true`（min 1、median 54）；`tool_calls` 为 1340 次，分布在 559 个响应，446 个响应留有 `keystrokes` 字段。
 
 ---
 
@@ -259,7 +281,7 @@ metrics:
 
 ---
 
-## 8. 回改冻结件与产物入库
+## 8. 冻结语义回改与产物边界
 
 ### 8.1 三处回改的精确 diff〔0.5 红线 2 授权，照此执行〕
 
@@ -303,28 +325,15 @@ metrics:
 6.6 新增一条实例：
 > **第三实例（2026-08-05）**：`eval_config` 曾断言「缺失 reasoning 的 125 条 = 硬错误带 extra-text 的 125 条」，仅因两个计数都等于 125。实测交集仅 14。**教训**：数值相等不构成同一集合的证据；凡「A 数等于 B 数所以 A=B」的隐含推断一律打 `[未复核]`。
 
-### 8.2 入库
+### 8.2 入库（已完成）
 
-```bash
-git add metrics.py scripts/count_response_tokens.py \
-        'docs/EdgeForge_M0_§4.0_输入勘察卡_R1.0.md' \
-        'docs/EdgeForge_M0_§4_指标脚本_R1.7_执行终稿.md' \
-        eval_config.yaml docs/m0_eval_base.md docs/facts.md \
-        'docs/EdgeForge_M0_§3_锁题与官方基线_R1.4_实际执行版.md' \
-        docs/本地项目目录索引.md
-git add logs/m0/m0_agent_metrics.log logs/m0/m0_token_counts.log \
-        logs/m0/m0_input_probe.json logs/m0/m0_input_probe.md
-git add -f results/baseline_e4b_q4km/agent_metrics.json \
-           results/baseline_e4b_q4km/token_counts.json
-git diff --cached --check -- . ':(exclude)logs/m0/**'
-git commit -m "feat(m0): add agent-metric columns; correct reasoning-absence identity"
-```
+执行产物已于 2026-08-05 提交为 `9fafc90 feat(m0): add agent-metric columns; correct reasoning-absence identity`。提交包含 v2 runner、token sidecar runner、两份只含计数的结果、四份 M0 日志、`eval_config.yaml`、主表、事实文档、§3 实际执行记录、R1.7 本卡和重生成的目录索引；`git diff --cached --check` 已通过。`docs/EdgeForge_M0_§4.0_输入勘察卡_R1.0.md` 在本次执行时不在工作区，故没有补建或纳入提交，其已完成的勘察结果仍由 `logs/m0/m0_input_probe.{json,md}` 记录。
 
-**不入库**：trajectory 原文、任何把 `reasoning_content`/响应正文复制出来的中间件（sidecar 只存计数）。索引用勘察卡重生成的版本更新（旧基准 `57b6f99` 已落后于 `fd1a05b`）。
+**保留与更新原则**：§4.2 的两阶段命令保留为下一次基线/M1 的重跑配方；§8.1 的原/改 diff 保留为冻结语义的审计证据。已完成的暂存与提交命令不再作为可重放操作，改以本段的实际 commit 和产物边界为准。**不入库**：trajectory 原文、任何把 `reasoning_content`/响应正文复制出来的中间件（sidecar 只存计数）。
 
 ---
 
-## 9. 本节产出
+## 9. 已交付产物
 
 - `metrics.py` v2 + `scripts/count_response_tokens.py`（随本卡交付，已在真数据验证）
 - `results/baseline_e4b_q4km/agent_metrics.json`（含 per-task 段，供 M1 配对比较）+ `token_counts.json`
@@ -335,20 +344,20 @@ git commit -m "feat(m0): add agent-metric columns; correct reasoning-absence ide
 
 ---
 
-## 10. 验收自检
+## 10. 验收结果
 
-- [ ] 100 条哈希全对（脚本内强制）
-- [ ] v1 两列逐位复现（149/498/836/125），且篡改 committed 时断言触发
-- [ ] §5 参考表逐位复现
-- [ ] 每列分母正确（100 / 836 / 711 / 835 / 20，五个不同的数）
-- [ ] 聚簇 SE 出，naive SE 标 `do_not_cite`
-- [ ] 0/100 用 rule of three，无「SE=0」「<7pp 未分辨」
-- [ ] 轮数带删失，headline 用中位数
-- [ ] token 残差 stable=true（或按 §6 降级并脚注）
-- [ ] 三机制输出仍在三文件
-- [ ] QAT 锚 agent 列留空 + 脚注
-- [ ] 三处冻结件回改已执行（§8.1）
-- [ ] `premature_complete_rate` 未出现；F1 表述为「zero-reward 未耗尽未超时」
+- [x] 100 条哈希全对（脚本内强制）
+- [x] v1 两列逐位复现（149/498/836/125），且篡改临时 committed 副本时断言以退出码 2 触发
+- [x] §5 参考表逐位复现（仅远端 `/tmp/man.txt` 与本地 manifest 路径不同）
+- [x] 每列分母正确（100 / 836 / 711 / 835 / 20，五个不同的数）
+- [x] 聚簇 SE 已输出，naive SE 标 `do_not_cite`
+- [x] 0/100 用 rule of three，无「SE=0」「<7pp 未分辨」
+- [x] 轮数标明受 30 轮上限截断；headline 用中位数，并报告 7 个达上限和 1 个超时
+- [x] token 残差 `stable=true`（min 1、median 54）
+- [x] 三机制输出仍在三文件；本次未写入 BFCL 或 lm-eval 输出
+- [x] QAT 锚未生成 agent 指标，主表不以 B0 值填充其 agent 列
+- [x] 三处冻结件回改已执行（§8.1）
+- [x] `premature_complete_rate` 未作为指标输出；F1 表述为「zero-reward 未耗尽未超时」
 
 ---
 
@@ -362,7 +371,7 @@ git commit -m "feat(m0): add agent-metric columns; correct reasoning-absence ide
 | 「tool token」 | 隐含 tools API | `command_content_tokens`(harbor 规范化) + `tool_calls_per_turn` | terminus 不走 tools 字段（C13）；keystrokes 文本实存 |
 | 假完成率 | — | **撤回**（无 task_complete 字段；92 条末轮全带命令） | 实测，见 0.0 更正一 |
 | thinking 缺失 | — | `no_reasoning_rate` 一等列（模型行为，6×completion 差） | 实测，方向较 R1.6 反转 |
-| 统计纪律 | 仅 TB SE≈3.5pp | 补 parser 聚簇 SE 5.9pp/设计效应 20× + 0/100 rule of three + 右删失 | 主要测量手段是 parser 列却无 SE 口径 |
+| 统计纪律 | 仅 TB SE≈3.5pp | 补 parser 聚簇 SE 5.9pp/设计效应 20× + 0/100 rule of three + 30 轮上限截断说明 | 主要测量手段是 parser 列却无 SE 口径 |
 | E2「高一个量级」 | 升格理由 | 修正为「同量级、不在地板上」 | 设计效应实测 |
 | 脚本 | 「写 metrics.py」 | v2 + v1 回归断言 + 另出文件 + 真数据参考值 | v1 sha 是冻结证据 |
 | schema | 假设 | **实测定死（分支 B）**，无分支 | 远端拿到真数据 |
