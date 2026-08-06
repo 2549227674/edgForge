@@ -397,10 +397,31 @@ bfcl:
   result_summary: results/baseline_bfcl.json
 
 templates:
-  gguf_template: null
-  hf_template: null
-  template_diff_ok: null
+  hf_template: models/gemma-4-E4B-it/chat_template.jinja
+  hf_template_sha256: 0a2c8073c878ab1da004bee933a998606537bbb62016310352c7285c3f01c5b5
+  gguf_template_source: embedded tokenizer.chat_template
+  gguf_template_sha256_b0: 0a2c8073c878ab1da004bee933a998606537bbb62016310352c7285c3f01c5b5
+  gguf_template_sha256_anchor_qat_q4_0: 0a2c8073c878ab1da004bee933a998606537bbb62016310352c7285c3f01c5b5
+  template_diff_ok: true
+  template_diff_note: >-
+    Verified 2026-08-06. HF chat_template.jinja, the B0 PTQ Q4_K_M GGUF embedded
+    template, and the official QAT Q4_0 GGUF embedded template are byte-identical
+    (18569 bytes, same SHA-256). Template self-identifies as
+    "Google Gemma 4 Canonical Chat Template", published 2026-07-09.
   thinking_mode: unrestricted
+  training_render:
+    enable_thinking: true
+    preserve_thinking: true
+    tool_channel: gemma4_native
+    rationale: >-
+      preserve_thinking defaults to false and the template's thinking_gate only
+      renders reasoning for assistant messages after the last user message, so
+      multi-turn agent trajectories would silently lose all intermediate-turn
+      thinking. Tool calls render through the native <|tool_call> channel rather
+      than hand-assembled terminus plain-text JSON.
+    falsifier: >-
+      If the M1 parser hard-error rate rises by >=5pp against the frozen B0 value
+      of 17.823%, revisit tool_channel.
 
 replayer:
   tapes_manifest: traces/tapes/manifest.json

@@ -10,6 +10,7 @@
 /vm/
 /.venv-bfcl/
 /.venv-lmeval/
+/.venv-data/
 
 # Local task transcripts are kept for reference but are not project sources.
 /docs/1.md
@@ -29,6 +30,23 @@
 /results/
 *.gguf
 *.rkllm
+
+# Re-downloadable data-pipeline intermediates.  Reports, provenance tables, and
+# manifests under data/pipeline remain versioned.
+/data/archive_parquet/
+/data/pipeline/ir/
+/data/pipeline/ir_dedup/
+/data/pipeline/ir_l2/
+/data/pipeline/ir_gate5/
+/data/pipeline/mix_records/
+/data/pipeline/gate3_scan_payloads/
+/data/pipeline/gate7_render_samples/
+/data/pipeline/gate2.sqlite
+/data/pipeline/gate2_dupe_clusters.jsonl
+/data/pipeline/gate2_l2_clusters.jsonl
+/data/pipeline/gate4b_review_samples.jsonl
+/data/pipeline/gate5_hits_raw/
+/logs/m0/
 
 # Editor and operating-system files.
 .DS_Store

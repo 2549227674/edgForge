@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "records": [
+    {
+      "uid": "Crownelius__Complete-FABLE.5-traces-2M:292a20749fb8a2701c2e843df903e017ca73ddf9d4146085ddbeaf41f800f8be:0",
+      "dataset": "Crownelius__Complete-FABLE.5-traces-2M",
+      "detectors": [
+        "Aiven"
+      ],
+      "verified": false,
+      "reason": "unresolved final-mix TruffleHog candidate after exact-redaction rescan"
+    },
+    {
+      "uid": "Crownelius__Complete-FABLE.5-traces-2M:d8e5a6e89d34f3daabcdf79d90fd2bc91d59051c2fde7fb2ffca0f47419f630a:0",
+      "dataset": "Crownelius__Complete-FABLE.5-traces-2M",
+      "detectors": [
+        "SQLServer"
+      ],
+      "verified": false,
+      "reason": "unresolved final-mix TruffleHog candidate"
+    }
+  ]
+}

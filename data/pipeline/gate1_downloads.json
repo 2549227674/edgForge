@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-08-06T07:23:33.327299+00:00",
+  "downloads": [
+    {
+      "repo_id": "AletheiaResearch/GLM-5.2-Agent",
+      "requested_revision": "refs/convert/parquet",
+      "resolved_revision": "d032fa92b465d6f8e64c014d8239564a8e3adb74",
+      "local_dir": "data/archive_parquet/AletheiaResearch__GLM-5.2-Agent",
+      "files": [
+        ".gitattributes",
+        "default/train/0000.parquet"
+      ]
+    },
+    {
+      "repo_id": "Crownelius/Complete-FABLE.5-traces-2M",
+      "requested_revision": "refs/convert/parquet",
+      "resolved_revision": "e9e7757647a0b51c86c5c7ad5425535ed62e0d08",
+      "local_dir": "data/archive_parquet/Crownelius__Complete-FABLE.5-traces-2M",
+      "files": [
+        ".gitattributes",
+        "default/train/0000.parquet",
+        "default/train/0001.parquet",
+        "default/train/0002.parquet",
+        "default/train/0003.parquet"
+      ]
+    },
+    {
+      "repo_id": "Glint-Research/Fable-5-traces",
+      "requested_revision": "refs/convert/parquet",
+      "resolved_revision": "7c96478a42e0d5149e9b0bfa9cb966dcc007d3f1",
+      "local_dir": "data/archive_parquet/Glint-Research__Fable-5-traces",
+      "files": [
+        ".gitattributes",
+        "pi_agent/train/0000.parquet"
+      ]
+    },
+    {
+      "repo_id": "Infatoshi/kernelbench-hard-traces",
+      "requested_revision": "refs/convert/parquet",
+      "resolved_revision": "6cae9dcb349c09c9b138b0a1cab7f34ef8b0ece3",
+      "local_dir": "data/archive_parquet/Infatoshi__kernelbench-hard-traces",
+      "files": [
+        ".gitattributes",
+        "default/train/0000.parquet"
+      ]
+    },
+    {
+      "repo_id": "Infatoshi/kernelbench-mega-traces",
+      "requested_revision": "refs/convert/parquet",
+      "resolved_revision": "0f6b0d0ef5c76d64d4f51681412b514c53edc13e",
+      "local_dir": "data/archive_parquet/Infatoshi__kernelbench-mega-traces",
+      "files": [
+        ".gitattributes",
+        "default/train/0000.parquet"
+      ]
+    },
+    {
+      "repo_id": "armand0e/claude-opus-4.8-pi-traces",
+      "requested_revision": "refs/convert/parquet",
+      "resolved_revision": "7014bac3ba1b23292469dab3dbb33d3a6f0acf93",
+      "local_dir": "data/archive_parquet/armand0e__claude-opus-4.8-pi-traces",
+      "files": [
+        ".gitattributes",
+        "default/train/0000.parquet"
+      ]
+    }
+  ]
+}

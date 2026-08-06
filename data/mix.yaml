@@ -1,0 +1,1571 @@
+schema_version: 2
+purpose: M0 line-C full post-gate canonical pool; renderer input is data/pipeline/mix_records/
+canonical_pool:
+  records: 154097
+  physical_family_cap_applied: false
+  anthropic_style_records: 150920
+  other_family_records: 3177
+sampling_policy:
+  selection: compare recipes at equal optimizer-step and token budgets before choosing
+    the M1 default
+  within_group: uniform_record
+  recipes:
+    raw_uniform:
+      anthropic_style_probability: 0.9793831158296398
+      other_family_probability: 0.020616884170360228
+    family_80_20:
+      anthropic_style_probability: 0.8
+      other_family_probability: 0.2
+    family_60_40:
+      anthropic_style_probability: 0.6
+      other_family_probability: 0.4
+mythos_disposition:
+  kept_after_gate2: 12
+  action: excluded
+  reason: below 2% of original 25,000 after boilerplate stripping and dedup
+redaction_rule_record_counts:
+  ansi: 413
+  credential_assignment: 292
+  groq_style_key: 180
+  home_path: 9930
+  mongodb_uri: 4
+  openai_style_key: 6
+  postgres_uri: 79
+  trufflehog_unverified_candidate: 361
+sources:
+- dataset: AletheiaResearch__GLM-5.2-Agent
+  repo_id: AletheiaResearch/GLM-5.2-Agent
+  revision: d032fa92b465d6f8e64c014d8239564a8e3adb74
+  first_source_dataset: AletheiaResearch/GLM-5.2-Agent
+  family: glm-5.2
+  family_evidence: root/config provenance
+  license: unlabeled
+  is_subagent: false
+  task_type: tool_agent
+  records: 232
+  gate_passed:
+  - gate1
+  - gate4
+  - gate4b
+  - gate2
+  - gate3_redaction_applied
+  - gate5
+  - gate6
+- dataset: Crownelius__Complete-FABLE.5-traces-2M
+  repo_id: Crownelius/Complete-FABLE.5-traces-2M
+  revision: e9e7757647a0b51c86c5c7ad5425535ed62e0d08
+  first_source_dataset: 11-47/claude_opus_4.8_max_thinking_5k_v2
+  family: claimed_anthropic_from_source_label
+  family_evidence: source metadata label
+  license: mit
+  is_subagent: false
+  task_type: chat_or_reasoning
+  records: 690
+  gate_passed:
+  - gate1
+  - gate4
+  - gate4b
+  - gate2
+  - gate3_redaction_applied
+  - gate5
+  - gate6
+- dataset: Crownelius__Complete-FABLE.5-traces-2M
+  repo_id: Crownelius/Complete-FABLE.5-traces-2M
+  revision: e9e7757647a0b51c86c5c7ad5425535ed62e0d08
+  first_source_dataset: 1EYE4ALL/Fable-5-traces
+  family: claimed_anthropic_from_source_label
+  family_evidence: source metadata label
+  license: mit
+  is_subagent: false
+  task_type: chat_or_reasoning
+  records: 4449
+  gate_passed:
+  - gate1
+  - gate4
+  - gate4b
+  - gate2
+  - gate3_redaction_applied
+  - gate5
+  - gate6
+- dataset: Crownelius__Complete-FABLE.5-traces-2M
+  repo_id: Crownelius/Complete-FABLE.5-traces-2M
+  revision: e9e7757647a0b51c86c5c7ad5425535ed62e0d08
+  first_source_dataset: 1EYE4ALL/Fable-5-traces
+  family: claimed_anthropic_from_source_label
+  family_evidence: source metadata label
+  license: mit
+  is_subagent: false
+  task_type: tool_agent
+  records: 39
+  gate_passed:
+  - gate1
+  - gate4
+  - gate4b
+  - gate2
+  - gate3_redaction_applied
+  - gate5
+  - gate6
+- dataset: Crownelius__Complete-FABLE.5-traces-2M
+  repo_id: Crownelius/Complete-FABLE.5-traces-2M
+  revision: e9e7757647a0b51c86c5c7ad5425535ed62e0d08
+  first_source_dataset: AlinCiocan/fable-5-claude-code-traces
+  family: claimed_anthropic_from_source_label
+  family_evidence: source metadata label
+  license: mit
+  is_subagent: false
+  task_type: chat_or_reasoning
+  records: 1
+  gate_passed:
+  - gate1
+  - gate4
+  - gate4b
+  - gate2
+  - gate3_redaction_applied
+  - gate5
+  - gate6
+- dataset: Crownelius__Complete-FABLE.5-traces-2M
+  repo_id: Crownelius/Complete-FABLE.5-traces-2M
+  revision: e9e7757647a0b51c86c5c7ad5425535ed62e0d08
+  first_source_dataset: AlinCiocan/fable-5-claude-code-traces
+  family: claimed_anthropic_from_source_label
+  family_evidence: source metadata label
+  license: mit
+  is_subagent: false
+  task_type: tool_agent
+  records: 15
+  gate_passed:
+  - gate1
+  - gate4
+  - gate4b
+  - gate2
+  - gate3_redaction_applied
+  - gate5
+  - gate6
+- dataset: Crownelius__Complete-FABLE.5-traces-2M
+  repo_id: Crownelius/Complete-FABLE.5-traces-2M
+  revision: e9e7757647a0b51c86c5c7ad5425535ed62e0d08
+  first_source_dataset: Glint-Research/Fable-5-traces
+  family: claimed_anthropic_from_source_label
+  family_evidence: source metadata label
+  license: mit
+  is_subagent: false
+  task_type: chat_or_reasoning
+  records: 3
+  gate_passed:
+  - gate1
+  - gate4
+  - gate4b
+  - gate2
+  - gate3_redaction_applied
+  - gate5
+  - gate6
+- dataset: Crownelius__Complete-FABLE.5-traces-2M
+  repo_id: Crownelius/Complete-FABLE.5-traces-2M
+  revision: e9e7757647a0b51c86c5c7ad5425535ed62e0d08
+  first_source_dataset: Glint-Research/Fable-5-traces
+  family: claimed_anthropic_from_source_label
+  family_evidence: source metadata label
+  license: mit
+  is_subagent: false
+  task_type: tool_agent
+  records: 23
+  gate_passed:
+  - gate1
+  - gate4
+  - gate4b
+  - gate2
+  - gate3_redaction_applied
+  - gate5
+  - gate6
+- dataset: Crownelius__Complete-FABLE.5-traces-2M
+  repo_id: Crownelius/Complete-FABLE.5-traces-2M
+  revision: e9e7757647a0b51c86c5c7ad5425535ed62e0d08
+  first_source_dataset: Met4physics/claude-opus-4-8-xhigh-reasoning-8.7k
+  family: claimed_anthropic_from_source_label
+  family_evidence: source metadata label
+  license: mit
+  is_subagent: false
+  task_type: chat_or_reasoning
+  records: 8679
+  gate_passed:
+  - gate1
+  - gate4
+  - gate4b
+  - gate2
+  - gate3_redaction_applied
+  - gate5
+  - gate6
+- dataset: Crownelius__Complete-FABLE.5-traces-2M
+  repo_id: Crownelius/Complete-FABLE.5-traces-2M
+  revision: e9e7757647a0b51c86c5c7ad5425535ed62e0d08
+  first_source_dataset: PawanKrd/claude-fable-5-code
+  family: claimed_anthropic_from_source_label
+  family_evidence: source metadata label
+  license: mit
+  is_subagent: false
+  task_type: chat_or_reasoning
+  records: 131
+  gate_passed:
+  - gate1
+  - gate4
+  - gate4b
+  - gate2
+  - gate3_redaction_applied
+  - gate5
+  - gate6
+- dataset: Crownelius__Complete-FABLE.5-traces-2M
+  repo_id: Crownelius/Complete-FABLE.5-traces-2M
+  revision: e9e7757647a0b51c86c5c7ad5425535ed62e0d08
+  first_source_dataset: Poumrm/Mythos-5-and-Fabel-5-Class-Model-Outputs
+  family: claimed_anthropic_from_source_label
+  family_evidence: source metadata label
+  license: mit
+  is_subagent: false
+  task_type: chat_or_reasoning
+  records: 8
+  gate_passed:
+  - gate1
+  - gate4
+  - gate4b
+  - gate2
+  - gate3_redaction_applied
+  - gate5
+  - gate6
+- dataset: Crownelius__Complete-FABLE.5-traces-2M
+  repo_id: Crownelius/Complete-FABLE.5-traces-2M
+  revision: e9e7757647a0b51c86c5c7ad5425535ed62e0d08
+  first_source_dataset: Roman1111111/claude-opus-4.6-10000x
+  family: claimed_anthropic_from_source_label
+  family_evidence: source metadata label
+  license: mit
+  is_subagent: false
+  task_type: chat_or_reasoning
+  records: 8828
+  gate_passed:
+  - gate1
+  - gate4
+  - gate4b
+  - gate2
+  - gate3_redaction_applied
+  - gate5
+  - gate6
+- dataset: Crownelius__Complete-FABLE.5-traces-2M
+  repo_id: Crownelius/Complete-FABLE.5-traces-2M
+  revision: e9e7757647a0b51c86c5c7ad5425535ed62e0d08
+  first_source_dataset: Roman1111111/claude-sonnet-4.6-100000X-filtered
+  family: claimed_anthropic_from_source_label
+  family_evidence: source metadata label
+  license: mit
+  is_subagent: false
+  task_type: chat_or_reasoning
+  records: 104331
+  gate_passed:
+  - gate1
+  - gate4
+  - gate4b
+  - gate2
+  - gate3_redaction_applied
+  - gate5
+  - gate6
+- dataset: Crownelius__Complete-FABLE.5-traces-2M
+  repo_id: Crownelius/Complete-FABLE.5-traces-2M
+  revision: e9e7757647a0b51c86c5c7ad5425535ed62e0d08
+  first_source_dataset: Swarm-AI-Research/fable5-traces-sft
+  family: claimed_anthropic_from_source_label
+  family_evidence: source metadata label
+  license: mit
+  is_subagent: false
+  task_type: chat_or_reasoning
+  records: 554
+  gate_passed:
+  - gate1
+  - gate4
+  - gate4b
+  - gate2
+  - gate3_redaction_applied
+  - gate5
+  - gate6
+- dataset: Crownelius__Complete-FABLE.5-traces-2M
+  repo_id: Crownelius/Complete-FABLE.5-traces-2M
+  revision: e9e7757647a0b51c86c5c7ad5425535ed62e0d08
+  first_source_dataset: Swarm-AI-Research/fable5-traces-sft
+  family: claimed_anthropic_from_source_label
+  family_evidence: source metadata label
+  license: mit
+  is_subagent: false
+  task_type: tool_agent
+  records: 2512
+  gate_passed:
+  - gate1
+  - gate4
+  - gate4b
+  - gate2
+  - gate3_redaction_applied
+  - gate5
+  - gate6
+- dataset: Crownelius__Complete-FABLE.5-traces-2M
+  repo_id: Crownelius/Complete-FABLE.5-traces-2M
+  revision: e9e7757647a0b51c86c5c7ad5425535ed62e0d08
+  first_source_dataset: TeichAI/Claude-Opus-4.6-Reasoning-887x
+  family: claimed_anthropic_from_source_label
+  family_evidence: source metadata label
+  license: mit
+  is_subagent: false
+  task_type: chat_or_reasoning
+  records: 413
+  gate_passed:
+  - gate1
+  - gate4
+  - gate4b
+  - gate2
+  - gate3_redaction_applied
+  - gate5
+  - gate6
+- dataset: Crownelius__Complete-FABLE.5-traces-2M
+  repo_id: Crownelius/Complete-FABLE.5-traces-2M
+  revision: e9e7757647a0b51c86c5c7ad5425535ed62e0d08
+  first_source_dataset: TeichAI/Claude-Sonnet-4.6-Reasoning-1100x
+  family: claimed_anthropic_from_source_label
+  family_evidence: source metadata label
+  license: mit
+  is_subagent: false
+  task_type: chat_or_reasoning
+  records: 102
+  gate_passed:
+  - gate1
+  - gate4
+  - gate4b
+  - gate2
+  - gate3_redaction_applied
+  - gate5
+  - gate6
+- dataset: Crownelius__Complete-FABLE.5-traces-2M
+  repo_id: Crownelius/Complete-FABLE.5-traces-2M
+  revision: e9e7757647a0b51c86c5c7ad5425535ed62e0d08
+  first_source_dataset: TeichAI/claude-4.5-opus-high-reasoning-250x
+  family: claimed_anthropic_from_source_label
+  family_evidence: source metadata label
+  license: mit
+  is_subagent: false
+  task_type: chat_or_reasoning
+  records: 148
+  gate_passed:
+  - gate1
+  - gate4
+  - gate4b
+  - gate2
+  - gate3_redaction_applied
+  - gate5
+  - gate6
+- dataset: Crownelius__Complete-FABLE.5-traces-2M
+  repo_id: Crownelius/Complete-FABLE.5-traces-2M
+  revision: e9e7757647a0b51c86c5c7ad5425535ed62e0d08
+  first_source_dataset: TeichAI/claude-sonnet-4.5-high-reasoning-250x
+  family: claimed_anthropic_from_source_label
+  family_evidence: source metadata label
+  license: mit
+  is_subagent: false
+  task_type: chat_or_reasoning
+  records: 77
+  gate_passed:
+  - gate1
+  - gate4
+  - gate4b
+  - gate2
+  - gate3_redaction_applied
+  - gate5
+  - gate6
+- dataset: Crownelius__Complete-FABLE.5-traces-2M
+  repo_id: Crownelius/Complete-FABLE.5-traces-2M
+  revision: e9e7757647a0b51c86c5c7ad5425535ed62e0d08
+  first_source_dataset: TeichAI/lordx64-claude-opus-4.7-max-cleaned
+  family: claimed_anthropic_from_source_label
+  family_evidence: source metadata label
+  license: mit
+  is_subagent: false
+  task_type: chat_or_reasoning
+  records: 3621
+  gate_passed:
+  - gate1
+  - gate4
+  - gate4b
+  - gate2
+  - gate3_redaction_applied
+  - gate5
+  - gate6
+- dataset: Crownelius__Complete-FABLE.5-traces-2M
+  repo_id: Crownelius/Complete-FABLE.5-traces-2M
+  revision: e9e7757647a0b51c86c5c7ad5425535ed62e0d08
+  first_source_dataset: TheFusionCube/Fable-5-CoT-Traces
+  family: claimed_anthropic_from_source_label
+  family_evidence: source metadata label
+  license: mit
+  is_subagent: false
+  task_type: chat_or_reasoning
+  records: 162
+  gate_passed:
+  - gate1
+  - gate4
+  - gate4b
+  - gate2
+  - gate3_redaction_applied
+  - gate5
+  - gate6
+- dataset: Crownelius__Complete-FABLE.5-traces-2M
+  repo_id: Crownelius/Complete-FABLE.5-traces-2M
+  revision: e9e7757647a0b51c86c5c7ad5425535ed62e0d08
+  first_source_dataset: angrygiraffe/claude-opus-4.6-4.7-reasoning-8.7k
+  family: claimed_anthropic_from_source_label
+  family_evidence: source metadata label
+  license: mit
+  is_subagent: false
+  task_type: chat_or_reasoning
+  records: 8537
+  gate_passed:
+  - gate1
+  - gate4
+  - gate4b
+  - gate2
+  - gate3_redaction_applied
+  - gate5
+  - gate6
+- dataset: Crownelius__Complete-FABLE.5-traces-2M
+  repo_id: Crownelius/Complete-FABLE.5-traces-2M
+  revision: e9e7757647a0b51c86c5c7ad5425535ed62e0d08
+  first_source_dataset: armand0e/Fable-5-Chat
+  family: claimed_anthropic_from_source_label
+  family_evidence: source metadata label
+  license: mit
+  is_subagent: false
+  task_type: chat_or_reasoning
+  records: 185
+  gate_passed:
+  - gate1
+  - gate4
+  - gate4b
+  - gate2
+  - gate3_redaction_applied
+  - gate5
+  - gate6
+- dataset: Crownelius__Complete-FABLE.5-traces-2M
+  repo_id: Crownelius/Complete-FABLE.5-traces-2M
+  revision: e9e7757647a0b51c86c5c7ad5425535ed62e0d08
+  first_source_dataset: armand0e/claude-fable-5-claude-code
+  family: claimed_anthropic_from_source_label
+  family_evidence: source metadata label
+  license: mit
+  is_subagent: false
+  task_type: tool_agent
+  records: 12
+  gate_passed:
+  - gate1
+  - gate4
+  - gate4b
+  - gate2
+  - gate3_redaction_applied
+  - gate5
+  - gate6
+- dataset: Crownelius__Complete-FABLE.5-traces-2M
+  repo_id: Crownelius/Complete-FABLE.5-traces-2M
+  revision: e9e7757647a0b51c86c5c7ad5425535ed62e0d08
+  first_source_dataset: armand0e/claude-opus-4.8-pi-traces
+  family: claimed_anthropic_from_source_label
+  family_evidence: source metadata label
+  license: mit
+  is_subagent: false
+  task_type: tool_agent
+  records: 4
+  gate_passed:
+  - gate1
+  - gate4
+  - gate4b
+  - gate2
+  - gate3_redaction_applied
+  - gate5
+  - gate6
+- dataset: Crownelius__Complete-FABLE.5-traces-2M
+  repo_id: Crownelius/Complete-FABLE.5-traces-2M
+  revision: e9e7757647a0b51c86c5c7ad5425535ed62e0d08
+  first_source_dataset: cfahlgren1/Fable-5-traces
+  family: claimed_anthropic_from_source_label
+  family_evidence: source metadata label
+  license: mit
+  is_subagent: false
+  task_type: chat_or_reasoning
+  records: 3
+  gate_passed:
+  - gate1
+  - gate4
+  - gate4b
+  - gate2
+  - gate3_redaction_applied
+  - gate5
+  - gate6
+- dataset: Crownelius__Complete-FABLE.5-traces-2M
+  repo_id: Crownelius/Complete-FABLE.5-traces-2M
+  revision: e9e7757647a0b51c86c5c7ad5425535ed62e0d08
+  first_source_dataset: cfahlgren1/Fable-5-traces
+  family: claimed_anthropic_from_source_label
+  family_evidence: source metadata label
+  license: mit
+  is_subagent: false
+  task_type: tool_agent
+  records: 15
+  gate_passed:
+  - gate1
+  - gate4
+  - gate4b
+  - gate2
+  - gate3_redaction_applied
+  - gate5
+  - gate6
+- dataset: Crownelius__Complete-FABLE.5-traces-2M
+  repo_id: Crownelius/Complete-FABLE.5-traces-2M
+  revision: e9e7757647a0b51c86c5c7ad5425535ed62e0d08
+  first_source_dataset: greghavens/fable-5-coding-and-debugging-traces
+  family: claimed_anthropic_from_source_label
+  family_evidence: source metadata label
+  license: mit
+  is_subagent: false
+  task_type: chat_or_reasoning
+  records: 204
+  gate_passed:
+  - gate1
+  - gate4
+  - gate4b
+  - gate2
+  - gate3_redaction_applied
+  - gate5
+  - gate6
+- dataset: Crownelius__Complete-FABLE.5-traces-2M
+  repo_id: Crownelius/Complete-FABLE.5-traces-2M
+  revision: e9e7757647a0b51c86c5c7ad5425535ed62e0d08
+  first_source_dataset: greghavens/fable-5-coding-and-debugging-traces
+  family: claimed_anthropic_from_source_label
+  family_evidence: source metadata label
+  license: mit
+  is_subagent: false
+  task_type: tool_agent
+  records: 2037
+  gate_passed:
+  - gate1
+  - gate4
+  - gate4b
+  - gate2
+  - gate3_redaction_applied
+  - gate5
+  - gate6
+- dataset: Crownelius__Complete-FABLE.5-traces-2M
+  repo_id: Crownelius/Complete-FABLE.5-traces-2M
+  revision: e9e7757647a0b51c86c5c7ad5425535ed62e0d08
+  first_source_dataset: lordx64/agentic-distill-fable-5-sft
+  family: claimed_anthropic_from_source_label
+  family_evidence: source metadata label
+  license: mit
+  is_subagent: false
+  task_type: chat_or_reasoning
+  records: 230
+  gate_passed:
+  - gate1
+  - gate4
+  - gate4b
+  - gate2
+  - gate3_redaction_applied
+  - gate5
+  - gate6
+- dataset: Crownelius__Complete-FABLE.5-traces-2M
+  repo_id: Crownelius/Complete-FABLE.5-traces-2M
+  revision: e9e7757647a0b51c86c5c7ad5425535ed62e0d08
+  first_source_dataset: lordx64/agentic-distill-fable-5-sft
+  family: claimed_anthropic_from_source_label
+  family_evidence: source metadata label
+  license: mit
+  is_subagent: false
+  task_type: tool_agent
+  records: 9
+  gate_passed:
+  - gate1
+  - gate4
+  - gate4b
+  - gate2
+  - gate3_redaction_applied
+  - gate5
+  - gate6
+- dataset: Crownelius__Complete-FABLE.5-traces-2M
+  repo_id: Crownelius/Complete-FABLE.5-traces-2M
+  revision: e9e7757647a0b51c86c5c7ad5425535ed62e0d08
+  first_source_dataset: lordx64/fable-tool-use-sft
+  family: claimed_anthropic_from_source_label
+  family_evidence: source metadata label
+  license: mit
+  is_subagent: false
+  task_type: chat_or_reasoning
+  records: 4886
+  gate_passed:
+  - gate1
+  - gate4
+  - gate4b
+  - gate2
+  - gate3_redaction_applied
+  - gate5
+  - gate6
+- dataset: Crownelius__Complete-FABLE.5-traces-2M
+  repo_id: Crownelius/Complete-FABLE.5-traces-2M
+  revision: e9e7757647a0b51c86c5c7ad5425535ed62e0d08
+  first_source_dataset: lordx64/fable-tool-use-sft
+  family: claimed_anthropic_from_source_label
+  family_evidence: source metadata label
+  license: mit
+  is_subagent: false
+  task_type: tool_agent
+  records: 1
+  gate_passed:
+  - gate1
+  - gate4
+  - gate4b
+  - gate2
+  - gate3_redaction_applied
+  - gate5
+  - gate6
+- dataset: Crownelius__Complete-FABLE.5-traces-2M
+  repo_id: Crownelius/Complete-FABLE.5-traces-2M
+  revision: e9e7757647a0b51c86c5c7ad5425535ed62e0d08
+  first_source_dataset: suayptalha/fable-5-claude-code
+  family: claimed_anthropic_from_source_label
+  family_evidence: source metadata label
+  license: mit
+  is_subagent: false
+  task_type: tool_agent
+  records: 10
+  gate_passed:
+  - gate1
+  - gate4
+  - gate4b
+  - gate2
+  - gate3_redaction_applied
+  - gate5
+  - gate6
+- dataset: Glint-Research__Fable-5-traces
+  repo_id: Glint-Research/Fable-5-traces
+  revision: 7c96478a42e0d5149e9b0bfa9cb966dcc007d3f1
+  first_source_dataset: Glint-Research/Fable-5-traces
+  family: fable-5
+  family_evidence: root/config provenance
+  license: agpl-3.0
+  is_subagent: false
+  task_type: tool_agent
+  records: 1
+  gate_passed:
+  - gate1
+  - gate4
+  - gate4b
+  - gate2
+  - gate3_redaction_applied
+  - gate5
+  - gate6
+- dataset: armand0e__qwen3.7-max-pi-traces
+  repo_id: armand0e/qwen3.7-max-pi-traces
+  revision: bae934b1c4285b6d2ac720b9c2a127dad9c1c39a
+  first_source_dataset: armand0e/qwen3.7-max-pi-traces
+  family: qwen3.7-max
+  family_evidence: root/config provenance
+  license: unlabeled
+  is_subagent: false
+  task_type: chat_or_reasoning
+  records: 1
+  gate_passed:
+  - gate1
+  - gate4
+  - gate4b
+  - gate2
+  - gate3_redaction_applied
+  - gate5
+  - gate6
+- dataset: armand0e__qwen3.7-max-pi-traces
+  repo_id: armand0e/qwen3.7-max-pi-traces
+  revision: bae934b1c4285b6d2ac720b9c2a127dad9c1c39a
+  first_source_dataset: armand0e/qwen3.7-max-pi-traces
+  family: qwen3.7-max
+  family_evidence: root/config provenance
+  license: unlabeled
+  is_subagent: false
+  task_type: tool_agent
+  records: 37
+  gate_passed:
+  - gate1
+  - gate4
+  - gate4b
+  - gate2
+  - gate3_redaction_applied
+  - gate5
+  - gate6
+- dataset: lambda__hermes-agent-reasoning-traces
+  repo_id: lambda/hermes-agent-reasoning-traces
+  revision: b92885e4f0161d4b2536512710e004d4892cac6e
+  first_source_dataset: lambda/hermes-agent-reasoning-traces
+  family: glm-5.1
+  family_evidence: root/config provenance
+  license: apache-2.0
+  is_subagent: false
+  task_type: hermes:Agent Tools/Background Processes
+  records: 9
+  gate_passed:
+  - gate1
+  - gate4
+  - gate4b
+  - gate2
+  - gate3_redaction_applied
+  - gate5
+  - gate6
+- dataset: lambda__hermes-agent-reasoning-traces
+  repo_id: lambda/hermes-agent-reasoning-traces
+  revision: b92885e4f0161d4b2536512710e004d4892cac6e
+  first_source_dataset: lambda/hermes-agent-reasoning-traces
+  family: glm-5.1
+  family_evidence: root/config provenance
+  license: apache-2.0
+  is_subagent: false
+  task_type: hermes:Agent Tools/Delegation
+  records: 92
+  gate_passed:
+  - gate1
+  - gate4
+  - gate4b
+  - gate2
+  - gate3_redaction_applied
+  - gate5
+  - gate6
+- dataset: lambda__hermes-agent-reasoning-traces
+  repo_id: lambda/hermes-agent-reasoning-traces
+  revision: b92885e4f0161d4b2536512710e004d4892cac6e
+  first_source_dataset: lambda/hermes-agent-reasoning-traces
+  family: glm-5.1
+  family_evidence: root/config provenance
+  license: apache-2.0
+  is_subagent: false
+  task_type: hermes:Agent Tools/Memory & Context
+  records: 53
+  gate_passed:
+  - gate1
+  - gate4
+  - gate4b
+  - gate2
+  - gate3_redaction_applied
+  - gate5
+  - gate6
+- dataset: lambda__hermes-agent-reasoning-traces
+  repo_id: lambda/hermes-agent-reasoning-traces
+  revision: b92885e4f0161d4b2536512710e004d4892cac6e
+  first_source_dataset: lambda/hermes-agent-reasoning-traces
+  family: glm-5.1
+  family_evidence: root/config provenance
+  license: apache-2.0
+  is_subagent: false
+  task_type: hermes:Agent Tools/Sandbox Execution
+  records: 70
+  gate_passed:
+  - gate1
+  - gate4
+  - gate4b
+  - gate2
+  - gate3_redaction_applied
+  - gate5
+  - gate6
+- dataset: lambda__hermes-agent-reasoning-traces
+  repo_id: lambda/hermes-agent-reasoning-traces
+  revision: b92885e4f0161d4b2536512710e004d4892cac6e
+  first_source_dataset: lambda/hermes-agent-reasoning-traces
+  family: glm-5.1
+  family_evidence: root/config provenance
+  license: apache-2.0
+  is_subagent: false
+  task_type: hermes:Agent Tools/Session & Memory
+  records: 66
+  gate_passed:
+  - gate1
+  - gate4
+  - gate4b
+  - gate2
+  - gate3_redaction_applied
+  - gate5
+  - gate6
+- dataset: lambda__hermes-agent-reasoning-traces
+  repo_id: lambda/hermes-agent-reasoning-traces
+  revision: b92885e4f0161d4b2536512710e004d4892cac6e
+  first_source_dataset: lambda/hermes-agent-reasoning-traces
+  family: glm-5.1
+  family_evidence: root/config provenance
+  license: apache-2.0
+  is_subagent: false
+  task_type: hermes:Agent Tools/Skill Invocation
+  records: 144
+  gate_passed:
+  - gate1
+  - gate4
+  - gate4b
+  - gate2
+  - gate3_redaction_applied
+  - gate5
+  - gate6
+- dataset: lambda__hermes-agent-reasoning-traces
+  repo_id: lambda/hermes-agent-reasoning-traces
+  revision: b92885e4f0161d4b2536512710e004d4892cac6e
+  first_source_dataset: lambda/hermes-agent-reasoning-traces
+  family: glm-5.1
+  family_evidence: root/config provenance
+  license: apache-2.0
+  is_subagent: false
+  task_type: hermes:Agent Tools/Todo & Planning
+  records: 52
+  gate_passed:
+  - gate1
+  - gate4
+  - gate4b
+  - gate2
+  - gate3_redaction_applied
+  - gate5
+  - gate6
+- dataset: lambda__hermes-agent-reasoning-traces
+  repo_id: lambda/hermes-agent-reasoning-traces
+  revision: b92885e4f0161d4b2536512710e004d4892cac6e
+  first_source_dataset: lambda/hermes-agent-reasoning-traces
+  family: glm-5.1
+  family_evidence: root/config provenance
+  license: apache-2.0
+  is_subagent: false
+  task_type: hermes:Browser Automation/Browser Tasks
+  records: 59
+  gate_passed:
+  - gate1
+  - gate4
+  - gate4b
+  - gate2
+  - gate3_redaction_applied
+  - gate5
+  - gate6
+- dataset: lambda__hermes-agent-reasoning-traces
+  repo_id: lambda/hermes-agent-reasoning-traces
+  revision: b92885e4f0161d4b2536512710e004d4892cac6e
+  first_source_dataset: lambda/hermes-agent-reasoning-traces
+  family: glm-5.1
+  family_evidence: root/config provenance
+  license: apache-2.0
+  is_subagent: false
+  task_type: hermes:File Operations/File Tasks
+  records: 5
+  gate_passed:
+  - gate1
+  - gate4
+  - gate4b
+  - gate2
+  - gate3_redaction_applied
+  - gate5
+  - gate6
+- dataset: lambda__hermes-agent-reasoning-traces
+  repo_id: lambda/hermes-agent-reasoning-traces
+  revision: b92885e4f0161d4b2536512710e004d4892cac6e
+  first_source_dataset: lambda/hermes-agent-reasoning-traces
+  family: glm-5.1
+  family_evidence: root/config provenance
+  license: apache-2.0
+  is_subagent: false
+  task_type: hermes:Multi-Tool/Multi-Tool Tasks
+  records: 4
+  gate_passed:
+  - gate1
+  - gate4
+  - gate4b
+  - gate2
+  - gate3_redaction_applied
+  - gate5
+  - gate6
+- dataset: lambda__hermes-agent-reasoning-traces
+  repo_id: lambda/hermes-agent-reasoning-traces
+  revision: b92885e4f0161d4b2536512710e004d4892cac6e
+  first_source_dataset: lambda/hermes-agent-reasoning-traces
+  family: glm-5.1
+  family_evidence: root/config provenance
+  license: apache-2.0
+  is_subagent: false
+  task_type: hermes:Planning & Organization/Planning Tasks
+  records: 6
+  gate_passed:
+  - gate1
+  - gate4
+  - gate4b
+  - gate2
+  - gate3_redaction_applied
+  - gate5
+  - gate6
+- dataset: lambda__hermes-agent-reasoning-traces
+  repo_id: lambda/hermes-agent-reasoning-traces
+  revision: b92885e4f0161d4b2536512710e004d4892cac6e
+  first_source_dataset: lambda/hermes-agent-reasoning-traces
+  family: glm-5.1
+  family_evidence: root/config provenance
+  license: apache-2.0
+  is_subagent: false
+  task_type: hermes:Repository Tasks/Bug Fix
+  records: 179
+  gate_passed:
+  - gate1
+  - gate4
+  - gate4b
+  - gate2
+  - gate3_redaction_applied
+  - gate5
+  - gate6
+- dataset: lambda__hermes-agent-reasoning-traces
+  repo_id: lambda/hermes-agent-reasoning-traces
+  revision: b92885e4f0161d4b2536512710e004d4892cac6e
+  first_source_dataset: lambda/hermes-agent-reasoning-traces
+  family: glm-5.1
+  family_evidence: root/config provenance
+  license: apache-2.0
+  is_subagent: false
+  task_type: hermes:Repository Tasks/Code Review & Refactoring
+  records: 1
+  gate_passed:
+  - gate1
+  - gate4
+  - gate4b
+  - gate2
+  - gate3_redaction_applied
+  - gate5
+  - gate6
+- dataset: lambda__hermes-agent-reasoning-traces
+  repo_id: lambda/hermes-agent-reasoning-traces
+  revision: b92885e4f0161d4b2536512710e004d4892cac6e
+  first_source_dataset: lambda/hermes-agent-reasoning-traces
+  family: glm-5.1
+  family_evidence: root/config provenance
+  license: apache-2.0
+  is_subagent: false
+  task_type: hermes:Repository Tasks/Codebase Exploration
+  records: 49
+  gate_passed:
+  - gate1
+  - gate4
+  - gate4b
+  - gate2
+  - gate3_redaction_applied
+  - gate5
+  - gate6
+- dataset: lambda__hermes-agent-reasoning-traces
+  repo_id: lambda/hermes-agent-reasoning-traces
+  revision: b92885e4f0161d4b2536512710e004d4892cac6e
+  first_source_dataset: lambda/hermes-agent-reasoning-traces
+  family: glm-5.1
+  family_evidence: root/config provenance
+  license: apache-2.0
+  is_subagent: false
+  task_type: hermes:Repository Tasks/Documentation
+  records: 12
+  gate_passed:
+  - gate1
+  - gate4
+  - gate4b
+  - gate2
+  - gate3_redaction_applied
+  - gate5
+  - gate6
+- dataset: lambda__hermes-agent-reasoning-traces
+  repo_id: lambda/hermes-agent-reasoning-traces
+  revision: b92885e4f0161d4b2536512710e004d4892cac6e
+  first_source_dataset: lambda/hermes-agent-reasoning-traces
+  family: glm-5.1
+  family_evidence: root/config provenance
+  license: apache-2.0
+  is_subagent: false
+  task_type: hermes:Repository Tasks/Environment Setup
+  records: 38
+  gate_passed:
+  - gate1
+  - gate4
+  - gate4b
+  - gate2
+  - gate3_redaction_applied
+  - gate5
+  - gate6
+- dataset: lambda__hermes-agent-reasoning-traces
+  repo_id: lambda/hermes-agent-reasoning-traces
+  revision: b92885e4f0161d4b2536512710e004d4892cac6e
+  first_source_dataset: lambda/hermes-agent-reasoning-traces
+  family: glm-5.1
+  family_evidence: root/config provenance
+  license: apache-2.0
+  is_subagent: false
+  task_type: hermes:Repository Tasks/Feature Implementation
+  records: 16
+  gate_passed:
+  - gate1
+  - gate4
+  - gate4b
+  - gate2
+  - gate3_redaction_applied
+  - gate5
+  - gate6
+- dataset: lambda__hermes-agent-reasoning-traces
+  repo_id: lambda/hermes-agent-reasoning-traces
+  revision: b92885e4f0161d4b2536512710e004d4892cac6e
+  first_source_dataset: lambda/hermes-agent-reasoning-traces
+  family: glm-5.1
+  family_evidence: root/config provenance
+  license: apache-2.0
+  is_subagent: false
+  task_type: hermes:Repository Tasks/General
+  records: 71
+  gate_passed:
+  - gate1
+  - gate4
+  - gate4b
+  - gate2
+  - gate3_redaction_applied
+  - gate5
+  - gate6
+- dataset: lambda__hermes-agent-reasoning-traces
+  repo_id: lambda/hermes-agent-reasoning-traces
+  revision: b92885e4f0161d4b2536512710e004d4892cac6e
+  first_source_dataset: lambda/hermes-agent-reasoning-traces
+  family: glm-5.1
+  family_evidence: root/config provenance
+  license: apache-2.0
+  is_subagent: false
+  task_type: hermes:Repository Tasks/Maintenance
+  records: 2
+  gate_passed:
+  - gate1
+  - gate4
+  - gate4b
+  - gate2
+  - gate3_redaction_applied
+  - gate5
+  - gate6
+- dataset: lambda__hermes-agent-reasoning-traces
+  repo_id: lambda/hermes-agent-reasoning-traces
+  revision: b92885e4f0161d4b2536512710e004d4892cac6e
+  first_source_dataset: lambda/hermes-agent-reasoning-traces
+  family: glm-5.1
+  family_evidence: root/config provenance
+  license: apache-2.0
+  is_subagent: false
+  task_type: hermes:Repository Tasks/Testing
+  records: 63
+  gate_passed:
+  - gate1
+  - gate4
+  - gate4b
+  - gate2
+  - gate3_redaction_applied
+  - gate5
+  - gate6
+- dataset: lambda__hermes-agent-reasoning-traces
+  repo_id: lambda/hermes-agent-reasoning-traces
+  revision: b92885e4f0161d4b2536512710e004d4892cac6e
+  first_source_dataset: lambda/hermes-agent-reasoning-traces
+  family: glm-5.1
+  family_evidence: root/config provenance
+  license: apache-2.0
+  is_subagent: false
+  task_type: hermes:Terminal & Coding/Terminal Tasks
+  records: 125
+  gate_passed:
+  - gate1
+  - gate4
+  - gate4b
+  - gate2
+  - gate3_redaction_applied
+  - gate5
+  - gate6
+- dataset: lambda__hermes-agent-reasoning-traces
+  repo_id: lambda/hermes-agent-reasoning-traces
+  revision: b92885e4f0161d4b2536512710e004d4892cac6e
+  first_source_dataset: lambda/hermes-agent-reasoning-traces
+  family: kimi-k2.5
+  family_evidence: root/config provenance
+  license: apache-2.0
+  is_subagent: false
+  task_type: hermes:Agent Tools/Background Processes
+  records: 12
+  gate_passed:
+  - gate1
+  - gate4
+  - gate4b
+  - gate2
+  - gate3_redaction_applied
+  - gate5
+  - gate6
+- dataset: lambda__hermes-agent-reasoning-traces
+  repo_id: lambda/hermes-agent-reasoning-traces
+  revision: b92885e4f0161d4b2536512710e004d4892cac6e
+  first_source_dataset: lambda/hermes-agent-reasoning-traces
+  family: kimi-k2.5
+  family_evidence: root/config provenance
+  license: apache-2.0
+  is_subagent: false
+  task_type: hermes:Agent Tools/Clarification
+  records: 4
+  gate_passed:
+  - gate1
+  - gate4
+  - gate4b
+  - gate2
+  - gate3_redaction_applied
+  - gate5
+  - gate6
+- dataset: lambda__hermes-agent-reasoning-traces
+  repo_id: lambda/hermes-agent-reasoning-traces
+  revision: b92885e4f0161d4b2536512710e004d4892cac6e
+  first_source_dataset: lambda/hermes-agent-reasoning-traces
+  family: kimi-k2.5
+  family_evidence: root/config provenance
+  license: apache-2.0
+  is_subagent: false
+  task_type: hermes:Agent Tools/Delegation
+  records: 28
+  gate_passed:
+  - gate1
+  - gate4
+  - gate4b
+  - gate2
+  - gate3_redaction_applied
+  - gate5
+  - gate6
+- dataset: lambda__hermes-agent-reasoning-traces
+  repo_id: lambda/hermes-agent-reasoning-traces
+  revision: b92885e4f0161d4b2536512710e004d4892cac6e
+  first_source_dataset: lambda/hermes-agent-reasoning-traces
+  family: kimi-k2.5
+  family_evidence: root/config provenance
+  license: apache-2.0
+  is_subagent: false
+  task_type: hermes:Agent Tools/Deployment
+  records: 2
+  gate_passed:
+  - gate1
+  - gate4
+  - gate4b
+  - gate2
+  - gate3_redaction_applied
+  - gate5
+  - gate6
+- dataset: lambda__hermes-agent-reasoning-traces
+  repo_id: lambda/hermes-agent-reasoning-traces
+  revision: b92885e4f0161d4b2536512710e004d4892cac6e
+  first_source_dataset: lambda/hermes-agent-reasoning-traces
+  family: kimi-k2.5
+  family_evidence: root/config provenance
+  license: apache-2.0
+  is_subagent: false
+  task_type: hermes:Agent Tools/Memory & Context
+  records: 66
+  gate_passed:
+  - gate1
+  - gate4
+  - gate4b
+  - gate2
+  - gate3_redaction_applied
+  - gate5
+  - gate6
+- dataset: lambda__hermes-agent-reasoning-traces
+  repo_id: lambda/hermes-agent-reasoning-traces
+  revision: b92885e4f0161d4b2536512710e004d4892cac6e
+  first_source_dataset: lambda/hermes-agent-reasoning-traces
+  family: kimi-k2.5
+  family_evidence: root/config provenance
+  license: apache-2.0
+  is_subagent: false
+  task_type: hermes:Agent Tools/Sandbox Execution
+  records: 4
+  gate_passed:
+  - gate1
+  - gate4
+  - gate4b
+  - gate2
+  - gate3_redaction_applied
+  - gate5
+  - gate6
+- dataset: lambda__hermes-agent-reasoning-traces
+  repo_id: lambda/hermes-agent-reasoning-traces
+  revision: b92885e4f0161d4b2536512710e004d4892cac6e
+  first_source_dataset: lambda/hermes-agent-reasoning-traces
+  family: kimi-k2.5
+  family_evidence: root/config provenance
+  license: apache-2.0
+  is_subagent: false
+  task_type: hermes:Agent Tools/Session & Memory
+  records: 7
+  gate_passed:
+  - gate1
+  - gate4
+  - gate4b
+  - gate2
+  - gate3_redaction_applied
+  - gate5
+  - gate6
+- dataset: lambda__hermes-agent-reasoning-traces
+  repo_id: lambda/hermes-agent-reasoning-traces
+  revision: b92885e4f0161d4b2536512710e004d4892cac6e
+  first_source_dataset: lambda/hermes-agent-reasoning-traces
+  family: kimi-k2.5
+  family_evidence: root/config provenance
+  license: apache-2.0
+  is_subagent: false
+  task_type: hermes:Agent Tools/Skill Invocation
+  records: 108
+  gate_passed:
+  - gate1
+  - gate4
+  - gate4b
+  - gate2
+  - gate3_redaction_applied
+  - gate5
+  - gate6
+- dataset: lambda__hermes-agent-reasoning-traces
+  repo_id: lambda/hermes-agent-reasoning-traces
+  revision: b92885e4f0161d4b2536512710e004d4892cac6e
+  first_source_dataset: lambda/hermes-agent-reasoning-traces
+  family: kimi-k2.5
+  family_evidence: root/config provenance
+  license: apache-2.0
+  is_subagent: false
+  task_type: hermes:Agent Tools/Testing & CI
+  records: 7
+  gate_passed:
+  - gate1
+  - gate4
+  - gate4b
+  - gate2
+  - gate3_redaction_applied
+  - gate5
+  - gate6
+- dataset: lambda__hermes-agent-reasoning-traces
+  repo_id: lambda/hermes-agent-reasoning-traces
+  revision: b92885e4f0161d4b2536512710e004d4892cac6e
+  first_source_dataset: lambda/hermes-agent-reasoning-traces
+  family: kimi-k2.5
+  family_evidence: root/config provenance
+  license: apache-2.0
+  is_subagent: false
+  task_type: hermes:Agent Tools/Todo & Planning
+  records: 22
+  gate_passed:
+  - gate1
+  - gate4
+  - gate4b
+  - gate2
+  - gate3_redaction_applied
+  - gate5
+  - gate6
+- dataset: lambda__hermes-agent-reasoning-traces
+  repo_id: lambda/hermes-agent-reasoning-traces
+  revision: b92885e4f0161d4b2536512710e004d4892cac6e
+  first_source_dataset: lambda/hermes-agent-reasoning-traces
+  family: kimi-k2.5
+  family_evidence: root/config provenance
+  license: apache-2.0
+  is_subagent: false
+  task_type: hermes:Browser Automation/Browser Tasks
+  records: 219
+  gate_passed:
+  - gate1
+  - gate4
+  - gate4b
+  - gate2
+  - gate3_redaction_applied
+  - gate5
+  - gate6
+- dataset: lambda__hermes-agent-reasoning-traces
+  repo_id: lambda/hermes-agent-reasoning-traces
+  revision: b92885e4f0161d4b2536512710e004d4892cac6e
+  first_source_dataset: lambda/hermes-agent-reasoning-traces
+  family: kimi-k2.5
+  family_evidence: root/config provenance
+  license: apache-2.0
+  is_subagent: false
+  task_type: hermes:Conversational/Conversational Tasks
+  records: 20
+  gate_passed:
+  - gate1
+  - gate4
+  - gate4b
+  - gate2
+  - gate3_redaction_applied
+  - gate5
+  - gate6
+- dataset: lambda__hermes-agent-reasoning-traces
+  repo_id: lambda/hermes-agent-reasoning-traces
+  revision: b92885e4f0161d4b2536512710e004d4892cac6e
+  first_source_dataset: lambda/hermes-agent-reasoning-traces
+  family: kimi-k2.5
+  family_evidence: root/config provenance
+  license: apache-2.0
+  is_subagent: false
+  task_type: hermes:File Operations/File Tasks
+  records: 81
+  gate_passed:
+  - gate1
+  - gate4
+  - gate4b
+  - gate2
+  - gate3_redaction_applied
+  - gate5
+  - gate6
+- dataset: lambda__hermes-agent-reasoning-traces
+  repo_id: lambda/hermes-agent-reasoning-traces
+  revision: b92885e4f0161d4b2536512710e004d4892cac6e
+  first_source_dataset: lambda/hermes-agent-reasoning-traces
+  family: kimi-k2.5
+  family_evidence: root/config provenance
+  license: apache-2.0
+  is_subagent: false
+  task_type: hermes:Multi-Tool/Multi-Tool Tasks
+  records: 112
+  gate_passed:
+  - gate1
+  - gate4
+  - gate4b
+  - gate2
+  - gate3_redaction_applied
+  - gate5
+  - gate6
+- dataset: lambda__hermes-agent-reasoning-traces
+  repo_id: lambda/hermes-agent-reasoning-traces
+  revision: b92885e4f0161d4b2536512710e004d4892cac6e
+  first_source_dataset: lambda/hermes-agent-reasoning-traces
+  family: kimi-k2.5
+  family_evidence: root/config provenance
+  license: apache-2.0
+  is_subagent: false
+  task_type: hermes:Planning & Organization/Planning Tasks
+  records: 49
+  gate_passed:
+  - gate1
+  - gate4
+  - gate4b
+  - gate2
+  - gate3_redaction_applied
+  - gate5
+  - gate6
+- dataset: lambda__hermes-agent-reasoning-traces
+  repo_id: lambda/hermes-agent-reasoning-traces
+  revision: b92885e4f0161d4b2536512710e004d4892cac6e
+  first_source_dataset: lambda/hermes-agent-reasoning-traces
+  family: kimi-k2.5
+  family_evidence: root/config provenance
+  license: apache-2.0
+  is_subagent: false
+  task_type: hermes:Repository Tasks/Bug Fix
+  records: 237
+  gate_passed:
+  - gate1
+  - gate4
+  - gate4b
+  - gate2
+  - gate3_redaction_applied
+  - gate5
+  - gate6
+- dataset: lambda__hermes-agent-reasoning-traces
+  repo_id: lambda/hermes-agent-reasoning-traces
+  revision: b92885e4f0161d4b2536512710e004d4892cac6e
+  first_source_dataset: lambda/hermes-agent-reasoning-traces
+  family: kimi-k2.5
+  family_evidence: root/config provenance
+  license: apache-2.0
+  is_subagent: false
+  task_type: hermes:Repository Tasks/Code Review & Refactoring
+  records: 1
+  gate_passed:
+  - gate1
+  - gate4
+  - gate4b
+  - gate2
+  - gate3_redaction_applied
+  - gate5
+  - gate6
+- dataset: lambda__hermes-agent-reasoning-traces
+  repo_id: lambda/hermes-agent-reasoning-traces
+  revision: b92885e4f0161d4b2536512710e004d4892cac6e
+  first_source_dataset: lambda/hermes-agent-reasoning-traces
+  family: kimi-k2.5
+  family_evidence: root/config provenance
+  license: apache-2.0
+  is_subagent: false
+  task_type: hermes:Repository Tasks/Codebase Exploration
+  records: 113
+  gate_passed:
+  - gate1
+  - gate4
+  - gate4b
+  - gate2
+  - gate3_redaction_applied
+  - gate5
+  - gate6
+- dataset: lambda__hermes-agent-reasoning-traces
+  repo_id: lambda/hermes-agent-reasoning-traces
+  revision: b92885e4f0161d4b2536512710e004d4892cac6e
+  first_source_dataset: lambda/hermes-agent-reasoning-traces
+  family: kimi-k2.5
+  family_evidence: root/config provenance
+  license: apache-2.0
+  is_subagent: false
+  task_type: hermes:Repository Tasks/Documentation
+  records: 24
+  gate_passed:
+  - gate1
+  - gate4
+  - gate4b
+  - gate2
+  - gate3_redaction_applied
+  - gate5
+  - gate6
+- dataset: lambda__hermes-agent-reasoning-traces
+  repo_id: lambda/hermes-agent-reasoning-traces
+  revision: b92885e4f0161d4b2536512710e004d4892cac6e
+  first_source_dataset: lambda/hermes-agent-reasoning-traces
+  family: kimi-k2.5
+  family_evidence: root/config provenance
+  license: apache-2.0
+  is_subagent: false
+  task_type: hermes:Repository Tasks/Environment Setup
+  records: 180
+  gate_passed:
+  - gate1
+  - gate4
+  - gate4b
+  - gate2
+  - gate3_redaction_applied
+  - gate5
+  - gate6
+- dataset: lambda__hermes-agent-reasoning-traces
+  repo_id: lambda/hermes-agent-reasoning-traces
+  revision: b92885e4f0161d4b2536512710e004d4892cac6e
+  first_source_dataset: lambda/hermes-agent-reasoning-traces
+  family: kimi-k2.5
+  family_evidence: root/config provenance
+  license: apache-2.0
+  is_subagent: false
+  task_type: hermes:Repository Tasks/Feature Implementation
+  records: 142
+  gate_passed:
+  - gate1
+  - gate4
+  - gate4b
+  - gate2
+  - gate3_redaction_applied
+  - gate5
+  - gate6
+- dataset: lambda__hermes-agent-reasoning-traces
+  repo_id: lambda/hermes-agent-reasoning-traces
+  revision: b92885e4f0161d4b2536512710e004d4892cac6e
+  first_source_dataset: lambda/hermes-agent-reasoning-traces
+  family: kimi-k2.5
+  family_evidence: root/config provenance
+  license: apache-2.0
+  is_subagent: false
+  task_type: hermes:Repository Tasks/General
+  records: 10
+  gate_passed:
+  - gate1
+  - gate4
+  - gate4b
+  - gate2
+  - gate3_redaction_applied
+  - gate5
+  - gate6
+- dataset: lambda__hermes-agent-reasoning-traces
+  repo_id: lambda/hermes-agent-reasoning-traces
+  revision: b92885e4f0161d4b2536512710e004d4892cac6e
+  first_source_dataset: lambda/hermes-agent-reasoning-traces
+  family: kimi-k2.5
+  family_evidence: root/config provenance
+  license: apache-2.0
+  is_subagent: false
+  task_type: hermes:Repository Tasks/Maintenance
+  records: 16
+  gate_passed:
+  - gate1
+  - gate4
+  - gate4b
+  - gate2
+  - gate3_redaction_applied
+  - gate5
+  - gate6
+- dataset: lambda__hermes-agent-reasoning-traces
+  repo_id: lambda/hermes-agent-reasoning-traces
+  revision: b92885e4f0161d4b2536512710e004d4892cac6e
+  first_source_dataset: lambda/hermes-agent-reasoning-traces
+  family: kimi-k2.5
+  family_evidence: root/config provenance
+  license: apache-2.0
+  is_subagent: false
+  task_type: hermes:Repository Tasks/Testing
+  records: 67
+  gate_passed:
+  - gate1
+  - gate4
+  - gate4b
+  - gate2
+  - gate3_redaction_applied
+  - gate5
+  - gate6
+- dataset: lambda__hermes-agent-reasoning-traces
+  repo_id: lambda/hermes-agent-reasoning-traces
+  revision: b92885e4f0161d4b2536512710e004d4892cac6e
+  first_source_dataset: lambda/hermes-agent-reasoning-traces
+  family: kimi-k2.5
+  family_evidence: root/config provenance
+  license: apache-2.0
+  is_subagent: false
+  task_type: hermes:Scheduling/Cron Jobs
+  records: 28
+  gate_passed:
+  - gate1
+  - gate4
+  - gate4b
+  - gate2
+  - gate3_redaction_applied
+  - gate5
+  - gate6
+- dataset: lambda__hermes-agent-reasoning-traces
+  repo_id: lambda/hermes-agent-reasoning-traces
+  revision: b92885e4f0161d4b2536512710e004d4892cac6e
+  first_source_dataset: lambda/hermes-agent-reasoning-traces
+  family: kimi-k2.5
+  family_evidence: root/config provenance
+  license: apache-2.0
+  is_subagent: false
+  task_type: hermes:Terminal & Coding/Terminal Tasks
+  records: 232
+  gate_passed:
+  - gate1
+  - gate4
+  - gate4b
+  - gate2
+  - gate3_redaction_applied
+  - gate5
+  - gate6
+post_gate6_trufflehog_redaction:
+  scan_scope: trainer payload fields only; UID/provenance excluded
+  scan_candidate_count: 215
+  verified_candidate_count: 0
+  redacted_records: 361
+  replacement_occurrences: 3850
+  detector_candidate_counts:
+    Atlassian: 1
+    Box: 3
+    CloudflareApiToken: 5
+    Dockerhub: 150
+    Eraser: 1
+    Gitlab: 10
+    GoogleGeminiAPIKey: 1
+    Mockaroo: 2
+    NpmToken: 30
+    Shortcut: 1
+    SlackWebhook: 1
+    Stripe: 1
+    TLy: 1
+    TravisCI: 1
+    URI: 4
+    UnifyID: 1
+    YoutubeApiKey: 2

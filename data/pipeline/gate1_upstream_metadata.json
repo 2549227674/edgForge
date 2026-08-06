@@ -1,0 +1,440 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-08-06T07:24:51.784746+00:00",
+  "datasets": [
+    {
+      "repo_id": "Glint-Research/Fable-5-traces",
+      "default_revision": "e05c417852fc59fd8da758e68b352732423ca0cb",
+      "hub_info_error": null,
+      "license_from_hf_card": "agpl-3.0",
+      "license_from_local_snapshot_card": "agpl-3.0",
+      "dataset_viewer_size": {
+        "size": {
+          "dataset": {
+            "dataset": "Glint-Research/Fable-5-traces",
+            "num_bytes_original_files": null,
+            "num_bytes_parquet_files": 76518803,
+            "num_bytes_memory": 145955323,
+            "num_rows": 4665,
+            "estimated_num_rows": null
+          },
+          "configs": [
+            {
+              "dataset": "Glint-Research/Fable-5-traces",
+              "config": "pi_agent",
+              "num_bytes_original_files": null,
+              "num_bytes_parquet_files": 76518803,
+              "num_bytes_memory": 145955323,
+              "num_rows": 4665,
+              "num_columns": 11,
+              "estimated_num_rows": null
+            }
+          ],
+          "splits": [
+            {
+              "dataset": "Glint-Research/Fable-5-traces",
+              "config": "pi_agent",
+              "split": "train",
+              "num_bytes_parquet_files": 76518803,
+              "num_bytes_memory": 145955323,
+              "num_rows": 4665,
+              "num_columns": 11,
+              "estimated_num_rows": null
+            }
+          ]
+        },
+        "pending": [],
+        "failed": [],
+        "partial": false
+      }
+    },
+    {
+      "repo_id": "Crownelius/Complete-FABLE.5-traces-2M",
+      "default_revision": "b9f20b5c2638b96311252d5894e3d010ba2a2715",
+      "hub_info_error": null,
+      "license_from_hf_card": null,
+      "license_from_local_snapshot_card": "mit",
+      "dataset_viewer_size": {
+        "size": {
+          "dataset": {
+            "dataset": "Crownelius/Complete-FABLE.5-traces-2M",
+            "num_bytes_original_files": 537657712,
+            "num_bytes_parquet_files": 537657712,
+            "num_bytes_memory": 2715443790,
+            "num_rows": 228968,
+            "estimated_num_rows": null
+          },
+          "configs": [
+            {
+              "dataset": "Crownelius/Complete-FABLE.5-traces-2M",
+              "config": "default",
+              "num_bytes_original_files": 537657712,
+              "num_bytes_parquet_files": 537657712,
+              "num_bytes_memory": 2715443790,
+              "num_rows": 228968,
+              "num_columns": 7,
+              "estimated_num_rows": null
+            }
+          ],
+          "splits": [
+            {
+              "dataset": "Crownelius/Complete-FABLE.5-traces-2M",
+              "config": "default",
+              "split": "train",
+              "num_bytes_parquet_files": 537657712,
+              "num_bytes_memory": 2715443790,
+              "num_rows": 228968,
+              "num_columns": 7,
+              "estimated_num_rows": null
+            }
+          ]
+        },
+        "pending": [],
+        "failed": [],
+        "partial": false
+      }
+    },
+    {
+      "repo_id": "lambda/hermes-agent-reasoning-traces",
+      "default_revision": "b92885e4f0161d4b2536512710e004d4892cac6e",
+      "hub_info_error": null,
+      "license_from_hf_card": "apache-2.0",
+      "license_from_local_snapshot_card": null,
+      "dataset_viewer_size": {
+        "size": {
+          "dataset": {
+            "dataset": "lambda/hermes-agent-reasoning-traces",
+            "num_bytes_original_files": 1107833918,
+            "num_bytes_parquet_files": 1107833918,
+            "num_bytes_memory": 1108354866,
+            "num_rows": 14701,
+            "estimated_num_rows": null
+          },
+          "configs": [
+            {
+              "dataset": "lambda/hermes-agent-reasoning-traces",
+              "config": "glm-5.1",
+              "num_bytes_original_files": 599571360,
+              "num_bytes_parquet_files": 599571360,
+              "num_bytes_memory": 599861374,
+              "num_rows": 7055,
+              "num_columns": 6,
+              "estimated_num_rows": null
+            },
+            {
+              "dataset": "lambda/hermes-agent-reasoning-traces",
+              "config": "kimi",
+              "num_bytes_original_files": 508262558,
+              "num_bytes_parquet_files": 508262558,
+              "num_bytes_memory": 508493492,
+              "num_rows": 7646,
+              "num_columns": 6,
+              "estimated_num_rows": null
+            }
+          ],
+          "splits": [
+            {
+              "dataset": "lambda/hermes-agent-reasoning-traces",
+              "config": "glm-5.1",
+              "split": "train",
+              "num_bytes_parquet_files": 599571360,
+              "num_bytes_memory": 599861374,
+              "num_rows": 7055,
+              "num_columns": 6,
+              "estimated_num_rows": null
+            },
+            {
+              "dataset": "lambda/hermes-agent-reasoning-traces",
+              "config": "kimi",
+              "split": "train",
+              "num_bytes_parquet_files": 508262558,
+              "num_bytes_memory": 508493492,
+              "num_rows": 7646,
+              "num_columns": 6,
+              "estimated_num_rows": null
+            }
+          ]
+        },
+        "pending": [],
+        "failed": [],
+        "partial": false
+      }
+    },
+    {
+      "repo_id": "AletheiaResearch/GLM-5.2-Agent",
+      "default_revision": "c0c098b3a1bdc8c0a4896ed92b31769bcd52ce61",
+      "hub_info_error": null,
+      "license_from_hf_card": null,
+      "license_from_local_snapshot_card": null,
+      "dataset_viewer_size": {
+        "size": {
+          "dataset": {
+            "dataset": "AletheiaResearch/GLM-5.2-Agent",
+            "num_bytes_original_files": null,
+            "num_bytes_parquet_files": 141457047,
+            "num_bytes_memory": 222571837,
+            "num_rows": 319,
+            "estimated_num_rows": null
+          },
+          "configs": [
+            {
+              "dataset": "AletheiaResearch/GLM-5.2-Agent",
+              "config": "default",
+              "num_bytes_original_files": null,
+              "num_bytes_parquet_files": 141457047,
+              "num_bytes_memory": 222571837,
+              "num_rows": 319,
+              "num_columns": 11,
+              "estimated_num_rows": null
+            }
+          ],
+          "splits": [
+            {
+              "dataset": "AletheiaResearch/GLM-5.2-Agent",
+              "config": "default",
+              "split": "train",
+              "num_bytes_parquet_files": 141457047,
+              "num_bytes_memory": 222571837,
+              "num_rows": 319,
+              "num_columns": 11,
+              "estimated_num_rows": null
+            }
+          ]
+        },
+        "pending": [],
+        "failed": [],
+        "partial": false
+      }
+    },
+    {
+      "repo_id": "armand0e/qwen3.7-max-pi-traces",
+      "default_revision": "bae934b1c4285b6d2ac720b9c2a127dad9c1c39a",
+      "hub_info_error": null,
+      "license_from_hf_card": null,
+      "license_from_local_snapshot_card": null,
+      "dataset_viewer_size": {
+        "size": {
+          "dataset": {
+            "dataset": "armand0e/qwen3.7-max-pi-traces",
+            "num_bytes_original_files": 9913718,
+            "num_bytes_parquet_files": 18055201,
+            "num_bytes_memory": 18047308,
+            "num_rows": 47,
+            "estimated_num_rows": null
+          },
+          "configs": [
+            {
+              "dataset": "armand0e/qwen3.7-max-pi-traces",
+              "config": "default",
+              "num_bytes_original_files": 9913718,
+              "num_bytes_parquet_files": 18055201,
+              "num_bytes_memory": 18047308,
+              "num_rows": 47,
+              "num_columns": 11,
+              "estimated_num_rows": null
+            }
+          ],
+          "splits": [
+            {
+              "dataset": "armand0e/qwen3.7-max-pi-traces",
+              "config": "default",
+              "split": "train",
+              "num_bytes_parquet_files": 18055201,
+              "num_bytes_memory": 18047308,
+              "num_rows": 47,
+              "num_columns": 11,
+              "estimated_num_rows": null
+            }
+          ]
+        },
+        "pending": [],
+        "failed": [],
+        "partial": false
+      }
+    },
+    {
+      "repo_id": "WithinUsAI/claude_mythos_distilled_25k",
+      "default_revision": "2c5e638c51a22b8b883def51bab685ae7e282c72",
+      "hub_info_error": null,
+      "license_from_hf_card": "apache-2.0",
+      "license_from_local_snapshot_card": "apache-2.0",
+      "dataset_viewer_size": {
+        "size": {
+          "dataset": {
+            "dataset": "WithinUsAI/claude_mythos_distilled_25k",
+            "num_bytes_original_files": null,
+            "num_bytes_parquet_files": 49508725,
+            "num_bytes_memory": 52161319,
+            "num_rows": 25000,
+            "estimated_num_rows": null
+          },
+          "configs": [
+            {
+              "dataset": "WithinUsAI/claude_mythos_distilled_25k",
+              "config": "default",
+              "num_bytes_original_files": null,
+              "num_bytes_parquet_files": 49508725,
+              "num_bytes_memory": 52161319,
+              "num_rows": 25000,
+              "num_columns": 5,
+              "estimated_num_rows": null
+            }
+          ],
+          "splits": [
+            {
+              "dataset": "WithinUsAI/claude_mythos_distilled_25k",
+              "config": "default",
+              "split": "train",
+              "num_bytes_parquet_files": 49508725,
+              "num_bytes_memory": 52161319,
+              "num_rows": 25000,
+              "num_columns": 5,
+              "estimated_num_rows": null
+            }
+          ]
+        },
+        "pending": [],
+        "failed": [],
+        "partial": false
+      }
+    },
+    {
+      "repo_id": "armand0e/claude-opus-4.8-pi-traces",
+      "default_revision": "dd1f3e164086a360f40aff8e0630d069e63eb339",
+      "hub_info_error": null,
+      "license_from_hf_card": null,
+      "license_from_local_snapshot_card": null,
+      "dataset_viewer_size": {
+        "size": {
+          "dataset": {
+            "dataset": "armand0e/claude-opus-4.8-pi-traces",
+            "num_bytes_original_files": 677172,
+            "num_bytes_parquet_files": 1195720,
+            "num_bytes_memory": 1178871,
+            "num_rows": 4,
+            "estimated_num_rows": null
+          },
+          "configs": [
+            {
+              "dataset": "armand0e/claude-opus-4.8-pi-traces",
+              "config": "default",
+              "num_bytes_original_files": 677172,
+              "num_bytes_parquet_files": 1195720,
+              "num_bytes_memory": 1178871,
+              "num_rows": 4,
+              "num_columns": 11,
+              "estimated_num_rows": null
+            }
+          ],
+          "splits": [
+            {
+              "dataset": "armand0e/claude-opus-4.8-pi-traces",
+              "config": "default",
+              "split": "train",
+              "num_bytes_parquet_files": 1195720,
+              "num_bytes_memory": 1178871,
+              "num_rows": 4,
+              "num_columns": 11,
+              "estimated_num_rows": null
+            }
+          ]
+        },
+        "pending": [],
+        "failed": [],
+        "partial": false
+      }
+    },
+    {
+      "repo_id": "Infatoshi/kernelbench-hard-traces",
+      "default_revision": "f498477de0f3b3cd08dc427d0c8d27da66e7d9de",
+      "hub_info_error": null,
+      "license_from_hf_card": "mit",
+      "license_from_local_snapshot_card": null,
+      "dataset_viewer_size": {
+        "size": {
+          "dataset": {
+            "dataset": "Infatoshi/kernelbench-hard-traces",
+            "num_bytes_original_files": null,
+            "num_bytes_parquet_files": 274648912,
+            "num_bytes_memory": 463290311,
+            "num_rows": 383,
+            "estimated_num_rows": null
+          },
+          "configs": [
+            {
+              "dataset": "Infatoshi/kernelbench-hard-traces",
+              "config": "default",
+              "num_bytes_original_files": null,
+              "num_bytes_parquet_files": 274648912,
+              "num_bytes_memory": 463290311,
+              "num_rows": 383,
+              "num_columns": 11,
+              "estimated_num_rows": null
+            }
+          ],
+          "splits": [
+            {
+              "dataset": "Infatoshi/kernelbench-hard-traces",
+              "config": "default",
+              "split": "train",
+              "num_bytes_parquet_files": 274648912,
+              "num_bytes_memory": 463290311,
+              "num_rows": 383,
+              "num_columns": 11,
+              "estimated_num_rows": null
+            }
+          ]
+        },
+        "pending": [],
+        "failed": [],
+        "partial": false
+      }
+    },
+    {
+      "repo_id": "Infatoshi/kernelbench-mega-traces",
+      "default_revision": "f276e89bb2a7e68cd70063e15cfad7fc49604c95",
+      "hub_info_error": null,
+      "license_from_hf_card": "mit",
+      "license_from_local_snapshot_card": "mit",
+      "dataset_viewer_size": {
+        "size": {
+          "dataset": {
+            "dataset": "Infatoshi/kernelbench-mega-traces",
+            "num_bytes_original_files": null,
+            "num_bytes_parquet_files": 83666956,
+            "num_bytes_memory": 139343854,
+            "num_rows": 75,
+            "estimated_num_rows": null
+          },
+          "configs": [
+            {
+              "dataset": "Infatoshi/kernelbench-mega-traces",
+              "config": "default",
+              "num_bytes_original_files": null,
+              "num_bytes_parquet_files": 83666956,
+              "num_bytes_memory": 139343854,
+              "num_rows": 75,
+              "num_columns": 11,
+              "estimated_num_rows": null
+            }
+          ],
+          "splits": [
+            {
+              "dataset": "Infatoshi/kernelbench-mega-traces",
+              "config": "default",
+              "split": "train",
+              "num_bytes_parquet_files": 83666956,
+              "num_bytes_memory": 139343854,
+              "num_rows": 75,
+              "num_columns": 11,
+              "estimated_num_rows": null
+            }
+          ]
+        },
+        "pending": [],
+        "failed": [],
+        "partial": false
+      }
+    }
+  ]
+}

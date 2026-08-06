@@ -1,0 +1,22 @@
+{
+  "num_perm": 128,
+  "shingle": "normalized word 5-gram",
+  "candidate_signature": "128-entry bottom-k MinHash; eight 2-hash LSH bands",
+  "threshold": 0.8,
+  "candidate_pairs": 137958,
+  "verified_pairs": 1372,
+  "skipped_large_bands": 4,
+  "removed_by_dataset": {
+    "Crownelius__Complete-FABLE.5-traces-2M": 1322,
+    "WithinUsAI__claude_mythos_distilled_25k": 1,
+    "Glint-Research__Fable-5-traces": 1
+  },
+  "retained_by_dataset": {
+    "AletheiaResearch__GLM-5.2-Agent": 234,
+    "Crownelius__Complete-FABLE.5-traces-2M": 151364,
+    "Glint-Research__Fable-5-traces": 1,
+    "WithinUsAI__claude_mythos_distilled_25k": 12,
+    "armand0e__qwen3.7-max-pi-traces": 38,
+    "lambda__hermes-agent-reasoning-traces": 2910
+  }
+}

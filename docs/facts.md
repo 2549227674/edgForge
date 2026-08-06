@@ -69,7 +69,7 @@
 
 4.1 E4B QLoRA ~17GB → vGPU-32（¥1.58/h）够用；官方口径 E4B QLoRA 优于 E2B LoRA。
 
-4.2 **Gemma4 训练三坑（20-step loss smoke 必查）**：跨层 KV 共享 × use_cache 致 loss 发散；fp16 mask 溢出 NaN；chat/thinking 模板不一致致工具调用静默崩坏。
+4.2 **Gemma4 训练三坑（20-step loss smoke 必查）**：跨层 KV 共享 × use_cache 致 loss 发散；fp16 mask 溢出 NaN；chat/thinking 模板不一致致工具调用静默崩坏。2026-08-06 已实测 HF Jinja、B0 Q4_K_M GGUF 与官方 QAT Q4_0 GGUF 的模板逐字节一致（18,569 bytes，SHA-256 `0a2c8073…`）。
 
 4.3 租卡镜像：CUDA 13.2 禁用（Unsloth 明禁，乱码 bug 关联）；vLLM 冒烟查 Marlin 回退关键字。
 
@@ -90,7 +90,7 @@
 
 ## 5. 板端边界
 
-5.1 RK3588 LLM 仅 W8A8；校准集用 agent 域样本替换官方 21 条通用样本；chat/thinking 模板与训练侧核对。
+5.1 RK3588 LLM 仅 W8A8；校准集用 agent 域样本替换官方 21 条通用样本；chat/thinking 模板与训练侧核对。2026-08-06 三方模板实测逐字节一致（SHA-256 `0a2c8073…`）。
 
 5.2 **板端算子边界（已查证，M8 立项依据）**：NPU LLM 路径闭源（RKLLM/RKNPU2 黑盒，无自定义算子入口，逆向 TRM 不做）；RKNN-Toolkit2 自定义算子面向 ONNX/视觉流不通 LLM；**可做三件** = ① CPU NEON kernel + 板上全功能 perf；② `rknn_matmul_run` 微基准（RK3588 支持 int4×int4→int16）产出"6 TOPS 标称 vs 实测"归因；③ RKLLM 阶段计时 + `/sys/kernel/debug/rknpu/load` 层级归因。
 
@@ -108,7 +108,7 @@
 
 6.3 **语料冻结的根本原因**：源模型 2026-06-22 因出口管制下线，语料**不可再生**。这条同时决定了：数据必须 checksum + 第二介质；以及 §4.4 的"Fable 无法做 OPD"。
 
-6.4 kernelbench 两个 trace 集（hard+mega，~70 条）**永不进训练**：极小规模 + 跨 harness 格式 + 高端 GPU 分布；且训了会污染 agent 辅助 KernelBench 实验。保留为项目 2 案例库。
+6.4 kernelbench 两个 trace 集（hard+mega，~70 条）**永不进训练**：极小规模 + 跨 harness 格式 + 高端 GPU 分布；且训了会污染 agent 辅助 KernelBench 实验。保留为项目 2 案例库；排除须以 `data/pipeline/kernelbench_exclusion.json` 的可审计断言件证明，不接受口头约定。
 
 6.5 **进度单位 = 入表的可审计格子数，非跑通的命令数。**
 
@@ -116,7 +116,10 @@
    - 原实例：原 zip 未经审查的具体数字会伪装成"既定背景设定"被无脑继承（1k–10k 事件为证）。
    - **新实例**：M0 卡 R1.1 曾把在盘 Q4_0 写成"官方 QAT 对照线伴生资产"——这个身份**从未核验**，仅凭文件名推断，且语气笃定、未打标记；后经核验实为官方 `qat-q4_0-gguf` 锚本尊。
    - **第三实例（2026-08-05）**：`eval_config` 曾断言「缺失 reasoning 的 125 条 = 硬错误带 extra-text 的 125 条」，仅因两个计数都等于 125。实测交集仅 14。**教训**：数值相等不构成同一集合的证据；凡「A 数等于 B 数所以 A=B」的隐含推断一律打 `[未复核]`。
+   - **第四实例（2026-08-06）**：台账将 Crownelius 的仓库名 `2M` 和 981.5MB 作为行数/规模证据；冻结的上游 parquet export 实测为 228,968 行。仓库名或文件名中的数字不构成行数证据。
    - **教训升级**：污染不止来自"从旧文档继承"，**也来自"本次新写入"**。`[未复核]` 标记的适用范围因此扩大——凡未经实证的具体身份/数字/阈值，无论来源是继承还是当场推断，一律打标。
+
+6.7 **Line C 语料事实（2026-08-06）**：九个归档源均已按 frozen revision 与 SHA-256 完整度冻结；许可、行数及 archive 文件清单见 `manifests/data_archive_sha256.json`。Crownelius 是跨集聚合镜像，保留 `row_hash`/`seen_count` 与 `first_source_dataset` provenance；来源标签不等同于已核实 teacher 身份。Glint 的 4,665 行在 Gate 4 解析为 218 个 prefix-expanded source sessions。Hermes 的来源家族按 config provenance 分为 Kimi-K2.5（7,646）与 GLM-5.1（7,055）。
 
 ---
 

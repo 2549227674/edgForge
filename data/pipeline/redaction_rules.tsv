@@ -1,0 +1,6 @@
+rule	pattern_class	replacement	apply_stage
+openai_style_key	credential	<REDACTED_OPENAI_STYLE_KEY>	after_gate5_before_gate7
+groq_style_key	credential	<REDACTED_GROQ_STYLE_KEY>	after_gate5_before_gate7
+postgres_uri	credential	<REDACTED_POSTGRES_URI>	after_gate5_before_gate7
+mongodb_uri	credential	<REDACTED_MONGODB_URI>	after_gate5_before_gate7
+credential_assignment	credential	<REDACTED_CREDENTIAL_ASSIGNMENT>	after_gate5_before_gate7

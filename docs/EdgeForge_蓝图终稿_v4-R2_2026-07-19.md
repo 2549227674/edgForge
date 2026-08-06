@@ -27,7 +27,7 @@
 
 ---
 
-## 1. 决策记录（17 条，已全部拍板）
+## 1. 决策记录（18 条，已全部拍板）
 
 | # | 决策 | 结论 | 关键理由 |
 |---|---|---|---|
@@ -48,6 +48,7 @@
 | 15 | NVFP4 列 | **保留**（租卡 P1，可独立裁剪、砍掉不伤主表骨架） | 4B 级 NVFP4 在 agent 任务上的退化是公开空白格；现成 checkpoint + ModelOpt 一个周末窗口的成本 |
 | 16 | OPD 支线 | **统一机器，双调用**：GKD 逐 token 反向 KL + vLLM 起 teacher FP8 logprob 打分服务 + 学生 QLoRA；租卡 RTX Pro 6000 96GB 单卡（¥5.95/h，teacher FP8 ~31GB 与学生 ~17GB 同卡共存）。调用①：M1 SFT 后 polish，teacher = `gemma-4-31b-it`（dense，bf16→FP8）；调用②：M4 剪枝后恢复蒸馏的 loss 即此，teacher = **剪枝前 merged checkpoint**。同一代码路径，teacher 仅为配置里一行地址；评测走既有冻结协议 | Fable teacher 已下线（语料冻结根因），离线蒸馏物理上不可升级为 OPD，同族 31B dense 补位（26B 为 MoE、E4B/31B 为 dense，官方技术报告证实；同族同 tokenizer 规避跨族错配与 rollout 漂移放大）；恢复蒸馏 teacher 必须是剪枝前自身——原版 31B 没学过 Pi/teich 工具格式与 agent 行为，会一边恢复容量一边冲刷 SFT 习得能力，且父模型分布近、避开"teacher 对学生 token 概率塌掉致信号失效"的多轮失败模式；SFT 冷启动→OPD 精修是 Qwen3/Thinking Machines 的标准配方顺序 |
 | 17 | 基线 KV 协议 | **冻结**：基线 K/V 均为 `q8_0`，单序列 `n_ctx=131072`；M1–M7 所有 candidate 的纵向对照沿用此配置。f16 KV 不做消融 | 按 boot log 实测预算（可用 7096 − 模型 2868 − compute 711 ≈ 3517 MiB 可用于 KV），f16 约 2088 MiB/序列仅容 1 条序列，会把 llama.cpp 侧并发上限锁死为 1，使决策 14 的调度器对照（槽位式 vs continuous batching）无法执行；q8_0 1109 MiB/序列可容约 3 条。故 KV 量化不再是实验轴，而是基线冻结项，全项目 candidate 一律沿用 |
+| 18 | Line C 数据治理 | **定**：门②只处理可验证的字面重叠；门④新增 ④b 退化/模板/身份噪声检测；门⑥全量保留硬过滤后数据，以保守源模型家族 × Hermes `category`/`subcategory` 双轴记录分布，家族比例仅在训练时采样实现。Mythos 仅在去样板、去重后达到原集 2% 才可作小比例掺料，否则整集剔除。 | Mythos 实测为高度模板化合成镜像，不是可靠配平锚；来源标签不等于 teacher 身份。Crown 上游实际为 228,968 行聚合 export，且实测合格池的家族极不均衡；不为未验证的比例先删除可用样本。 |
 
 已废弃的 v3 机制：三支柱框架与 6/4 比例、路由脊柱、双轨数据配比（统一轨 + 权重不发布）、自建任务集（保留 2 个 TB 快题当烟测对）、自采 trace 数据集发布、逐周计划、最小叙事/MVP 分级、Pi live loop（由 benchmark 运行承担负载与采集职能）、Open-SWE（走纯 Fable/Mythos 蒸馏叙事）、板端并发/多模型、提前批投递。Pi 运行时二开 = 可选尾项。
 
@@ -197,12 +198,13 @@ benchmark 运行天然留三样：harness episode 日志（工具调用/轮数/�
 
 | 门 | 内容 | 产出 |
 |---|---|---|
-| ① 完整性 | Crownelius 行数核验（对账 2.0M 行/981.5MB）；Hermes parquet 点数 | 完整性表 |
-| ② 跨集去重 | **高危**：Glint(4,665) × Crownelius(2M) × opus-4.8 同为 Fable 家族，session 指纹 + MinHash 近重 | 去重前后条数 |
+| ① 完整性 | 以 HF `refs/convert/parquet` 完整 export 为冻结源，文件 SHA-256、revision、上游/本地行数逐一对账；Crown 实测 228,968 行 | 完整性表 + archive manifest |
+| ② 字面去重 | 结构归一后按源会话做 L0/L1 字面折叠；L2 仅以 MinHash 生成候选、完整 Jaccard 验证后删除 | 去重前后条数与簇明细 |
 | ③ 安全清扫 | TruffleHog 密钥扫描 + PII/路径脱敏 + 人工抽样 50 条 | 清扫记录 |
-| ④ 结构有效性 | 多 harness 解析归一；截断/坏 JSON 剔除；解析失败率按数据集记录 | 失败率表 |
-| ⑤ 去污染 | 对 TB 2.1 / **HumanEval（最高危：编码轨迹含题解概率高）** / GSM8K / MMLU 子集 / SWE-Pro 做 n-gram 重叠扫描 | **去污染声明表**（面试素材） |
-| ⑥ 配平（数量=质量门的输出，不预设） | 四道硬过滤（②③④⑤）后原则上**全保留**；本门只做**类别/源配比封顶**防 Fable 家族（Glint+Crownelius+opus）偏科——欠采类别保全量，超量源设 cap（参考 Mythos-25k 官方六类配平结构）；Mythos-25k 整包按其配平用（无工具 schema 部分仅作防遗忘掺料）；含失败轨迹保留；GLM-5.2 + qwen3.7-max-pi 承担格式对齐；mix yaml 带 provenance 标签。**总量不预设，过拟合用留出验证集 early stopping 控制，不靠预先砍数** | mix yaml + 配比表 |
+| ④ 结构有效性 | 多 harness 解析归一；相邻 assistant 事件碎片合并但不虚构轮次或工具调用；截断/坏 JSON 剔除；解析失败率按数据集记录 | 失败率表 |
+| ④b 退化检测 | 样板前缀、集内精确/近重复率、身份/桩代码噪声与 20 条抽样；Mythos 按 2% 规则处置 | 退化报告 + 复核样本 |
+| ⑤ 去污染 | 对 TB 2.1 / **HumanEval（最高危：编码轨迹含题解概率高）** / GSM8K / 全量 MMLU 做 canary 与 13-gram 重叠扫描；只删训练记录。SWE-Pro 留待 M5 | **去污染声明表**（面试素材） |
+| ⑥ 配平（数量=质量门的输出，不预设） | 门②只管字面重叠；本门全量保留门⑤后合格数据，按保守源模型家族 × Hermes 任务类别记录分布，来源标签不推定 teacher 身份；Mythos 去样板去重后不足原集 2% 则整集剔除；mix yaml 带 provenance，并定义原始均匀、80/20、60/40 三个训练时采样配方，在相同 optimizer-step 与 token 预算下对照后选默认。**过拟合用留出验证集 early stopping 控制，不靠预先砍数** | mix yaml + 分布/采样配方表 |
 | ⑦ 渲染与掩码 | 统一渲染 Gemma4 chat template（thinking 模板决定入冻结清单）；loss 仅落 assistant token、工具返回掩除（teich mask_data）；tokenizer 往返校验 + 人眼抽 20 条看掩码边界 | 渲染样本 + 校验记录 |
 
 七个门各出进/出条数 → 漏斗表进数据卡。许可后果（已接受）：全池 AGPL 系 → 任何权重不发布，只发报告。
@@ -248,7 +250,7 @@ benchmark 运行天然留三样：harness episode 日志（工具调用/轮数/�
 | sm_120 禁 pip flash-attn | issue #1987 | 租 6000D/6000 时 |
 | Marlin 回退 | 回退路径 −22% 先例 | vLLM 冒烟日志查关键字 |
 | HumanEval 污染 | 编码轨迹含题解概率高 | ⑤ 门最高优先 |
-| Crownelius 完整性 | 本地 293M vs 台账 981.5MB | ① 门 |
+| 上游语料冻结 | 原始本地文件树可不完整，仓库名/旧台账数字不可作行数证据；Crown frozen export 为 228,968 行 | ① 门以 `refs/convert/parquet` 对账后冻结 |
 | DSpark PR 未合 | #47216 Open，需 checkout 分支 | M5 |
 | 嵌套子网待证 | E4B 含 E2B 级子网与否以模型卡为准 | M7 前核 |
 | RKLLM 版本口径 | 一律以板上 init 打印为准（缓存页误导先例） | 所有板端记录 |

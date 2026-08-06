@@ -1,6 +1,6 @@
-# EdgeForge · M0 执行卡 · 评测底座 + 数据管线 + 板端转换 smoke（三线并行）【R1.2】
+# EdgeForge · M0 执行卡 · 评测底座 + 数据管线 + 板端转换 smoke（三线并行）【R1.2；含 R1.3 / R1.4 / F1 事实回填】
 
-> 出卡日期：2026-07-16；**R1 修订：2026-07-17**。依据：《EdgeForge 蓝图终稿（v4-R2）》M0 行 + §5 评测协议 + §9 数据七门 + §12 雷区索引；《W0 环境准备说明（事实版）2026-07-14》（执行事实层，**仅供参考、非强制约束——缺失的环境条件可顺延 M1 补齐**）；《对话结论补遗》；2026-07-17 公网核实（harbor / terminus-2 / BFCL / lm-eval / llama.cpp，条目标〔网核〕并附来源）。
+> 文件名沿用 R1.2 以保持引用稳定；正文已纳入 R1.3、R1.4 与 2026-08-06 的 F1 线 C 事实回填。出卡日期：2026-07-16；**R1 修订：2026-07-17**。依据：《EdgeForge 蓝图终稿（v4-R2）》M0 行 + §5 评测协议 + §9 数据七门 + §12 雷区索引；《W0 环境准备说明（事实版）2026-07-14》（执行事实层，**仅供参考、非强制约束——缺失的环境条件可顺延 M1 补齐**）；《对话结论补遗》；2026-07-17 公网核实（harbor / terminus-2 / BFCL / lm-eval / llama.cpp，条目标〔网核〕并附来源）。
 > **卡制度**（蓝图头部）：本卡 = 已核实事实 + 操作建议，非命令。真实机器前判断优先，可自由偏离。标注读法：**〔事实/雷区〕** 偏离需留一句理由；**〔网核〕** 2026-07-17 公网文档核实的事实，同〔事实〕级；**〔建议〕** 操作起点随意改；**`[未复核]`** 用前自行判断。
 > M0 目标一句话：**把"跑一次评测"变成一条挂快照的可重复命令，产出官方 E4B 基线数字（主表第一行，含系统指标列），同时清掉数据七门和板端转换单点风险。**
 
@@ -27,6 +27,7 @@
 | R1.2 | 谱系纪律 + 官方锚快档（07-20） | 外部评审（双基线提案）部分吸收：① W0 Q4_0 谱系核验**已完成**——确认为官方 `qat-q4_0-gguf`，即 §4.3 官方 QAT 锚本尊已在盘，非"我的 PTQ Q4_0"（后者 M6 自转生成）；② training_lineage 与 quantization_format 分列登记，普通 PTQ Q4_0 与官方 QAT Q4_0 禁止混写；③ 题单 sanity 仅由 B0-PTQ-Q4KM 驱动，锁定后不因任何其他模型分数换题；④ 官方 QAT 锚在 M0 过快档四件（零下载，文件已在盘），慢档定于 M6 三点对照同场；⑤ 磁带唯一来源 = B0-PTQ 轨迹，同批磁带回放所有模型。**拒绝项留档**：严格双基线（M0 第二条慢档）不做——该数字 M6 前无消费者，冻结协议使延后执行零损失，M6 同场测更新鲜；蓝图不动（决策 3 已覆盖官方锚，DAG 是工序图非锚点登记处） |
 | R1.3 | 摘要方案定案（07-24） | `enable_summarize=false`；上下文溢出计为失败；`model_info=null`。原二选一的 16K 溢出前提已被 131072 实测端点取代；轨迹保持线性，轮数/token 指标不含摘要子代理调用。 |
 | R1.4 | boot log 对账与待办插入（07-24） | 16K/32K 残留按实测边界修正；补入基线轨迹上下文分布、metrics token 分类、板端上下文档位及 thinking 模板链的待办，不改变既有结论。 |
+| F1 | 线 C 事实回填（2026-08-06） | 七门（含 ④b）实际完成：9 集 frozen parquet export 全部完整对账；154,097 条规范池定稿；去污染、安全复扫和 20 条渲染/掩码人工审核均已闭环。取消“Fable 物理封顶”旧表述；第二介质备份如实记为本轮未做。详见 `docs/EdgeForge_M0_§5_线C数据管线七门_R1.0_2026-08-06.md` R1.1 事实版。 |
 | E1 | 锚点修正（07-17 补） | 官方发布图 E4B @TB2 全集 ≈2.2%（前代 0.0%）——"小模型 ~15%"预期下修；选题加"官方基线落在可测区间"显式目标带（§3.1/§3.2） |
 | E2 | 校准锚（07-17 补） | 官方 BFCL ≈66.6% 入快档校准锚 + `external_anchors` 段；四个高功效指标升格为主要测量手段（§3.3/§4） |
 | E3 | 选型记录（07-17 补） | tau2-bench 已考虑未选 + 理由入卡（§3.3 附注），建议同步蓝图决策表 |
@@ -213,21 +214,24 @@ python3 metrics.py \
 
 ---
 
-## 5. 线 C · 数据管线七门（与线 A 并行，零租卡，独立 venv）〔事实/建议〕
+## 5. 线 C · 数据管线七门（与线 A 并行，零租卡，独立 venv）〔事实 · 2026-08-06 已结案〕
 
-**〔雷区〕环境隔离**：独立 venv，`datasets` 锁 <4.0 或与 harbor 分离（§2 警告）。
+**状态：M0 线 C 已完成。** 处理在独立 `.venv-data` 内完成，未修改冻结测试题、测试 manifest 或 B0 配置。详细事实卡为 `docs/EdgeForge_M0_§5_线C数据管线七门_R1.0_2026-08-06.md` 的 R1.1 事实版；本节只保留主执行卡需要的结论与边界。
 
-| 门 | 动作 | 本卡要点 |
+| 门 | 实际成果 | 版本化证据 |
 |---|---|---|
-| ① 完整性〔事实，R1/C11 扩充〕 | 行数/文件核验 + **checksum manifest** | 对账起点 = W0 实测清单：Glint 44M(88/73)、**Crownelius 293M(3/0，vs 台账 981.5MB/2.0M 行——parquet 点行数定案，别假设）**、Hermes 1.6G(5/0，点 parquet 行数)、GLM-5.2 3.3M(16/15)、qwen3.7-max-pi 9.8M(49/47)、Mythos-25k 53M(3/1)、opus-4.8-pi 640K(5/3)、kernelbench hard/mega（永不进训练，仅案例库）。**W0 明言 checksum/manifest/第二介质未做，而台账对语料冻结的处置是"立即存档+checksum"（源模型下线、语料不可再生）——本门给 `data/archive/` 出 sha256 manifest 进数据卡，第二介质备份一并在本门完成**（拷贝 + 用 manifest 复验第二份，半小时级；语料不可再生，这是唯一兜底） |
-| ② 跨集去重〔事实/雷区〕 | session 指纹 + MinHash | 高危：Glint × Crownelius × opus-4.8-pi 同为 Fable 家族极可能重叠（补遗 §5.3），不去重=隐形上调 Fable 权重。首轮 user 内容 hash 精确去重 + MinHash 近重 |
-| ③ 安全〔事实〕 | TruffleHog + PII 脱敏 + 抽样50 | 公开 trace 内容未知，密钥/真实路径/用户名脱敏，人工抽 50 条 |
-| ④ 结构有效〔事实〕 | 多 harness 解析归一 | Pi session / Claude Code / parquet 三格式统一；坏 JSON、截断 session 剔除；每数据集记解析失败率（进数据卡） |
-| ⑤ 去污染〔事实/雷区，R1/C10〕 | n-gram 重叠扫描 | 对 **HumanEval（最高危）** / TB 2.1 任务描述 / GSM8K / **MMLU（按 D2 冻结的抽样清单扫；清单未定则扫全量）** 逐一扫；kernelbench 两集已排除不用扫。产出去污染声明表（面试素材） |
-| ⑥ 配平〔事实，1k–10k 已废〕 | 数量=质量门输出 | 四道硬过滤后原则上全保留；只做类别/源配比封顶防 Fable 偏科（参考 Mythos-25k 六类结构）；Mythos-25k 整包按其配平用（无工具 schema 部分仅防遗忘掺料）；含失败轨迹保留；总量不预设，过拟合靠留出验证集 early stopping（蓝图 §9 门⑥修订）。mix yaml 带 provenance 标签 |
-| ⑦ 渲染掩码〔事实/雷区，R1/C12 扩充〕 | Gemma4 template + loss mask | 统一渲染 Gemma4 chat template（thinking 模板决定入冻结项）；loss 只落 assistant token、工具返回掩除（teich mask_data）；tokenizer 往返校验 + 人眼抽 20 条看掩码边界。**加一步：GGUF 内嵌模板（线 A `--jinja` 实际使用的）vs HF 侧模板（本门渲染训练数据用的）显式 diff**——两侧漂移是雷区"chat template 不一致→静默崩坏"的另一种触发形态，评测侧与训练侧必须同源。**待办**：thinking 模式已定为开启，训练侧渲染必须与评测端点同模式；`template_diff_ok` 目前为 `null`，此链未闭。 |
+| ① 完整性 | 9 个 `refs/convert/parquet` export 均完成上游行数对账与 SHA-256 冻结；Crownelius 实测为 228,968 行，非仓库名暗示的 2M 行。 | `manifests/data_archive_sha256.json`、`data/pipeline/gate1_completeness.md` |
+| ④ 结构有效性 | 多 harness 归一为 IR；除 Crownelius 0.36% 结构失败外，其他可训练来源解析失败率为 0。 | `data/pipeline/gate4_parse_rates.md` |
+| ④b 退化检测 | Mythos 最高频前缀 100%、精确重复率 99.14%；去重后 12/25,000，低于预声明阈值，整集剔除。20 条人工复核中 5 条正则阳性均为真实质量问题。 | `data/pipeline/gate4b_degeneracy.md`、`gate4b_manual_review.md` |
+| ② 去重 | 以源会话折叠与跨源去重；L2 验证 1,372 对、删除 1,324 条，4 个过大 band 留档跳过。Glint 的最终 1 条是去重结果，不是配比截断。 | `data/pipeline/gate2_dedup.md`、`gate2_l2_summary.json` |
+| ③ 安全 | 50/50 人工抽检完成。最终训练载荷只扫描 `messages`/`tools`：215 个未验证候选精确替换 3,850 处、覆盖 361 条；2 条无法可靠替换的记录排除；重建复扫为 0。 | `gate3_manual_50.md`、`gate3_final_mix_trufflehog.md`、`gate3_security_exclusions.json` |
+| ⑤ 去污染 | MMLU/GSM8K/HumanEval/TB2.1 的 canary 均为 0；归一化 13-gram 删除训练记录共 448，154,559 → 154,111；冻结测试资产未改。 | `data/pipeline/gate5_decontamination.md` |
+| ⑥ 规范池 | Mythos 删除 12、最终安全排除 2 后，全部其他硬门合格记录保留：**154,097 条**。不做物理家族 cap；`raw-uniform`、80/20、60/40 为 M1 等预算对照配方。 | `data/mix.yaml`、`data/pipeline/gate6_balance.md` |
+| ⑦ 渲染掩码 | HF、B0 GGUF、官方 QAT GGUF 模板逐字节一致；20/20 渲染、往返和 thinking 保真通过，人工核查 69 thought、219 tool-call、153 tool-response、141 turn 边界全过。 | `gate7_render_validation.md`、`gate7_mask_review.md`、`eval_config.yaml` |
 
-**产出**：七门漏斗表 → `data/data_card.md`；`data/mix.yaml`（带 provenance）；去污染声明表；**sha256 manifest**。M0 只要求管线跑通 + 漏斗表齐，正式训练 mix 在 M1 开工前定稿即可。
+**结果与发布边界**：规范池构成为 Crownelius 150,919、Hermes 2,907、GLM-5.2 232、Qwen 38、Glint 1。Crown 的 Anthropic 风格标签只作来源标签，不推定 teacher 身份。规范池含 1 条 AGPL-3.0 Glint 记录，故不得发布权重；可发布的是脚本、manifest、报告和不含训练文本的审计元数据。
+
+**M1 / 后续边界**：在等 optimizer-step 与 token 预算下选择采样配方；全量渲染留 M1；SWE-bench Pro 去污染留 M5；第二介质备份本轮未做并已留风险记录。KernelBench 两集已由 SHA-256 provenance 断言永久排除。
 
 ---
 
@@ -261,13 +265,13 @@ python3 metrics.py \
 - [ ] 官方 QAT-Q4_0 锚快档四件入锚区（含 training_lineage/sha 登记；慢档=M6，R1.2）
 - [x] `metrics.py` v2 + B0 agent 指标表/令牌 sidecar 已入库；parser 错误率与 BFCL tools-API 准确率严格分列（§4）
 - [ ] 磁带首批 5–10 盘固化 + 最小 replayer 脚本
-- [ ] 数据七门漏斗表齐 + 去污染声明表 + mix.yaml（带 provenance）+ **sha256 manifest**
+- [x] 数据七门漏斗表齐 + 去污染声明表 + mix.yaml（带 provenance）+ **sha256 manifest**（线 C 于 2026-08-06 完成；见 §5）
 - [ ] 板端转换 smoke 有结论（成败皆记录）
 
-**最小可交付**（进度崩了保什么）：`eval_config.yaml` + 官方基线一行（系统列可留空+脚注） + 数据漏斗表。TB 链路/BFCL/replayer/板端 smoke 可顺延到 M1 头两天，但**基线数字和评测配置冻结没有顺延选项**——没有 before 就没有整个项目的 after。W0 缺口（checksum/第二介质等）默认已在 M0 内补齐（§0.5/门①）；仅进度崩溃时随本原则顺延并记入待办。
+**最小可交付**（进度崩了保什么）：`eval_config.yaml` + 官方基线一行（系统列可留空+脚注） + 数据漏斗表。TB 链路/BFCL/replayer/板端 smoke 可顺延到 M1 头两天，但**基线数字和评测配置冻结没有顺延选项**——没有 before 就没有整个项目的 after。线 C 的 checksum/manifest 已完成；第二介质备份本轮经预声明决定未做，风险留档而不伪称完成。
 
 **M0 结束状态声明**（写进 `docs/m0_summary.md`）：
-> 评测已可复现（`harbor run -c m0_baseline_job.yaml`，lock.json + eval_config 双快照）；官方 gemma-4-e4b-it @Q4_K_M 的 TB2.1 子集成功率/parser 格式错误率/BFCL 工具调用准确率/GSM8K/MMLU/HumanEval/TTFT/TPOT 已入主表 before 行；官方 QAT-Q4_0 锚快档四件已入锚区（谱系分列登记，慢档定于 M6 三点对照同场）；摘要方案=___、上下文协议=___；数据池七门跑通、去污染声明齐、sha256 manifest 齐、Fable 偏科已配平封顶；板端 E4B W8A8 转换 smoke 结论=___。M1 开工无未决分叉：`teich→E4B QLoRA(vGPU-32)→merge=S → OPD polish(teacher=gemma-4-31b-it FP8 @Pro 6000 96GB)=S.O=M1 → PTQ 谱系 → 同一 job.yaml 重跑 → A/C 对照表 v1`。
+> 评测已可复现（`harbor run -c m0_baseline_job.yaml`，lock.json + eval_config 双快照）；官方 gemma-4-e4b-it @Q4_K_M 的 TB2.1 子集成功率/parser 格式错误率/BFCL 工具调用准确率/GSM8K/MMLU/HumanEval/TTFT/TPOT 已入主表 before 行；官方 QAT-Q4_0 锚快档四件已入锚区（谱系分列登记，慢档定于 M6 三点对照同场）；摘要方案=___、上下文协议=___；线 C 数据池七门已闭环、去污染声明与 SHA-256 manifest 齐，154,097 条硬门合格记录全量保留（Mythos 退化处置与 2 条最终安全排除除外），60% 仅为 M1 训练时采样配方；板端 E4B W8A8 转换 smoke 结论=___。M1 开工无未决分叉：`teich→E4B QLoRA(vGPU-32)→merge=S → OPD polish(teacher=gemma-4-31b-it FP8 @Pro 6000 96GB)=S.O=M1 → PTQ 谱系 → 同一 job.yaml 重跑 → A/C 对照表 v1`。
 
 ---
 
@@ -275,7 +279,7 @@ python3 metrics.py \
 
 | 日 | 线 A（评测） | 线 C（数据，独立 venv） | 线 B（板端） |
 |---|---|---|---|
-| D1 | **git init + config 骨架** + 端点钉参 + 读 KV 实测行 | 门①完整性 + **sha256 manifest + 第二介质备份** + 门②去重启动 | 转换 toolkit 装 + 官方权重转 |
+| D1 | **git init + config 骨架** + 端点钉参 + 读 KV 实测行 | 门①完整性 + **sha256 manifest** + 门②去重启动（第二介质备份实际未做，风险已留档） | 转换 toolkit 装 + 官方权重转 |
 | D2 | TB hello-world→1题探测 + **摘要方案定案** + **MMLU 抽样清单冻结** | 门③安全 + 门④结构 | 板上加载 + 乱码判定 |
 | D3 | 选题20 + **job.yaml 成稿** + 镜像预拉 | 门⑤去污染（HumanEval 优先，MMLU 按清单） | （smoke 结论留档）|
 | D4–5 | 官方基线慢档（`harbor run -c`，挂后台；中断用 `jobs resume`） | 门⑥配平 + 门⑦渲染掩码（含**模板 diff**） | — |
