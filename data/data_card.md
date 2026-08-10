@@ -4,7 +4,7 @@ Status: all automated M0 Line-C gates and the documented Codex reviews completed
 
 ## Archive and provenance
 
-All nine sources were captured from Hugging Face `refs/convert/parquet`, then SHA-256 frozen in `manifests/data_archive_sha256.json`. The manifest is authoritative for file-level checksums, revisions, and completeness. `gate1_upstream_metadata.json` separately retains Dataset Viewer default-revision observations; Crown's default-viewer revision differs from the frozen parquet-export revision, so the two are not conflated.
+The nine sources were frozen through a mixture of raw repository files and Hugging Face `refs/convert/parquet` exports, then SHA-256 recorded in `manifests/data_archive_sha256.json`. The manifest is authoritative for file-level checksums, revisions, and completeness; [`SOURCES.md`](SOURCES.md) explains why the local `archive` and `archive_parquet` layouts differ and identifies the canonical input for each source. `gate1_upstream_metadata.json` separately retains Dataset Viewer default-revision observations, so viewer and export revisions are not conflated.
 
 | repo_id | frozen revision | upstream/local rows | completeness | license | pipeline disposition |
 |---|---|---:|---:|---|---|

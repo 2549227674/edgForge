@@ -1,11 +1,14 @@
 # EdgeForge M0 evaluation contract.
-# Values marked null have no corresponding recorded evidence yet.  Any change to
-# a frozen field requires a Git commit and an updated project.frozen_date.
+# Values marked null have no corresponding recorded evidence yet. Any change to
+# the project/model baseline fields requires a Git commit and an updated
+# project.frozen_date. Subsystems with their own freeze_date use that date.
 
 project:
   milestone: M0
-  frozen_date: "2026-08-05"
-  status: frozen_with_declared_humaneval_gap
+  frozen_date: "2026-08-11"
+  evaluation_baseline_frozen_date: "2026-08-05"
+  status: frozen_complete_with_declared_humaneval_and_board_S2b_gaps
+  authoritative_card: docs/m0/README.md
 
 # B0 is the longitudinal "before" model.  Its lineage must not be conflated
 # with the separately registered official QAT Q4_0 anchor below.
@@ -20,7 +23,8 @@ model:
   sha256: 953b94c6a89960ab9363720d14bf3ed266058dff31f3d35d2f91e68efdf8989a
   source_repo: google/gemma-4-E4B-it
   source_revision: null  # Not retained and will not be backfilled: a new HF query may return a different revision; the artifact is finally pinned by sha256 above.
-  source_file: models/gguf/gemma-4-E4B-it-BF16.gguf
+  source_file: null
+  source_intermediate_retention: deleted_after_quantization_HF_source_and_B0_hash_retained
   conversion_command: >-
     python convert_hf_to_gguf.py models/hf/gemma-4-E4B-it
     --outfile models/gguf/gemma-4-E4B-it-BF16.gguf --outtype bf16
@@ -32,6 +36,223 @@ model:
   imatrix_manifest: null
   imatrix_provenance: null
   imatrix_note: M0 longitudinal baseline uses a fixed no-imatrix PTQ recipe.
+
+board:
+  freeze_date: "2026-08-11"
+  status: frozen_partial_pass_owner_accepted_unresolved_S2b
+  evidence_card: docs/m0/06_board_smoke.md
+  evidence_bundle: exports/m0/board/EdgeForge_M0_S6_lineB_E4B_W8A8_smoke_evidence_20260808.zip
+  evidence_archives:
+    - exports/m0/board/EdgeForge_M0_S6_lineB_E4B_W8A8_smoke_evidence_20260808.zip
+    - exports/m0/board/EdgeForge_M0_X0_iommu_aperture_evidence_20260809.zip
+    - exports/m0/board/EdgeForge_M0_X1_w4a16_3core_probe_evidence_20260809.zip
+    - exports/m0/board/EdgeForge_M0_X2_iommu_domain_rewrite_evidence_20260809.zip
+    - exports/m0/board/EdgeForge_M0_X3_apply_chat_template_true_retry1_evidence_20260809.zip
+    - exports/m0/board/EdgeForge_M0_X4_short_calibration_evidence_20260810.zip
+    - exports/m0/board/EdgeForge_M0_X5_minimal_template_bisection_evidence_20260811.zip
+  platform: RK3588
+  toolkit_version: "1.3.0"
+  runtime_version: "1.3.0"
+  rknpu_driver_version: "0.9.8"
+  kernel: "6.1.99-rockchip-rk3588"
+  delivery_form_locked: 3core
+  delivery_form_resolution:
+    owner_decision: option_A_transfer_3core_to_M2
+    date: "2026-08-09"
+    reason: X0_X1_X2_all_closed_no_remaining_3core_technical_path
+    one_core_is_delivery: false
+    m2_status: transferred_not_started_no_execution_authorized
+    m0_active_dependency: null
+    freeze_decision: owner_accepted_H2_H3_unresolved_no_further_M0_execution_2026_08_11
+    future_reopen: requires_owner_unfreeze_new_execution_card_and_external_supported_path
+  conversion:
+    baseline_quantized_dtype: w8a8
+    quantized_dtype_options: [w4a16, w4a16_g32, w4a16_g64, w4a16_g128, w8a8, w8a8_g128, w8a8_g256, w8a8_g512]
+    quantized_algorithm: normal
+    grq_requires_4bit: true
+    rk3588_w4a16_supported: false  # U13 closed: Toolkit 1.3.0 build() rejects RK3588 W4A16
+    w4a16_probe:
+      date: "2026-08-09"
+      status: unsupported
+      build_result: -1
+      exit_code: 1
+      error: "target_platform: rk3588 not support quantized_dtype: w4a16!"
+      input_identity: frozen_reconstructed_from_baseline_hashes
+      evidence: exports/m0/board/EdgeForge_M0_X1_w4a16_3core_probe_evidence_20260809.zip
+    rk3588_build_only_matrix:
+      date: "2026-08-09"
+      contract: frozen_e4b_3core_16k_cuda_bfloat16
+      build_supported: [w8a8, w8a8_g128, w8a8_g256]
+      target_platform_unsupported: [w4a16, w4a16_g32, w4a16_g64, w4a16_g128]
+      model_shape_incompatible: [w8a8_g512]
+      evidence: exports/m0/board/EdgeForge_M0_X1_w4a16_3core_probe_evidence_20260809.zip
+    max_context: 16384
+    max_context_locked: true
+    max_context_toolkit_hard_cap: 16384
+    calibration_n_samples: 19
+    calibration_n_tokens: 3627
+    frozen_input_manifest: manifests/gemma4_e4b_rkllm_frozen_input_sha256.json
+    frozen_input_verification: required_before_rkllm_import
+    nonfrozen_input_bypass: requires_explicit_reason_and_logged_identity
+    cloud_original_model_workdir: repaired_but_marked_NOT_FROZEN_use_isolated_input_only
+  native_eval_dataset:
+    mmlu_protocol: project_frozen_fast_500
+    verification: manifest_sha256_matches_rkllm_api_dataset_before_eval
+    gsm8k_enabled: false
+    x3_apply_chat_template_true_retry1:
+      date: "2026-08-09"
+      status: owner_posthoc_mmlu_only_routing_complete
+      preregistered_disposition: invalid_gray_humaneval_scoring_exception
+      input_identity: seven_frozen_sha256_verified_before_rkllm_import
+      manifest_sha256: a3b34ad922ef5a6a09f5547cddcfd2fe81483400c2a3a0c382a0af8783b552db
+      verified_file_count: 116
+      mmlu_fast_500_accuracy_percent: 26.40
+      mmlu_apply_chat_template_false_control_accuracy_percent: 41.60
+      mmlu_no_material_improvement_threshold_percent: 43.60
+      humaneval_generation_completed: 164
+      humaneval_raw_score: null
+      eval_accuracy_result: -1
+      evaluator_error: "Expected list, got int"
+      chat_template_warning_count: 0
+      runner_exit_code: 0
+      evidence: exports/m0/board/EdgeForge_M0_X3_apply_chat_template_true_retry1_evidence_20260809.zip
+      owner_posthoc_decision_revision:
+        date: "2026-08-09"
+        classification: post_hoc_decision_rule_not_original_dual_task_preregistration
+        owner_decision: do_not_rerun_humaneval
+        rule: >-
+          HumanEval 评分器异常且 owner 决定不重跑时，以冻结 MMLU fast_500 为 X3 唯一归因判别器；MMLU < 43.60% 且完整日志无 Failed to parse chat_template，则仅为 M0 决策用途判 H1 不成立，授权进入 X4。HumanEval 只标记为失效仪器：不补分、不拼接、不作为性能结论。
+        rule_satisfied: true
+        scope: M0_decision_routing_only
+        h1_disposition: not_established_for_M0_decision_only
+        x4_status: authorized_then_executed_inconclusive_n256_cuda_oom
+        x5_status: not_authorized_by_X3_at_that_time_later_independently_completed
+        h2_and_w8a8_group_status: cancelled_by_owner_freeze_2026_08_11
+        humaneval_status: invalid_instrument_no_score_no_rerun_no_stitching
+        weakness: post_hoc_rule_changes_routing_only_no_external_quality_or_performance_claim
+      next_gate: frozen_no_further_X4_or_H2_execution
+    x4_short_calibration_20260810:
+      status: inconclusive_for_H3_n256_cuda_oom
+      authorization_source: X3_owner_posthoc_MMLU_only_routing
+      contract: w8a8_rk3588_max_context_16384_num_npu_core_1_cuda_bfloat16
+      frozen_input_verification: seven_files_passed_NOT_FROZEN_rejected
+      preparation_manifest_entries_verified: 19
+      validation_scope:
+        owner_waived_itemwise_uid_rendered_hash_token_and_calibration_hash_recheck: true
+        retained: [manifest_sha256, record_count, aggregate_tokens, zero_truncation, dataset_sha256, frozen_model_sha256, public_probe_identity]
+      n128:
+        manifest_sha256: d41e4d6105edb9b6a64e747f3258b1cc9d73ef9a7cf9cba0bc4d4a25ba44af10
+        records: 128
+        tokens: 105865
+        truncations: 0
+        load_result: 0
+        build_result: 0
+        export_result: 0
+        exit_code: 0
+        wall_seconds: 1369.7544388771057
+        peak_rss_kib: 60583232
+        peak_hwm_kib: 61524640
+        peak_gpu_mib: 38080
+        artifact_size_bytes: 11687037412
+        artifact_sha256: 3829c6f4983f4c9addb9796ade0a469dd907ee378c9921f6f6dc612a9c268d02
+      n256:
+        manifest_sha256: 116732cdf0273cc5e2d2712b52c93a14308963e542eed4b7c3b01198011726df
+        records: 256
+        tokens: 211725
+        truncations: 0
+        load_result: 0
+        build_result: -1
+        export_result: null
+        exit_code: 1
+        wall_seconds: 480.97223591804504
+        peak_rss_kib: 89216732
+        peak_hwm_kib: 89792264
+        peak_gpu_mib: 45374
+        failure: cuda_out_of_memory_requested_7_50_GiB_with_3_06_GiB_free_on_47_37_GiB_gpu
+        artifact: null
+      u11: closed_length_driven_by_preregistered_n128_success_branch
+      logits:
+        started: false
+        reason: n256_build_failed_no_second_artifact
+        mean_cosine: null
+        argmax_matches: null
+        converged: null
+      h3_disposition: not_inferred_invalid_convergence_evidence
+      h2_and_w8a8_group_status: cancelled_by_owner_freeze_2026_08_11
+      future_reopen:
+        allowed: false
+        reason: owner_froze_M0_Line_B_on_2026_08_11
+        override_requires: explicit_owner_unfreeze_new_run_new_manifest_new_preregistered_criteria
+        host: larger_single_gpu_prefer_80GiB_and_sufficient_system_ram
+        scale_above_256: requires_new_manifest_preregistered_criteria_and_separate_owner_authorization
+        multi_gpu_memory_aggregation_assumed: false
+      scratch_export_fix:
+        artifact_format: rkllm_not_rknn
+        method: set_TMPDIR_TMP_TEMP_working_directory_and_artifact_path_to_same_run_scoped_large_data_volume
+        exact_spooled_temp_preflight_bytes: 39321600
+        sdk_or_shared_dataset_modified: false
+      evidence: exports/m0/board/EdgeForge_M0_X4_short_calibration_evidence_20260810.zip
+  template_parser:
+    x5_status: complete_frozen
+    minimal_failure: adjacent_string_literal_implicit_concatenation_in_raise_exception_argument
+    failing_warning_count: 1
+    single_string_control_warning_count: 0
+    further_candidates_authorized: false
+    evidence: exports/m0/board/EdgeForge_M0_X5_minimal_template_bisection_evidence_20260811.zip
+  artifacts:
+    baseline_1core_w8a8:
+      size_bytes: 11687037412
+      sha256: 4bdad6bfa34e23562d65c86ad1fcc68c626c6eb6f2761b4d354f26f6d7edb10b
+      retained_on_board: /home/orangepi/edgeforge_m0_frozen_r2/gemma-4-e4b-it-w8a8-rk3588-16k-1core.rkllm
+    core2_w8a8:
+      size_bytes: 11726642116
+      init: fail_iova_at_333053952
+      retained: false
+    core3_w8a8:
+      size_bytes: 11767487820
+      init: fail_iova_at_265568256
+      retained: false
+    w4a16_series: null  # X1 closed before export; no W4A16 artifact exists
+    x4_n128_w8a8:
+      size_bytes: 11687037412
+      sha256: 3829c6f4983f4c9addb9796ade0a469dd907ee378c9921f6f6dc612a9c268d02
+      role: X4_short_calibration_diagnostic_not_delivery
+      retained: false
+  iommu:
+    # U15 closed from upstream Rockchip IOMMU source; the board BSP source was
+    # not directly read, so retain the evidence qualifier rather than treating
+    # this as a runtime sysfs observation.
+    aperture_bytes: 4294967296
+    aperture_evidence_level: strong_one_step_away
+    aperture_evidence_source: upstream_rk_iommu_domain_alloc_DMA_BIT_MASK_32_force_aperture
+    aperture_probe:
+      date: "2026-08-09"
+      status: no_readable_runtime_node
+      boot_id: 91368c69-6c37-4d37-aba8-b1e578cc6619
+      npu_iommu_compatible: rockchip,iommu-v2
+      iommu_debugfs_enabled: false
+      domain_expansion_route: closed_4gib_hardcoded_in_upstream_iommu_driver
+    domain_capacity_observed_bytes: 4294967296
+    core3_peak_mapped_bytes: 4074332160
+    core3_remaining_bytes: 220635136
+    core3_failing_request_bytes: 265568256
+    core3_shortfall_bytes: 44933120  # page-aligned actual map accounting
+    x2_iommu_domain_rewrite:
+      date: "2026-08-09"
+      status: closed_unsafe_transcript_mismatch
+      target: ordinal_4_request_0xC0306442_domain_0_to_1
+      safety_gate: failed_cmp_exit_1_at_byte_940
+      result: U3_closed_requires_simultaneous_visibility
+      core3_attempted: false
+      rollback: complete_process_scoped_LD_PRELOAD_only
+      evidence: exports/m0/board/EdgeForge_M0_X2_iommu_domain_rewrite_evidence_20260809.zip
+  smoke_result:
+    S0_convert: pass
+    S1_init: pass_1core_only
+    S2a_nondegenerate: pass
+    S2b_semantic: frozen_gate_not_cleared_H2_H3_unresolved_owner_accepted
+    S2c_thought_toolcall_channel: pass
+    S3_pc_board_qualitative: cancelled_by_freeze
 
 llama_cpp:
   commit: ad8d8219915df8e423768d082d1dccfccb6e8437
@@ -113,7 +334,7 @@ terminal_bench:
   probe_date: "2026-08-02"
   probe_task: terminal-bench/kv-store-grpc
   probe_link_closed: true  # Agent request/reply, container commands, and verifier result all observed in §5 probe.
-  task_manifest: m0_baseline_job.yaml
+  task_manifest: configs/m0/m0_baseline_job.yaml
   smoke_pair: [nginx-request-logging, count-dataset-tokens]
   n_attempts: 5
   parser_name: json  # Frozen by 2026-08-02 hello-world json/xml probe; both had 0 parser rejections, so the predeclared tie-break selected json.
@@ -172,7 +393,8 @@ terminal_bench:
   sanity_subset_trials: 5
   sanity_subset_successes: 0
   sanity_subset_success_rate: 0.0
-  sanity_subset_result_root: results/m0_tb_sanity_round2
+  sanity_subset_result_root: null
+  sanity_subset_result_retention: deleted_redundant_2026_08_11_summary_retained_in_contract
   baseline_peak_context_tokens_p50: 6292.5
   baseline_peak_context_tokens_p95: 22340.55
   baseline_peak_context_quantile_method: inclusive_linear_over_per_trial_max_prompt_tokens
@@ -249,7 +471,7 @@ environment:
 
 harbor:
   version: "0.18.0"
-  baseline_job: m0_baseline_job.yaml
+  baseline_job: configs/m0/m0_baseline_job.yaml
   baseline_job_sha256: 8a0edb921eb95f121e61ec980b25f20db7f479f633c956397c6cff5508508e9b
   lock_json: results/baseline_e4b_q4km/lock.json
   lock_json_sha256: 29d579000a63faa4717b824efdb3a4b968a8931bceabe2ef9acd963e1a202bd0
@@ -260,7 +482,7 @@ lm_eval:
   release_tag_commit: d021bf846218f1bb3bdc0603864789329476d464
   installed_package_git_hash: 275d43e
   transformers_version: "5.14.1"
-  runner: scripts/run_lm_eval.py
+  runner: scripts/m0/eval/run_lm_eval.py
   num_concurrent: 1
   apply_chat_template: true
   tasks:
@@ -272,7 +494,7 @@ lm_eval:
       task_version: "1.0-edgeforge-fast-500"
       manifest: manifests/mmlu_fast_500.json
       manifest_sha256: 53819e8860712011bcc0df483a5aef2f9dd303a68fb83e318084b5b73c00185b
-      manifest_generator: scripts/freeze_lmeval_fast_manifests.py
+      manifest_generator: scripts/m0/eval/freeze_lmeval_fast_manifests.py
       manifest_generator_sha256: e14277b8772c390308c97021d481d7f614026cd8bbb7589d4e0bef5e394a4c9d
       data_revision: c30699e8356da336a370243923dbaf21066bb9fe
       data_root: data/eval/mmlu/cais_mmlu
@@ -289,9 +511,9 @@ lm_eval:
       num_fewshot: 5
       tokenizer: models/gemma-4-E4B-it
       max_length: 32768
-      scorer_source: scripts/llama_loglikelihood.cpp
+      scorer_source: scripts/m0/eval/llama_loglikelihood.cpp
       scorer_source_sha256: 82eea2aadb0a585080dddffbc241c1b09b6d7a88c9f003e27dfedad6b0afd1bf
-      lm_eval_adapter: scripts/edgeforge_llamacpp_loglikelihood.py
+      lm_eval_adapter: scripts/m0/eval/edgeforge_llamacpp_loglikelihood.py
       lm_eval_adapter_sha256: 8f3aba5c00d59d725b97dc5615361628a387870f9e1fdda1e6749be01dae1e52
       scorer_binary: third_party/llama.cpp/build/bin/edgeforge-llama-loglikelihood
       scorer_binary_sha256: 9115aee798dec4a6be3bc226c07085f018953281a98a024c863db7a05c8107e8
@@ -301,7 +523,8 @@ lm_eval:
       smoke_accuracy: 0.2
       smoke_result: results/lmeval/mmlu_smoke_5shot_llamacpp_logits/models__gemma-4-E4B-it/results_2026-08-04T21-20-04.183529.json
       smoke_result_sha256: d2535f31ba7d374fb66b8cc5d148672b2713f8ec6a340ebc38c9b7df3793f587
-      smoke_samples_file: results/lmeval/mmlu_smoke_5shot_llamacpp_logits/models__gemma-4-E4B-it/samples_mmlu_college_mathematics_2026-08-04T21-20-04.183529.jsonl
+      smoke_samples_file: null
+      smoke_samples_retention: deleted_redundant_2026_08_11_result_and_sha_retained
       smoke_samples_sha256: d16a3f7e4794486c9e05273f5a5a136a3c576715b30a4d7b07b6a241fbc1c3a3
       smoke_log: logs/m0/m0_lmeval_mmlu_smoke_5shot_llamacpp_logits.log
       status: formal_fast_complete
@@ -336,7 +559,7 @@ lm_eval:
       smoke_log: logs/m0/m0_lmeval_gsm8k_smoke.log
       formal_fast_manifest: manifests/gsm8k_fast_200.json
       formal_fast_manifest_sha256: a04b131f870e856a901844b903188e3c62fe643a66ac74cd5f3a17faa97a94af
-      formal_fast_manifest_generator: scripts/freeze_lmeval_fast_manifests.py
+      formal_fast_manifest_generator: scripts/m0/eval/freeze_lmeval_fast_manifests.py
       formal_fast_manifest_generator_sha256: e14277b8772c390308c97021d481d7f614026cd8bbb7589d4e0bef5e394a4c9d
       formal_fast_samples: 200
       formal_fast_selection: seeded_simple_random_sample_without_replacement
@@ -347,7 +570,8 @@ lm_eval:
       formal_fast_flexible_exact_match_stderr: 0.02565474281971524
       formal_fast_result: results/lmeval/gsm8k_fast_200/gemma4-e4b/results_2026-08-04T23-11-46.389008.json
       formal_fast_result_sha256: 39c187933c210af4484f197ab46b4cff7bd13e554a5eaa886a3327b9bfc05e92
-      formal_fast_samples_file: results/lmeval/gsm8k_fast_200/gemma4-e4b/samples_edgeforge_gsm8k_fast_200_2026-08-04T23-11-46.389008.jsonl
+      formal_fast_samples_file: null
+      formal_fast_samples_retention: deleted_redundant_2026_08_11_result_and_sha_retained
       formal_fast_samples_sha256: 7b1cfcca44a48b2a27ad4296014f2b92bb46a746a449d1feee7083f41516f96f
       formal_fast_samples_lines: 400
       formal_fast_log: logs/m0/m0_lmeval_gsm8k_fast_200.log
@@ -371,7 +595,8 @@ lm_eval:
       smoke_pass_at_1: 0.0
       smoke_result: results/lmeval/humaneval_smoke_fixed/gemma4-e4b/results_2026-08-04T21-08-20.611861.json
       smoke_result_sha256: 22b8cfee8bedbb333b157c0b59ba7548fe2986c527bdf919dbd2663ea353cdd5
-      smoke_samples_file: results/lmeval/humaneval_smoke_fixed/gemma4-e4b/samples_edgeforge_humaneval_2026-08-04T21-08-20.611861.jsonl
+      smoke_samples_file: null
+      smoke_samples_retention: deleted_redundant_2026_08_11_result_and_sha_retained
       smoke_samples_sha256: cf0b47c55ad12357a752c85c5d659b21dcbaa7f62a3c7103aeeb3313bdc157cb
       smoke_log: logs/m0/m0_lmeval_humaneval_smoke_fixed.log
       status: smoke_complete_not_formal_baseline
@@ -389,7 +614,7 @@ bfcl:
   skip_server_setup: true
   categories: [simple_python]
   handler: OpenAICompletionsHandler
-  handler_registration: scripts/run_bfcl.py
+  handler_registration: scripts/m0/eval/run_bfcl.py
   model_id: edgeforge-gemma4-e4b-FC
   temperature: 0.001
   num_threads: 1
@@ -430,9 +655,9 @@ replayer:
   requests_per_pass: 11
   trajectories_sha256_manifest: traces/trajectories_sha256.txt
   trajectories_sha256_manifest_sha256: fdfb20b89fc093125fd0cbeba01c85b0312be77d0d990738f6f03782289deca7
-  freezer: scripts/freeze_b0_tapes.py
+  freezer: scripts/m0/eval/freeze_b0_tapes.py
   freezer_sha256: 53ee9795caecd36dc6c6df53dc13c64d2fae3ad743768231aa897b94bfff8def
-  runner: scripts/replay_tapes.py
+  runner: scripts/m0/eval/replay_tapes.py
   runner_sha256: 6bbc82dc1968824fa0cc25b4caf90974e743440acd63a93dcfe02df8fc8499bc
   trajectory_linear_history: not_required_enable_summarize_false
   trajectory_raw_content: not_required_enable_summarize_false
@@ -524,7 +749,7 @@ external_anchors:
         raw_result_sha256: 7173c27b29a1db7ff74812cd95c16b0b9792824eda9de0449ed9f429497672af
         score_detail: results/anchor_official_qat_q4_0/bfcl/score/edgeforge-gemma4-e4b-qat-q4_0-FC/non_live/BFCL_v4_simple_python_score.json
         score_detail_sha256: 4aafd24f8e49a60a77316d025a76d4ddb43421e16acc779c23d3287e86774073
-        handler_registration: scripts/run_bfcl.py
+        handler_registration: scripts/m0/eval/run_bfcl.py
         handler_registration_sha256: 85ca0194e62fcd556cc091a345c9389006300bc020012d5fbffd0ef225dd432a
         log: logs/m0/m0_anchor_qat_q4_0_bfcl_simple_python.log
       gsm8k_fast_200:
@@ -543,7 +768,8 @@ external_anchors:
         flexible_exact_match_stderr: 0.02422414178513103
         result: results/anchor_official_qat_q4_0/gsm8k_fast_200/gemma4-e4b-qat-q4_0/results_2026-08-05T01-48-40.988614.json
         result_sha256: 3be4534a47767c2a0bb62ce54626153dde58f39d8fa2c98b4ca55377bf712988
-        samples_file: results/anchor_official_qat_q4_0/gsm8k_fast_200/gemma4-e4b-qat-q4_0/samples_edgeforge_gsm8k_fast_200_2026-08-05T01-48-40.988614.jsonl
+        samples_file: null
+        samples_retention: deleted_redundant_2026_08_11_result_and_sha_retained
         samples_sha256: a4be6e9507878b4a646af5f6d428e87c13797cf9874fb26625550d970294033d
         samples_lines: 400
         log: logs/m0/m0_anchor_qat_q4_0_gsm8k_fast_200.log

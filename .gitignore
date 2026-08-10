@@ -3,6 +3,8 @@
 /data/archive/
 /data/eval/
 /models/
+# Third-party source trees are represented by pinned submodules. Ignore any
+# additional local dependency checkout unless it is explicitly force-added.
 /third_party/
 /rknn-llm-release-v*.zip
 

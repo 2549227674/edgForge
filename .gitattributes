@@ -1,0 +1,5 @@
+# Historical Markdown preserves intentional two-space hard line breaks.
+docs/research/**/*.md whitespace=-trailing-space
+
+# Patch files contain diff marker lines that are not source whitespace errors.
+patches/**/*.patch -whitespace
