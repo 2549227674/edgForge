@@ -76,74 +76,74 @@ PURPOSES = {
 }
 
 
-# The first table answers what a remote-only reader receives immediately.  The
-# second answers exactly what to request from the workstation when a task needs
-# a large omitted artifact.  Keep paths stable: this document is also a handoff
-# protocol for web-based assistants that cannot inspect the workstation.
+# The first table records what a remote-only reader receives immediately. The
+# second records the corresponding workstation-only paths and available file
+# granularity. Keep paths stable so a remote reader can identify separately
+# supplied resources without this index deciding whether they should be read.
 LOCAL_ASSETS = (
     (
         "LOCAL-MODEL-HF-WEIGHT",
         "models/gemma-4-E4B-it/model.safetensors",
         "Gemma 4 E4B HF 权重；RKLLM 转换输入。",
-        "上传该单文件；模型配置和 tokenizer 已在仓库。",
+        "单文件；模型配置和 tokenizer 已在仓库。",
         "manifests/gemma4_e4b_rkllm_frozen_input_sha256.json",
     ),
     (
         "LOCAL-MODEL-B0-GGUF",
         "models/gguf/gemma4-e4b-it-Q4_K_M.gguf",
         "B0 PTQ Q4_K_M 推理与评测权重。",
-        "上传该单文件。",
+        "单文件。",
         "eval_config.yaml",
     ),
     (
         "LOCAL-MODEL-QAT-GGUF",
         "models/gguf/google__gemma-4-E4B-it-qat-q4_0-gguf/gemma-4-E4B_q4_0-it.gguf",
         "官方 QAT-Q4_0 部署锚权重。",
-        "上传该单文件；README 已在仓库。",
+        "单文件；README 已在仓库。",
         "eval_config.yaml",
     ),
     (
         "LOCAL-MODEL-QAT-MMPROJ",
         "models/gguf/google__gemma-4-E4B-it-qat-q4_0-gguf/gemma-4-E4B-it-mmproj.gguf",
         "官方 QAT 锚的多模态 projector。",
-        "仅多模态任务需要上传该单文件。",
+        "单文件；与 QAT GGUF 分开保存。",
         "models/gguf/google__gemma-4-E4B-it-qat-q4_0-gguf/README.md",
     ),
     (
         "LOCAL-DATA-RAW",
         "data/archive",
         "九个来源的原始/历史下载树；不同来源完整度不同。",
-        "优先只打包所需来源子目录，不要把它当作统一规范输入。",
+        "整目录或单个来源子目录；该树不是统一规范输入。",
         "manifests/data_archive_sha256.json；data/SOURCES.md",
     ),
     (
         "LOCAL-DATA-PARQUET",
         "data/archive_parquet",
         "六个来源的完整冻结 parquet export。",
-        "按所需来源子目录打包；全管线重建时才上传整个目录。",
+        "整目录或单个来源子目录。",
         "manifests/data_archive_sha256.json；data/SOURCES.md",
     ),
     (
         "LOCAL-DATA-MIX",
         "data/pipeline/mix_records",
         "154,097 条门后规范训练池，按来源拆成 5 个 JSONL。",
-        "按来源上传对应 JSONL；训练全量时上传整个目录。",
+        "整目录或单个来源 JSONL。",
         "data/mix.yaml；data/data_card.md",
     ),
     (
         "LOCAL-RKNN-SDK",
         "rknn-llm-release-v1.3.0.zip",
         "RKLLM 1.3.0 SDK 原始压缩包。",
-        "涉及 converter/parser/API 复核时上传该单文件。",
+        "单个 ZIP 文件。",
         "docs/m0/06_board_smoke.md",
     ),
 )
 
-REGENERABLE_LOCAL = (
-    ("`.venv-bfcl/`、`.venv-data/`、`.venv-lmeval/`", "Python 环境", "按 lock/requirements 重建，不上传。"),
-    ("`third_party/llama.cpp/build/`、`.venv-convert/`", "编译与转换缓存", "由固定子模块提交重建，不上传。"),
-    ("`results/m0_tb_probe/`", "旧 probe 运行目录", "非冻结证据；需要时按脚本重跑。"),
-    ("`logs/w0/`、`tasks/worktrees/`、`tmp/`", "空目录或瞬态工作区", "不构成交接资产。"),
+AUXILIARY_LOCAL = (
+    ("`.venv-bfcl/`、`.venv-data/`、`.venv-lmeval/`", "Python 环境", "依赖版本另见 lock/requirements 文件。"),
+    ("`third_party/llama.cpp/build/`、`.venv-convert/`", "编译与转换产物", "源码身份由固定子模块提交记录。"),
+    ("`results/m0_tb_probe/`", "旧 probe 运行目录", "未列入冻结证据；相关执行脚本仍在仓库。"),
+    ("`logs/w0/`、`tasks/worktrees/`、`tmp/`", "空目录或瞬态工作区", "生成时为空或包含过程性文件。"),
 )
 
 
@@ -360,16 +360,16 @@ def main() -> None:
     print()
     print(f"> 生成时间：`{now}`")
     print(f"> 生成基准提交（不含生成时尚未提交的工作区变更）：`{head}`")
-    print("> 目的：让远程仓库读者区分可直接读取的资产、仅本机存在的资产及其最小交接单元。"
+    print("> 目的：记录普通 clone 可见资产、仅本机资产、路径、体积、可用粒度与身份入口。"
     )
     print()
-    print("## 给网页版 Claude 的读取协议")
+    print("## 状态说明")
     print()
-    print("1. 先读仓库根 `README.md`、`docs/m0/README.md` 和本索引；不要把历史调研当成当前执行卡。")
-    print("2. 下表 `REMOTE-*` 已随普通 clone 提供；不要再次向用户索要。")
-    print("3. `LOCAL-*` 表示生成本索引时本机存在、但远程 clone 不包含。任务确实消费它时，按资产 ID 和“最小交接单元”索要。")
-    print("4. 用户单独上传附件后，将附件映射回表中规范路径；除非哈希或 manifest 不符，不要把不同上传文件擅自拼成新版本。")
-    print("5. `I` 只表示 Git 忽略，不表示误删、缺证据或任务自动重开；可再生缓存原则上不应要求上传。")
+    print("- `REMOTE-*`：文件已包含在普通 clone 中。")
+    print("- `LOCAL-*`：生成本索引时文件存在于本机，但普通 clone 不包含。")
+    print("- 规范路径用于把单独提供的文件关联回项目结构；manifest 或哈希用于确认文件身份。")
+    print("- `I` 仅表示路径受 Git 忽略规则约束，不附带删除、证据充分性或任务状态判断。")
+    print("- 本索引不规定读取、提供或重建顺序；具体范围由读者及当前任务决定。")
     print()
     print("## 普通 clone 已包含的复现资产")
     print()
@@ -378,20 +378,20 @@ def main() -> None:
     for row in render_remote_bundle_table():
         print(row)
     print()
-    print("## 仅本机保留、需要时单独交接的资产")
+    print("## 仅本机保留的资产")
     print()
-    print("体积和文件数是本索引生成时的本机快照。目录型资产优先按来源或任务子目录上传，不要默认传整个树。")
+    print("体积和文件数是本索引生成时的本机快照。目录型资产同时记录整目录与子目录/单文件粒度。")
     print()
-    print("| 资产 ID | 规范本机路径 | 当前快照 | 用途 | 最小交接单元 | 身份/解释入口 |")
+    print("| 资产 ID | 规范本机路径 | 当前快照 | 用途 | 可用粒度 | 身份/解释入口 |")
     print("|---|---|---|---|---|---|")
     for row in render_local_asset_table():
         print(row)
     print()
-    print("## 本机存在但不应交接的可再生层")
+    print("## 本机可再生或过程性目录")
     print()
-    print("| 路径 | 类型 | 处理 |")
+    print("| 路径 | 类型 | 已记录的来源或状态 |")
     print("|---|---|---|")
-    for path, kind, handling in REGENERABLE_LOCAL:
+    for path, kind, handling in AUXILIARY_LOCAL:
         print(f"| {path} | {kind} | {handling} |")
     print()
     print("## 读取约定")
