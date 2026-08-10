@@ -97,7 +97,7 @@ TB 失败四分类 F1/F2/F3/F4 = 92/7/1/0；`finish_reason=length` 为 0。parse
 | 结论 | 本卡、六张事实卡、`docs/facts.md`、数据卡 | 版本化保留 |
 | 可复核小证据 | 锁题 lock/result、聚合评测 JSON、静态日志、5 盘磁带 | 版本化保留 |
 | 本地冻结输入 | 两条 GGUF、HF 权重、冻结 parquet export、`mix_records/` | 保留，不入 Git |
-| 原始 TB trajectory | 100 条 `trajectory.json` + `traces/trajectories_sha256.txt` | 本地保留，删除 cast/pane/容器附件 |
+| 原始 TB trajectory | 100 条 `trajectory.json` + `traces/trajectories_sha256.txt` | 版本化保留；cast/pane/容器附件已删除 |
 | 板端证据 | `exports/m0/board/` 七个 ZIP + `.sha256` | 本地冻结保留 |
 | 可再生中间层 | 数据 IR 各阶段、安全投影、渲染样本、allowlist VM、smoke/sanity 运行目录 | 本次删除 |
 

@@ -1,5 +1,7 @@
-# Large, reproducible local assets.  Record their hashes and provenance in
-# versioned manifests/configuration; do not commit the assets themselves.
+# Large, reproducible local assets. Small frozen exceptions (model metadata,
+# evaluation parquet, and raw B0 trajectories) are force-tracked; these broad
+# rules prevent newly downloaded weights, caches, and trial attachments from
+# entering Git accidentally.
 /data/archive/
 /data/eval/
 /models/

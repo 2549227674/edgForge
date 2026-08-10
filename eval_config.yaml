@@ -695,7 +695,7 @@ replayer:
     selected_tape_source_trajectories: 5
     source_trajectories_retained_locally: true
     raw_trajectory_root: results/baseline_e4b_q4km
-    raw_trajectory_repository_ignored: true
+    raw_trajectory_repository_ignored: false
     server_side_request_recording: not_triggered
     server_side_request_recording_reason: >-
       The §2.1 probe confirmed that Terminus trajectory records persist

@@ -6,6 +6,9 @@
 > M0 §1–§6 事实卡统一收纳于 `docs/m0/`；M0 已冻结，无活动待办。
 > 数据下载形态、完整性和 Git 边界见 [`data/SOURCES.md`](data/SOURCES.md)；
 > 外部依赖以 [`third_party/README.md`](third_party/README.md) 中的固定子模块提交为准。
+> 网页端或远程 clone 看不到的大型本机资产，统一按
+> [`docs/本地项目目录索引.md`](docs/本地项目目录索引.md) 的 `LOCAL-*` 资产 ID 请求，
+> 不要凭目录缺失猜测文件被删除。
 >
 > **实测证据优先于一切文档**：凡涉及模型文件、上下文、显存、采样、量化配方的具体值，
 > 以 `eval_config.yaml` 与 `logs/` 下的实际日志为准，文档与之冲突时回改文档。

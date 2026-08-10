@@ -148,8 +148,8 @@ def main() -> None:
         )
     # The tape manifest records its five selected source trajectories.  The
     # handoff manifest is deliberately broader: it fingerprints every B0 ATIF
-    # trajectory retained under the ignored results tree, so a later clone can
-    # verify the full baseline corpus once those local artifacts are supplied.
+    # trajectory retained in the versioned results tree, so a later clone can
+    # verify the full baseline corpus without a separate artifact handoff.
     all_source_trajectories = sorted(SOURCE_ROOT.glob("*/agent/trajectory.json"))
     if not all_source_trajectories:
         raise RuntimeError(f"no B0 trajectories found under {SOURCE_ROOT}")

@@ -67,9 +67,9 @@ three-point comparison.
 ## Artifact boundary
 
 Versioned artifacts include configs, runners, task/manifests, five B0-derived
-tapes, the 100-trajectory SHA-256 manifest, relevant static logs, and selected
-small result snapshots. The 100 raw `trajectory.json` files and GGUF inputs
-remain local/ignored and are pinned by manifests or hashes. lm-eval samples,
+tapes, the 100 raw `trajectory.json` files and their SHA-256 manifest, relevant
+static logs, and selected small result snapshots. GGUF inputs remain
+local/ignored and are pinned by hashes. lm-eval samples,
 trial cast/pane files, old smoke directories, and data-pipeline intermediates
 were removed during the 2026-08-11 asset consolidation; aggregate results,
 frozen dataset exports, and the canonical `mix_records/` pool remain.
