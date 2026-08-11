@@ -1,0 +1,47 @@
+{
+  "seed": 20260811,
+  "rendered_report_sha256": "ddc074684aa3a9d8117760963480aa768c100deb8d0d15eb952bd5a27fc18127",
+  "holdout_manifest_sha256": "c6ae96e93474b639ee4217a0d14506e383d1f406320b01a0b0aa1ec75c1b9374",
+  "rendered_records": 151121,
+  "holdout_manifest_records": 1500,
+  "holdout_rendered_records": 1425,
+  "training_records": 149696,
+  "training_records_anthropic": 149414,
+  "training_records_other": 282,
+  "full_post_crop_training_tokens": 197029223,
+  "one_eighth_token_budget": 24628652,
+  "plans": {
+    "raw_uniform": {
+      "file": "raw_uniform.parquet",
+      "sha256": "cae9051615c256064edfb93b0aeb8283a47d9c06cc295a6ef22ac44f15ce2295",
+      "records": 18767,
+      "input_tokens": 24628652,
+      "shifted_supervised_tokens": 20233349,
+      "optimizer_steps": 1024,
+      "budget_boundary_shortened_rows": 1,
+      "sampled_records_by_family_group": {
+        "anthropic": 18726,
+        "other": 41
+      }
+    },
+    "family_80_20": {
+      "file": "family_80_20.parquet",
+      "sha256": "2ac45b07b743c779ebb27b1f73c412ff402814a460536dd6fb5010325d4d26f8",
+      "records": 13631,
+      "input_tokens": 24628652,
+      "shifted_supervised_tokens": 20546529,
+      "optimizer_steps": 1024,
+      "budget_boundary_shortened_rows": 1,
+      "sampled_records_by_family_group": {
+        "anthropic": 10846,
+        "other": 2785
+      }
+    }
+  },
+  "holdout_file": {
+    "file": "holdout.parquet",
+    "sha256": "48233fce93de1345448553ffa16e0e149bf2ee3c38420a3f56d770c19235f713",
+    "records": 1425,
+    "input_tokens": 1874892
+  }
+}

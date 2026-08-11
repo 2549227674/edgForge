@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-08-11T16:19:45+08:00",
+  "identity": "m1_canonical_mix_records",
+  "record_count": 154097,
+  "files": [
+    {
+      "path": "data/pipeline/mix_records/AletheiaResearch__GLM-5.2-Agent.jsonl",
+      "bytes": 43612150,
+      "records": 232,
+      "sha256": "a6fa2679ec83d85cefdcc097af2a94d906beaf1a01e38233f0d6d4399c510271"
+    },
+    {
+      "path": "data/pipeline/mix_records/Crownelius__Complete-FABLE.5-traces-2M.jsonl",
+      "bytes": 1001150190,
+      "records": 150919,
+      "sha256": "d29a2be56c72eee003971d556748350e0cbbeab291d95e4064607ca2fded43d8"
+    },
+    {
+      "path": "data/pipeline/mix_records/Glint-Research__Fable-5-traces.jsonl",
+      "bytes": 23372,
+      "records": 1,
+      "sha256": "f69a699ff0fd6d32ea9e98ebbddff52a8f71c3ce60714c2ac4f618f754ade021"
+    },
+    {
+      "path": "data/pipeline/mix_records/armand0e__qwen3.7-max-pi-traces.jsonl",
+      "bytes": 4732841,
+      "records": 38,
+      "sha256": "34cf38aa077406e56f72e7722359c6076fbdbf23464fcc734b26bc223862fa4c"
+    },
+    {
+      "path": "data/pipeline/mix_records/lambda__hermes-agent-reasoning-traces.jsonl",
+      "bytes": 341444197,
+      "records": 2907,
+      "sha256": "42c8764b108eee7b1d0b08fc232f540039ab41a32453db8b7f475809842b7494"
+    }
+  ],
+  "mix_yaml_sha256": "8cbe98c5deb80513e7fcfcc7c2c202d232e9f4d9add62d026e776fd294c722be",
+  "chat_template_sha256": "0a2c8073c878ab1da004bee933a998606537bbb62016310352c7285c3f01c5b5"
+}

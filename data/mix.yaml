@@ -3,16 +3,16 @@ purpose: M0 line-C full post-gate canonical pool; renderer input is data/pipelin
 canonical_pool:
   records: 154097
   physical_family_cap_applied: false
-  anthropic_style_records: 150920
-  other_family_records: 3177
+  anthropic_style_records: 150919
+  other_family_records: 3178
 sampling_policy:
   selection: compare recipes at equal optimizer-step and token budgets before choosing
     the M1 default
   within_group: uniform_record
   recipes:
     raw_uniform:
-      anthropic_style_probability: 0.9793831158296398
-      other_family_probability: 0.020616884170360228
+      anthropic_style_probability: 0.9793766264106375
+      other_family_probability: 0.020623373589362545
     family_80_20:
       anthropic_style_probability: 0.8
       other_family_probability: 0.2
